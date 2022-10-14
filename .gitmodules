@@ -1,0 +1,15 @@
+[submodule "sw/libs/wwCmake"]
+	path = sw/libs/wwCmake
+	url = https://github.com/windwolf/wwCmake.git
+[submodule "sw/libs/wwBase"]
+	path = sw/libs/wwBase
+	url = https://github.com/windwolf/wwBase.git
+[submodule "sw/libs/wwControl"]
+	path = sw/libs/wwControl
+	url = https://github.com/windwolf/wwControl.git
+[submodule "sw/libs/wwDevice"]
+	path = sw/libs/wwDevice
+	url = https://github.com/windwolf/wwDevice.git
+[submodule "sw/libs/wwTalk"]
+	path = sw/libs/wwTalk
+	url = https://github.com/windwolf/wwTalk.git
