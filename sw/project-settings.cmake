@@ -12,7 +12,7 @@ option(USE_SYSTEM_VIEW "Enable Segger SystemView library" OFF)
 option(USE_RTT_PRINT "Enable RTT log" ON)
 option(USE_UART_PRINT "Enable UART log" OFF)
 
-option(ENABLE_DEMO "Enable demo" OFF)
+option(ENABLE_WWCONTROLTEST "Enable test" ON)
 
 set(OS_PORT "threadx")
 

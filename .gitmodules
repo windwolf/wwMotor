@@ -13,3 +13,6 @@
 [submodule "sw/libs/wwTalk"]
 	path = sw/libs/wwTalk
 	url = https://github.com/windwolf/wwTalk.git
+[submodule "sw/libs/CMSIS_DSP/src"]
+	path = sw/libs/CMSIS_DSP/src
+	url = ../../ARM-software/CMSIS-DSP.git

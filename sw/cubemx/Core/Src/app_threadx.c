@@ -1,21 +1,21 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file    app_threadx.c
-  * @author  MCD Application Team
-  * @brief   ThreadX applicative file
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2021 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file    app_threadx.c
+ * @author  MCD Application Team
+ * @brief   ThreadX applicative file
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2021 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
@@ -23,7 +23,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "stm32g4xx_hal.h"
+#include "tasks.hpp"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -43,6 +44,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
+TX_THREAD test_thread;
+uint8_t test_thread_stack[2000];
 
 /* USER CODE END PV */
 
@@ -52,42 +55,43 @@
 /* USER CODE END PFP */
 
 /**
-  * @brief  Application ThreadX Initialization.
-  * @param memory_ptr: memory pointer
-  * @retval int
-  */
+ * @brief  Application ThreadX Initialization.
+ * @param memory_ptr: memory pointer
+ * @retval int
+ */
 UINT App_ThreadX_Init(VOID *memory_ptr)
 {
-  UINT ret = TX_SUCCESS;
-  TX_BYTE_POOL *byte_pool = (TX_BYTE_POOL*)memory_ptr;
+    UINT ret = TX_SUCCESS;
+    TX_BYTE_POOL *byte_pool = (TX_BYTE_POOL *)memory_ptr;
 
-  /* USER CODE BEGIN App_ThreadX_MEM_POOL */
-  (void)byte_pool;
-  /* USER CODE END App_ThreadX_MEM_POOL */
+    /* USER CODE BEGIN App_ThreadX_MEM_POOL */
+    (void)byte_pool;
+    /* USER CODE END App_ThreadX_MEM_POOL */
 
-  /* USER CODE BEGIN App_ThreadX_Init */
+    /* USER CODE BEGIN App_ThreadX_Init */
+    tx_thread_create(&test_thread, "test_thread", app_test, 0, test_thread_stack,
+                     sizeof(test_thread_stack), 1, 1, 0, TX_AUTO_START);
+    /* USER CODE END App_ThreadX_Init */
 
-  /* USER CODE END App_ThreadX_Init */
-
-  return ret;
+    return ret;
 }
 
 /**
-  * @brief  MX_ThreadX_Init
-  * @param  None
-  * @retval None
-  */
+ * @brief  MX_ThreadX_Init
+ * @param  None
+ * @retval None
+ */
 void MX_ThreadX_Init(void)
 {
-  /* USER CODE BEGIN  Before_Kernel_Start */
+    /* USER CODE BEGIN  Before_Kernel_Start */
 
-  /* USER CODE END  Before_Kernel_Start */
+    /* USER CODE END  Before_Kernel_Start */
 
-  tx_kernel_enter();
+    tx_kernel_enter();
 
-  /* USER CODE BEGIN  Kernel_Start_Error */
+    /* USER CODE BEGIN  Kernel_Start_Error */
 
-  /* USER CODE END  Kernel_Start_Error */
+    /* USER CODE END  Kernel_Start_Error */
 }
 
 /* USER CODE BEGIN 1 */

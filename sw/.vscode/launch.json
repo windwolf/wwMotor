@@ -7,13 +7,15 @@
         {
             "name": "Cortex Debug",
             "cwd": "${workspaceRoot}",
-            "executable": "./build/startup.elf",
+            "executable": "./build/wwMotor.elf",
             "request": "launch",
             "type": "cortex-debug",
-            "servertype": "jlink",
-            "interface": "swd",
-            "device": "STM32F103C8",
-            "svdFile": "D:\\EE\\docs\\svd\\STM32F1\\STM32F103xx.svd"
+            "servertype": "stlink",
+            "interface": "jtag",
+            "device": "STM32G431RB",
+            "svdFile": "D:\\EE\\docs\\svd\\STM32G4\\STM32G431xx.svd",
+            "showDevDebugOutput": "raw",
+            ""
         }
     ]
 }
