@@ -44,6 +44,32 @@ class CurrentSensor3Shunt : public CurrentSensor
     float _currentPerUnit; // refVoltage / maxScaleValue / shuntResistance / ampGain
 };
 
+class CurrentSensor1Shunt : public CurrentSensor
+{
+  public:
+    struct Config
+    {
+        uint32_t maxScaleValue;
+        float refVoltage;
+        float shuntResistance;
+        float ampGain;
+        uint16_t &bus_current_value;
+    };
+
+  public:
+    CurrentSensor1Shunt(CurrentSensor1Shunt::Config &config) : config(config)
+    {
+        init();
+    };
+    Scalar bus_current_get();
+
+    void init();
+
+  protected:
+    CurrentSensor1Shunt::Config config;
+    float _currentPerUnit; // refVoltage / maxScaleValue / shuntResistance / ampGain
+};
+
 } // namespace wwMotor
 
 #endif // __wwMotor_CURRENT_SENSOR_HPP__
