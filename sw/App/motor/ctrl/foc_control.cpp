@@ -68,7 +68,7 @@ void FocControl::update()
         break;
     }
 
-    FocMath::ab2dq(context.u_dq_ref, context.pos_spd.v2, context.u_ab_ref);
+    FocMath::dq2ab(context.u_dq_ref, context.pos_spd.v2, context.u_ab_ref);
     context.u_ab_ref = driver.circle_limit(context.u_ab_ref, context.u_bus);
     driver.phase_voltage_set(context.u_ab_ref, context.u_bus);
 };

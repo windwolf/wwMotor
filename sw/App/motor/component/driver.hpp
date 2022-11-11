@@ -14,18 +14,19 @@ class DriverExecutor
     virtual void breakdown() = 0;
     virtual void resume() = 0;
     virtual void charge_prepare() = 0;
+    virtual void channel_ctrl(Vector3b channel) = 0;
 };
 
 class Driver
 {
   public:
   public:
-    Driver(DriverExecutor &executor) : executor(executor){};
+    Driver(DriverExecutor &executor) : _executor(executor){};
     virtual Vector2f circle_limit(Vector2f u_ab, float ubus) = 0;
     virtual void phase_voltage_set(Vector2f u_ab, float ubus) = 0;
 
   protected:
-    DriverExecutor &executor;
+    DriverExecutor &_executor;
 };
 
 /**
@@ -63,9 +64,6 @@ class DriverSVPWM : public Driver
     Vector3f u_abc;
     Vector3f duty;
 };
-
-
-
 
 } // namespace wwMotor
 
