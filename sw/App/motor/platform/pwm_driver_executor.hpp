@@ -26,10 +26,12 @@ class PwmDriverExecutor : public DriverExecutor
     void breakdown() override;
     void resume() override;
     void charge_prepare() override;
+    void channel_ctrl(Vector3b channel) override;
 
   private:
     Config config;
     Pwm &pwm;
+    bool _breakdown_flag = false;
 };
 
 } // namespace wwMotor
