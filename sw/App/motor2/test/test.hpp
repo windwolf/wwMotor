@@ -5,12 +5,15 @@
 #ifndef WWMOTOR_APP_MOTOR2_TEST_TEST_HPP_
 #define WWMOTOR_APP_MOTOR2_TEST_TEST_HPP_
 
-namespace wwMotor2 {
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
-class test {
+void app_test();
 
-};
-
-} // wwMotor2
+#ifdef __cplusplus
+}
+#endif
 
 #endif //WWMOTOR_APP_MOTOR2_TEST_TEST_HPP_

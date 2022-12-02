@@ -2,7 +2,7 @@
 // Created by zhouj on 2022/11/17.
 //
 
-#include "PhaseSensor.hpp"
+#include "PhaseCurrentSensor.hpp"
 
 namespace wwMotor2
 {

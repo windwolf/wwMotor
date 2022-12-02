@@ -65,8 +65,8 @@ void MX_ADC1_Init(void)
 
   /** Configure the ADC multi-mode
   */
-  multimode.Mode = ADC_DUALMODE_REGSIMULT_INJECSIMULT;
-  multimode.DMAAccessMode = ADC_DMAACCESSMODE_12_10_BITS;
+  multimode.Mode = ADC_DUALMODE_INJECSIMULT;
+  multimode.DMAAccessMode = ADC_DMAACCESSMODE_DISABLED;
   multimode.TwoSamplingDelay = ADC_TWOSAMPLINGDELAY_1CYCLE;
   if (HAL_ADCEx_MultiModeConfigChannel(&hadc1, &multimode) != HAL_OK)
   {
@@ -80,7 +80,8 @@ void MX_ADC1_Init(void)
   sConfigInjected.InjectedSamplingTime = ADC_SAMPLETIME_2CYCLES_5;
   sConfigInjected.InjectedSingleDiff = ADC_SINGLE_ENDED;
   sConfigInjected.InjectedOffsetNumber = ADC_OFFSET_NONE;
-  sConfigInjected.InjectedOffset = 0;
+  sConfigInjected.InjectedOffset = 444;
+  sConfigInjected.InjectedOffsetSign = ADC_OFFSET_SIGN_NEGATIVE;
   sConfigInjected.InjectedNbrOfConversion = 4;
   sConfigInjected.InjectedDiscontinuousConvMode = DISABLE;
   sConfigInjected.AutoInjectedConv = DISABLE;
@@ -97,6 +98,7 @@ void MX_ADC1_Init(void)
   */
   sConfigInjected.InjectedChannel = ADC_CHANNEL_2;
   sConfigInjected.InjectedRank = ADC_INJECTED_RANK_2;
+  sConfigInjected.InjectedOffset = 555;
   if (HAL_ADCEx_InjectedConfigChannel(&hadc1, &sConfigInjected) != HAL_OK)
   {
     Error_Handler();
@@ -106,6 +108,7 @@ void MX_ADC1_Init(void)
   */
   sConfigInjected.InjectedChannel = ADC_CHANNEL_12;
   sConfigInjected.InjectedRank = ADC_INJECTED_RANK_3;
+  sConfigInjected.InjectedOffset = 0;
   if (HAL_ADCEx_InjectedConfigChannel(&hadc1, &sConfigInjected) != HAL_OK)
   {
     Error_Handler();

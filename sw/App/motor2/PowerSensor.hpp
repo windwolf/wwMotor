@@ -5,11 +5,16 @@
 #ifndef WWMOTOR_APP_MOTOR2_POWERSENSOR_HPP_
 #define WWMOTOR_APP_MOTOR2_POWERSENSOR_HPP_
 
-namespace wwMotor2 {
+#include "base.hpp"
+namespace wwMotor2
+{
 
-class PowerSensor {
-
-};
+	class PowerSensor
+	{
+	 public:
+		virtual void u_bus_get(Motor& motor, float& u_bus) = 0;
+		virtual void i_bus_get(Motor& motor, float& i_bus) = 0;
+	};
 
 } // wwMotor2
 

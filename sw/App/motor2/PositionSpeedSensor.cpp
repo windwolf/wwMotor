@@ -4,5 +4,6 @@
 
 #include "PositionSpeedSensor.hpp"
 
-namespace wwMotor2 {
+namespace wwMotor2
+{
 } // wwMotor2

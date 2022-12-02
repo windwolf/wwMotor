@@ -5,11 +5,17 @@
 #ifndef WWMOTOR_APP_MOTOR2_DIRECTSECTIONSENSOR_HPP_
 #define WWMOTOR_APP_MOTOR2_DIRECTSECTIONSENSOR_HPP_
 
-namespace wwMotor2 {
+#include "SectionSensor.hpp"
+#include "base.hpp"
+namespace wwMotor2
+{
 
-class DirectSectionSensor {
-
-};
+	class DirectSectionSensor : public SectionSensor
+	{
+	 public:
+		void section_get(wwMotor2::Motor& motor, uint8_t& section) override;
+		void section_index_calibrate(wwMotor2::Motor& motor) override;
+	};
 
 } // wwMotor2
 

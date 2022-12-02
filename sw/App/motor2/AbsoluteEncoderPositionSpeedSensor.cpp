@@ -2,12 +2,15 @@
 // Created by zhouj on 2022/11/17.
 //
 
-#include "EncoderPositionSpeedSensor.hpp"
+#include "AbsoluteEncoderPositionSpeedSensor.hpp"
 #include "math_shared.hpp"
+#include "os.hpp"
 
 namespace wwMotor2
 {
-	void EncoderPositionSpeedSensor::config_apply(EncoderPositionSpeedSensorConfig& config)
+	using namespace ww::os;
+
+	void AbsoluteEncoderPositionSpeedSensor::config_apply(AbsoluteEncoderPositionSpeedSensorConfig& config)
 	{
 		Configurable::config_apply(config);
 		_half_resolution = config.resolution >> 1;
@@ -29,16 +32,16 @@ namespace wwMotor2
 		_filter_e.config_apply(lpcfg);
 	}
 
-	void EncoderPositionSpeedSensor::position_speed_get(Motor& motor, Vector2f& pos_spd_e, Vector2f& pos_spd_m)
+	void AbsoluteEncoderPositionSpeedSensor::position_speed_get(Motor& motor, Vector2f& pos_spd_e, Vector2f& pos_spd_m)
 	{
 		uint16_t pos_raw = *_config.encoder_buffer;
-		if (pos_raw > _zero_index)
+		if (pos_raw > _config.zero_index)
 		{
-			pos_raw -= _zero_index;
+			pos_raw -= _config.zero_index;
 		}
 		else
 		{
-			pos_raw += _config.resolution - _zero_index;
+			pos_raw += _config.resolution - _config.zero_index;
 		}
 
 		// calculate no-wrap position
@@ -62,8 +65,9 @@ namespace wwMotor2
 		pos_spd_e.v2 = _filter_e.filter(pos_raw_diff * _2pipp_res_ts);
 	}
 
-	void EncoderPositionSpeedSensor::zero_search(Motor& motor)
+	void AbsoluteEncoderPositionSpeedSensor::zero_search(Motor& motor)
 	{
-		_zero_index = *_config.encoder_buffer;
+		Utils::delay(10);
+		_config.zero_index = *_config.encoder_buffer;
 	};
 } // wwMotor2

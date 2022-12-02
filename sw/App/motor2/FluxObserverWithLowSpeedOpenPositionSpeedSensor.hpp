@@ -5,11 +5,23 @@
 #ifndef WWMOTOR_APP_MOTOR2_FLUXOBSERVERWITHLOWSPEEDOPENPOSITIONSPEEDSENSOR_HPP_
 #define WWMOTOR_APP_MOTOR2_FLUXOBSERVERWITHLOWSPEEDOPENPOSITIONSPEEDSENSOR_HPP_
 
-namespace wwMotor2 {
+#include "FluxObserverPositionSpeedSensor.hpp"
+namespace wwMotor2
+{
 
-class FluxObserverWithLowSpeedOpenPositionSpeedSensor {
+	struct FluxObserverWithLowSpeedOpenPositionSpeedSensorConfig
+	{
+		FluxObserverPositionSpeedSensorConfig config;
+		float low_speed_threshold;
+	};
+	class FluxObserverWithLowSpeedOpenPositionSpeedSensor : public PositionSpeedSensor,
+															public Configurable<
+																FluxObserverWithLowSpeedOpenPositionSpeedSensorConfig>
+	{
 
-};
+	 private:
+		FluxObserverPositionSpeedSensor _inner_sensor;
+	};
 
 } // wwMotor2
 

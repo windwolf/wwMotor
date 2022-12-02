@@ -5,11 +5,15 @@
 #ifndef WWMOTOR_APP_MOTOR2_SECTIONSWITCHER_HPP_
 #define WWMOTOR_APP_MOTOR2_SECTIONSWITCHER_HPP_
 
-namespace wwMotor2 {
+#include "base.hpp"
+namespace wwMotor2
+{
 
-class SectionSwitcher {
-
-};
+	class SectionSwitcher
+	{
+	 public:
+		virtual void section_switch(Motor& motor, uint8_t& section) = 0;
+	};
 
 } // wwMotor2
 

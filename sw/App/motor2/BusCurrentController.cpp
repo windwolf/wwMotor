@@ -2,11 +2,11 @@
 // Created by zhouj on 2022/11/28.
 //
 
-#include "DutyCurrentController.hpp"
+#include "BusCurrentController.hpp"
 
 namespace wwMotor2
 {
-	void DutyCurrentController::config_apply(DutyCurrentControllerConfig& config)
+	void BusCurrentController::config_apply(BusCurrentControllerConfig& config)
 	{
 		Configurable::config_apply(config);
 		wwControl::PidControllerConfig cfg;
@@ -24,7 +24,7 @@ namespace wwMotor2
 		cfg.integrator_limit_min = 0;
 		_pid.config_apply(cfg);
 	}
-	void DutyCurrentController::update(Motor& motor, float& duty)
+	void BusCurrentController::duty_get(Motor& motor, float& duty)
 	{
 		duty = _pid.update(motor.reference.i_bus, motor.state.i_bus);
 

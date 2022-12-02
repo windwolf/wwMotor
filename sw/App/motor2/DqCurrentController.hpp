@@ -2,8 +2,8 @@
 // Created by zhouj on 2022/11/17.
 //
 
-#ifndef WWMOTOR_APP_MOTOR2_CURRENTCONTROLLER_HPP_
-#define WWMOTOR_APP_MOTOR2_CURRENTCONTROLLER_HPP_
+#ifndef WWMOTOR_APP_MOTOR2_DQCURRENTCONTROLLER_HPP_
+#define WWMOTOR_APP_MOTOR2_DQCURRENTCONTROLLER_HPP_
 
 #include "base.hpp"
 #include "pid.hpp"
@@ -23,7 +23,7 @@ namespace wwMotor2
 		float sample_time;
 		MotorParameter* motor_parameter;
 	};
-	class CurrentController : public Configurable<CurrentControllerConfig>
+	class DqCurrentController : public Configurable<CurrentControllerConfig>
 	{
 	 public:
 		void config_apply(CurrentControllerConfig& config) override;
@@ -37,4 +37,4 @@ namespace wwMotor2
 
 } // wwMotor2
 
-#endif //WWMOTOR_APP_MOTOR2_CURRENTCONTROLLER_HPP_
+#endif //WWMOTOR_APP_MOTOR2_DQCURRENTCONTROLLER_HPP_

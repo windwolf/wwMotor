@@ -5,11 +5,27 @@
 #ifndef WWMOTOR_APP_MOTOR2_SIXPWMMODULAR_HPP_
 #define WWMOTOR_APP_MOTOR2_SIXPWMMODULAR_HPP_
 
-namespace wwMotor2 {
+#include "Modular.hpp"
+namespace wwMotor2
+{
+	struct SixPwmModularConfig
+	{
 
-class SixPwmModular {
+	};
 
-};
+	/**  b
+	 *  3 \ 2 / 1
+	 * ____\/____a
+	 *  4 / \  6
+	 *  /  5 \
+	 * c
+	 *  1: c->a; 2: c->b; 3: a->b; 4: a->c; 5: b->c; 6: b->a
+	 */
+	class SixPwmModular : public Modular, public Configurable<SixPwmModularConfig>
+	{
+	 public:
+		void module(wwMotor2::Motor& motor) override;
+	};
 
 } // wwMotor2
 

@@ -2,13 +2,13 @@
 // Created by zhouj on 2022/11/17.
 //
 
-#include "CurrentController.hpp"
+#include "DqCurrentController.hpp"
 #include "pid.hpp"
 
 namespace wwMotor2
 {
 	using namespace wwControl;
-	void CurrentController::voltage_get(Motor& motor, Vector2<float>& u_dq)
+	void DqCurrentController::voltage_get(Motor& motor, Vector2<float>& u_dq)
 	{
 		u_dq.v1 = pid_d.update(motor.reference.i_dq.v1, motor.state.i_dq.v1);
 		u_dq.v2 = pid_q.update(motor.reference.i_dq.v2, motor.state.i_dq.v2);
@@ -22,7 +22,7 @@ namespace wwMotor2
 		}
 	}
 
-	void CurrentController::config_apply(CurrentControllerConfig& config)
+	void DqCurrentController::config_apply(CurrentControllerConfig& config)
 	{
 		Configurable::config_apply(config);
 		PidControllerConfig cfg = {

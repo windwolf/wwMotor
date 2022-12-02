@@ -49,8 +49,6 @@ extern "C" {
 
 /* USER CODE END EM */
 
-void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
-
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -62,24 +60,24 @@ void Error_Handler(void);
 #define Fs 20000
 #define B1_Pin GPIO_PIN_13
 #define B1_GPIO_Port GPIOC
-#define BEMF1_Pin GPIO_PIN_0
-#define BEMF1_GPIO_Port GPIOC
-#define BEMF3_Pin GPIO_PIN_1
-#define BEMF3_GPIO_Port GPIOC
-#define BEMF2_Pin GPIO_PIN_3
-#define BEMF2_GPIO_Port GPIOC
-#define VBUS_Pin GPIO_PIN_0
-#define VBUS_GPIO_Port GPIOA
-#define CURR1_Pin GPIO_PIN_1
-#define CURR1_GPIO_Port GPIOA
+#define ADC_BEMF1_Pin GPIO_PIN_0
+#define ADC_BEMF1_GPIO_Port GPIOC
+#define ADC_BEMF3_Pin GPIO_PIN_1
+#define ADC_BEMF3_GPIO_Port GPIOC
+#define ADC_BEMF2_Pin GPIO_PIN_3
+#define ADC_BEMF2_GPIO_Port GPIOC
+#define ADC_VBUS_Pin GPIO_PIN_0
+#define ADC_VBUS_GPIO_Port GPIOA
+#define ADC_CURR1_Pin GPIO_PIN_1
+#define ADC_CURR1_GPIO_Port GPIOA
 #define LD2_Pin GPIO_PIN_5
 #define LD2_GPIO_Port GPIOA
-#define CURR3_Pin GPIO_PIN_7
-#define CURR3_GPIO_Port GPIOA
 #define NTC_Pin GPIO_PIN_4
 #define NTC_GPIO_Port GPIOC
-#define CURR2_Pin GPIO_PIN_11
-#define CURR2_GPIO_Port GPIOB
+#define ADC_CURR3_Pin GPIO_PIN_0
+#define ADC_CURR3_GPIO_Port GPIOB
+#define ADC_CURR2_Pin GPIO_PIN_1
+#define ADC_CURR2_GPIO_Port GPIOB
 #define EN_FAULT_Pin GPIO_PIN_12
 #define EN_FAULT_GPIO_Port GPIOB
 #define ENU_Pin GPIO_PIN_13
@@ -88,6 +86,8 @@ void Error_Handler(void);
 #define ENV_GPIO_Port GPIOB
 #define ENW_Pin GPIO_PIN_15
 #define ENW_GPIO_Port GPIOB
+#define SYNC_SIG_Pin GPIO_PIN_6
+#define SYNC_SIG_GPIO_Port GPIOC
 #define INU_Pin GPIO_PIN_8
 #define INU_GPIO_Port GPIOA
 #define INV_Pin GPIO_PIN_9
@@ -100,6 +100,7 @@ void Error_Handler(void);
 #define H2_GPIO_Port GPIOB
 #define STBY_Pin GPIO_PIN_5
 #define STBY_GPIO_Port GPIOB
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

@@ -55,4 +55,5 @@ dkms.conf
 *.log
 
 # 编译输出
-build
+/build/
+/cmake-build-debug/

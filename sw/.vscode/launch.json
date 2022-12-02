@@ -10,12 +10,11 @@
             "executable": "./build/wwMotor.elf",
             "request": "launch",
             "type": "cortex-debug",
-            "servertype": "stlink",
-            "interface": "jtag",
+            "servertype": "jlink",
+            "interface": "swd",
             "device": "STM32G431RB",
             "svdFile": "D:\\EE\\docs\\svd\\STM32G4\\STM32G431xx.svd",
             "showDevDebugOutput": "raw",
-            ""
         }
     ]
 }
