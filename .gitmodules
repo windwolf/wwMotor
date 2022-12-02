@@ -16,3 +16,6 @@
 [submodule "sw/libs/CMSIS_DSP/src"]
 	path = sw/libs/CMSIS_DSP/src
 	url = ../../ARM-software/CMSIS-DSP.git
+[submodule "sw/libs/wibotDSP"]
+	path = sw/libs/wibotDSP
+	url = ../wibotDSP.git
