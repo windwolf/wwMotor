@@ -1,13 +1,13 @@
 #ifndef __WWMOTOR_PLATFORM_PWM_DRIVER_EXECUTOR_HPP__
 #define __WWMOTOR_PLATFORM_PWM_DRIVER_EXECUTOR_HPP__
 
-#include "motor/base.hpp"
+#include "motor2/base.hpp"
 #include "motor2/Driver.hpp"
 #include "pwm.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
-	using namespace ww::peripheral;
+	using namespace wibot::peripheral;
 
 	struct PwmDriverConfig
 	{

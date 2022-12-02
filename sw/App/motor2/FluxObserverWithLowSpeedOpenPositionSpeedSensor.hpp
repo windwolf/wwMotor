@@ -6,7 +6,7 @@
 #define WWMOTOR_APP_MOTOR2_FLUXOBSERVERWITHLOWSPEEDOPENPOSITIONSPEEDSENSOR_HPP_
 
 #include "FluxObserverPositionSpeedSensor.hpp"
-namespace wwMotor2
+namespace wibot::motor
 {
 
 	struct FluxObserverWithLowSpeedOpenPositionSpeedSensorConfig
@@ -23,6 +23,6 @@ namespace wwMotor2
 		FluxObserverPositionSpeedSensor _inner_sensor;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_FLUXOBSERVERWITHLOWSPEEDOPENPOSITIONSPEEDSENSOR_HPP_

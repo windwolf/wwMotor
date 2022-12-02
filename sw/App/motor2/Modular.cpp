@@ -4,6 +4,6 @@
 
 #include "Modular.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
-} // wwMotor2
+} // wibot::motor

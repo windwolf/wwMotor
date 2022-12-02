@@ -4,7 +4,7 @@
 
 #include "DirectSectionSensor.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	void DirectSectionSensor::section_get(Motor& motor, uint8_t& section)
 	{
@@ -14,4 +14,4 @@ namespace wwMotor2
 	{
 
 	}
-} // wwMotor2
+} // wibot::motor

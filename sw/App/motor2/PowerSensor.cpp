@@ -4,10 +4,10 @@
 
 #include "PowerSensor.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	void PowerSensor::i_bus_get(Motor& motor, float& d)
 	{
 
 	}
-} // wwMotor2
+} // wibot::motor

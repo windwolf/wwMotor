@@ -17,7 +17,7 @@
 #include "Driver.hpp"
 #include "VirtualPositionSpeedSensor.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	enum class FocMode
 	{
@@ -125,6 +125,6 @@ namespace wwMotor2
 		Driver* _driver;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_FOCCONTROL_HPP_

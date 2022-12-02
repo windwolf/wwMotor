@@ -6,15 +6,15 @@
 #define WWMOTOR_APP_MOTOR2_MODULAR_HPP_
 
 #include "base.hpp"
-namespace wwMotor2
+namespace wibot::motor
 {
 
 	class Modular
 	{
 	 public:
-		virtual void module(wwMotor2::Motor& motor) = 0;
+		virtual void module(wibot::motor::Motor& motor) = 0;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_MODULAR_HPP_

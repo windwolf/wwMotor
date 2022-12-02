@@ -29,12 +29,12 @@
 #include "i2c.hpp"
 #include "device/AS5600I2C.hpp"
 
-using namespace ww;
-using namespace ww::os;
-using namespace ww::peripheral;
-using namespace ww::accessor;
-using namespace wi::device;
-using namespace wwMotor2;
+using namespace wibot;
+using namespace wibot::os;
+using namespace wibot::peripheral;
+using namespace wibot::accessor;
+using namespace wibot::device;
+using namespace wibot::motor;
 
 extern TIM_HandleTypeDef htim1;
 extern ADC_HandleTypeDef hadc1;

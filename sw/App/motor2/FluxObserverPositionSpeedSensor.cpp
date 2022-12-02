@@ -6,7 +6,7 @@
 #include "math.h"
 #include "math_shared.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	void FluxObserverPositionSpeedSensor::config_apply(FluxObserverPositionSpeedSensorConfig& config)
 	{
@@ -68,4 +68,4 @@ namespace wwMotor2
 	{
 	}
 
-} // wwMotor2
+} // wibot::motor

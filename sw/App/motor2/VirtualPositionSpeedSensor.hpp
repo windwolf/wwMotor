@@ -7,7 +7,7 @@
 
 #include "PositionSpeedSensor.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	struct VirtualPositionSpeedSensorConfig
 	{
@@ -29,6 +29,6 @@ namespace wwMotor2
 		float _speed;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_VIRTUALPOSITIONSPEEDSENSOR_HPP_

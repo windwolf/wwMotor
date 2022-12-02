@@ -7,9 +7,9 @@
 
 #include "base.hpp"
 #include "pid.hpp"
-namespace wwMotor2
+namespace wibot::motor
 {
-	using namespace wwControl;
+	using namespace wibot::control;
 	struct PositionControllerConfig
 	{
 		float bandWidth;
@@ -26,6 +26,6 @@ namespace wwMotor2
 		PidController _pid_pos;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_POSITIONCONTROLLER_HPP_

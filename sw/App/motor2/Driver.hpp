@@ -7,7 +7,7 @@
 
 #include "base.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 
 	class Driver
@@ -19,6 +19,6 @@ namespace wwMotor2
 		virtual void charge_prepare() = 0;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_DRIVER_HPP_

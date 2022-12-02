@@ -5,9 +5,9 @@
 #include "SvpwmModular.hpp"
 #include "math_shared.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
-	void SvpwmModular::dq_limit(wwMotor2::Motor& motor)
+	void SvpwmModular::dq_limit(wibot::motor::Motor& motor)
 	{
 		Vector2f new_dq = motor.reference.u_dq;
 		float ubus_sq = motor.state.u_bus * motor.state.u_bus;
@@ -51,7 +51,7 @@ namespace wwMotor2
 		motor.reference.u_dq = new_dq;
 	};
 
-	void SvpwmModular::ab_limit(wwMotor2::Motor& motor)
+	void SvpwmModular::ab_limit(wibot::motor::Motor& motor)
 	{
 		Vector2f u_ab = motor.reference.u_ab;
 		float limit = _config.max_module_rate * motor.state.u_bus;
@@ -147,4 +147,4 @@ namespace wwMotor2
 		_max_d_sq = config.max_d_module_rate * config.max_d_module_rate;
 	}
 
-} // wwMotor2
+} // wibot::motor

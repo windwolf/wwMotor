@@ -4,7 +4,7 @@
 
 #include "SamplePhaseVoltageSensor.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	void SamplePhaseVoltageSensor::config_apply(SamplePhaseVoltageSensorConfig& config)
 	{
@@ -35,4 +35,4 @@ namespace wwMotor2
 		u_abc.v2 = _b_filter.filter(u_abc.v2);
 		u_abc.v3 = _c_filter.filter(u_abc.v3);
 	}
-} // wwMotor2
+} // wibot::motor

@@ -5,9 +5,9 @@
 #include "FocControl.hpp"
 #include "os.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
-	using namespace ww::os;
+	using namespace wibot::os;
 
 	void FocControl::state_get_stage(Motor& motor)
 	{
@@ -110,7 +110,7 @@ namespace wwMotor2
 		motor.reference.u_dq.v2 = 0.0f;
 
 	}
-	
+
 	void FocControl::calibrate_stage(Motor& motor)
 	{
 		_powerSensor->u_bus_get(motor, motor.state.u_bus);
@@ -119,4 +119,4 @@ namespace wwMotor2
 		_driver->duty_set(motor);
 	}
 }
-// wwMotor2
+// wibot::motor

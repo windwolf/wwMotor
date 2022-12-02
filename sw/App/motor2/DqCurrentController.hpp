@@ -7,9 +7,9 @@
 
 #include "base.hpp"
 #include "pid.hpp"
-namespace wwMotor2
+namespace wibot::motor
 {
-	using namespace wwControl;
+	using namespace wibot::control;
 	struct CurrentControllerConfig
 	{
 		/**
@@ -27,7 +27,7 @@ namespace wwMotor2
 	{
 	 public:
 		void config_apply(CurrentControllerConfig& config) override;
-		void voltage_get(wwMotor2::Motor& motor, Vector2<float>& u_dq);
+		void voltage_get(wibot::motor::Motor& motor, Vector2<float>& u_dq);
 
 	 private:
 		PidController pid_d;
@@ -35,6 +35,6 @@ namespace wwMotor2
 
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_DQCURRENTCONTROLLER_HPP_

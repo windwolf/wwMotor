@@ -8,9 +8,9 @@
 #include "PowerSensor.hpp"
 #include "accessor/LinearValueMapper.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
-	using namespace ww::accessor;
+	using namespace wibot::accessor;
 	struct ShuntPowerSensorConfig
 	{
 		uint32_t* u_bus_buffer;
@@ -33,6 +33,6 @@ namespace wwMotor2
 		LinearValueMapper i_bus_mapper;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_SHUNTPOWERSENSOR_HPP_

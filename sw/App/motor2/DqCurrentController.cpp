@@ -5,9 +5,9 @@
 #include "DqCurrentController.hpp"
 #include "pid.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
-	using namespace wwControl;
+	using namespace wibot::control;
 	void DqCurrentController::voltage_get(Motor& motor, Vector2<float>& u_dq)
 	{
 		u_dq.v1 = pid_d.update(motor.reference.i_dq.v1, motor.state.i_dq.v1);
@@ -45,4 +45,4 @@ namespace wwMotor2
 		cfg.Ki = config.motor_parameter->rs / config.motor_parameter->lq;
 		pid_q.config_apply(cfg);
 	}
-} // wwMotor2
+} // wibot::motor

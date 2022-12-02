@@ -4,7 +4,7 @@
 
 #include "SixPwmModular.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	void SixPwmModular::module(Motor& motor)
 	{
@@ -53,4 +53,4 @@ namespace wwMotor2
 		motor.reference.d_sample = motor.reference.d_pwm / 2;
 	}
 
-} // wwMotor2
+} // wibot::motor

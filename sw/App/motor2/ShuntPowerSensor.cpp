@@ -4,7 +4,7 @@
 
 #include "ShuntPowerSensor.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	void ShuntPowerSensor::config_apply(ShuntPowerSensorConfig& config)
 	{
@@ -31,4 +31,4 @@ namespace wwMotor2
 	void calibrate_begin();
 	void calibrate_step(uint16_t raw_value);
 	void calibrate_end();
-} // wwMotor2
+} // wibot::motor

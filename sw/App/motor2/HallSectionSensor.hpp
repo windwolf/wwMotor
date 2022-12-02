@@ -6,7 +6,7 @@
 #define WWMOTOR_APP_MOTOR2_HALLSECTIONSENSOR_HPP_
 
 #include "SectionSensor.hpp"
-namespace wwMotor2
+namespace wibot::motor
 {
 	struct HallSectionSensorConfig
 	{
@@ -20,6 +20,6 @@ namespace wwMotor2
 		void section_index_calibrate(Motor& motor) override;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_HALLSECTIONSENSOR_HPP_

@@ -9,10 +9,10 @@
 #include "LinearValueMapper.hpp"
 #include "filter/lp.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
-	using namespace ww::accessor;
-	using namespace wwControl;
+	using namespace wibot::accessor;
+	using namespace wibot::control;
 	struct AbsoluteEncoderPositionSpeedSensorConfig
 	{
 		uint32_t* encoder_buffer;
@@ -43,6 +43,6 @@ namespace wwMotor2
 		float _2pipp_res_ts;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_ABSOLUTEENCODERPOSITIONSPEEDSENSOR_HPP_

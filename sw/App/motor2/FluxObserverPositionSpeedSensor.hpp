@@ -9,9 +9,9 @@
 #include "lp.hpp"
 #include "pid.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
-	using namespace wwControl;
+	using namespace wibot::control;
 	struct FluxObserverPositionSpeedSensorConfig
 	{
 		float sample_time;
@@ -54,6 +54,6 @@ namespace wwMotor2
 		void lpf();
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_FLUXOBSERVERPOSITIONSPEEDSENSOR_HPP_

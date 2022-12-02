@@ -6,9 +6,9 @@
 #include "math_shared.hpp"
 #include "os.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
-	using namespace ww::os;
+	using namespace wibot::os;
 
 	void AbsoluteEncoderPositionSpeedSensor::config_apply(AbsoluteEncoderPositionSpeedSensorConfig& config)
 	{
@@ -70,4 +70,4 @@ namespace wwMotor2
 		Utils::delay(10);
 		_config.zero_index = *_config.encoder_buffer;
 	};
-} // wwMotor2
+} // wibot::motor

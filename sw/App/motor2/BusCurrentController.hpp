@@ -7,7 +7,7 @@
 
 #include "base.hpp"
 #include "pid.hpp"
-namespace wwMotor2
+namespace wibot::motor
 {
 	struct BusCurrentControllerConfig
 	{
@@ -29,9 +29,9 @@ namespace wwMotor2
 		void duty_get(Motor& motor, float& duty);
 
 	 private:
-		wwControl::PidController _pid;
+		wibot::control::PidController _pid;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_BUSCURRENTCONTROLLER_HPP_

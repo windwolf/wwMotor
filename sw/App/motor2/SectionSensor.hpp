@@ -6,18 +6,18 @@
 #define WWMOTOR_APP_MOTOR2_SECTIONSENSOR_HPP_
 
 #include "base.hpp"
-namespace wwMotor2
+namespace wibot::motor
 {
 
 	class SectionSensor
 	{
 
 	 public:
-		virtual void section_get(wwMotor2::Motor& motor, uint8_t& section) = 0;
+		virtual void section_get(wibot::motor::Motor& motor, uint8_t& section) = 0;
 
-		virtual void section_index_calibrate(wwMotor2::Motor& motor) = 0;
+		virtual void section_index_calibrate(wibot::motor::Motor& motor) = 0;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_SECTIONSENSOR_HPP_

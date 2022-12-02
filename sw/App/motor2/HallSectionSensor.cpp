@@ -4,7 +4,7 @@
 
 #include "HallSectionSensor.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	void HallSectionSensor::section_get(Motor& motor, uint8_t& section)
 	{
@@ -14,4 +14,4 @@ namespace wwMotor2
 	{
 
 	}
-} // wwMotor2
+} // wibot::motor

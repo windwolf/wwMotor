@@ -6,7 +6,7 @@
 #define WWMOTOR_APP_MOTOR2_PHASECURRENTSENSOR_HPP_
 
 #include "base.hpp"
-namespace wwMotor2
+namespace wibot::motor
 {
 
 	class PhaseCurrentSensor
@@ -18,10 +18,10 @@ namespace wwMotor2
 		 * @param motor
 		 * @param i_abc
 		 */
-		virtual void i_abc_get(wwMotor2::Motor& motor, Vector3f& i_abc) = 0;
-		virtual void zero_calibrate(wwMotor2::Motor& motor) = 0;
+		virtual void i_abc_get(wibot::motor::Motor& motor, Vector3f& i_abc) = 0;
+		virtual void zero_calibrate(wibot::motor::Motor& motor) = 0;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_PHASECURRENTSENSOR_HPP_

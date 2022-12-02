@@ -4,7 +4,7 @@
 
 #include "SpeedController.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	void SpeedController::config_apply(SpeedControllerConfig& config)
 	{
@@ -35,4 +35,4 @@ namespace wwMotor2
 		i_dq.v2 = _pid_spd.update(motor.reference.speed, motor.state.pos_spd_m.v2);
 	}
 
-} // wwMotor2
+} // wibot::motor

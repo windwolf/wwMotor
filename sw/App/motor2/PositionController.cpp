@@ -4,7 +4,7 @@
 
 #include "PositionController.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	void PositionController::config_apply(PositionControllerConfig& config)
 	{
@@ -36,4 +36,4 @@ namespace wwMotor2
 		speed = _pid_pos.update(motor.reference.position, motor.state.pos_spd_m.v1);
 	}
 
-} // wwMotor2
+} // wibot::motor

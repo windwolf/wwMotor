@@ -5,7 +5,7 @@
 #include "VirtualPositionSpeedSensor.hpp"
 #include "math_shared.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	void VirtualPositionSpeedSensor::position_set(float position)
 	{
@@ -26,4 +26,4 @@ namespace wwMotor2
 		pos_spd_e.v2 = _speed * _config.polePairs;
 
 	}
-} // wwMotor2
+} // wibot::motor

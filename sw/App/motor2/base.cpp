@@ -4,7 +4,7 @@
 #include "base.hpp"
 #include "math_shared.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	void FocMath::abc2ab(Vector3f abc, Vector2f& ab)
 	{
@@ -59,4 +59,4 @@ namespace wwMotor2
 		return section;
 	};
 
-} // namespace wwMotor2
+} // namespace wibot::motor

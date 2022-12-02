@@ -4,7 +4,7 @@
 
 #include "EmfZeroCrossSectionSensor.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	void EmfZeroCrossSectionSensor::config_apply(EmfZeroCrossSectionSensorConfig& config)
 	{
@@ -205,4 +205,4 @@ namespace wwMotor2
 		return zero_cross;
 	}
 
-} // wwMotor2
+} // wibot::motor

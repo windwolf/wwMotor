@@ -5,9 +5,9 @@
 #include "Shunt3PhaseCurrentSensor.hpp"
 #include "os.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
-	using namespace ww::os;
+	using namespace wibot::os;
 
 	void Shunt3PhaseCurrentSensor::i_abc_get(Motor& motor, Vector3f& i_abc)
 	{
@@ -68,4 +68,4 @@ namespace wwMotor2
 
 	}
 
-} // wwMotor2
+} // wibot::motor

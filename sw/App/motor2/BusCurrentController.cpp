@@ -4,13 +4,13 @@
 
 #include "BusCurrentController.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	void BusCurrentController::config_apply(BusCurrentControllerConfig& config)
 	{
 		Configurable::config_apply(config);
-		wwControl::PidControllerConfig cfg;
-		cfg.mode = wwControl::PidControllerMode::Serial;
+		wibot::control::PidControllerConfig cfg;
+		cfg.mode = wibot::control::PidControllerMode::Serial;
 		cfg.Kp = config.Kp;
 		cfg.Ki = config.Ki;
 		cfg.Kd = config.Kd;
@@ -29,4 +29,4 @@ namespace wwMotor2
 		duty = _pid.update(motor.reference.i_bus, motor.state.i_bus);
 
 	}
-} // wwMotor2
+} // wibot::motor

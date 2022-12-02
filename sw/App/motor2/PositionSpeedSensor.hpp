@@ -7,7 +7,7 @@
 
 #include "base.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 
 	class PositionSpeedSensor
@@ -18,6 +18,6 @@ namespace wwMotor2
 		virtual void zero_search(Motor& motor) = 0;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_POSITIONSPEEDSENSOR_HPP_

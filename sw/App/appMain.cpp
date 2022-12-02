@@ -6,48 +6,49 @@
 namespace app
 {
 
-// using namespace ww::peripheral;
-// using namespace ww::accessor;
-// using namespace ww::device;
+// using namespace wibot::peripheral;
+// using namespace wibot::accessor;
+// using namespace wibot::device;
 // using namespace ww;
-// using namespace ww::os;
-// using namespace ww::graph;
-// using namespace ww::comm;
-// using namespace ww::comm::test;
+// using namespace wibot::os;
+// using namespace wibot::graph;
+// using namespace wibot::comm;
+// using namespace wibot::comm::test;
 
-class App
-{
+	class App
+	{
 
-  public:
-    App();
-    void setup();
-    void loop();
+	 public:
+		App();
+		void setup();
+		void loop();
 
-  private:
-    //Application components
-};
+	 private:
+		//Application components
+	};
 
-App::App()
-    {};
-void App::setup()
-{
-    //TODO: Application setup code here.
-};
+	App::App()
+	{
+	};
+	void App::setup()
+	{
+		//TODO: Application setup code here.
+	};
 
-void App::loop()
-{
-    //TODO: Application main loop code here, if not use RTOS.
-};
+	void App::loop()
+	{
+		//TODO: Application main loop code here, if not use RTOS.
+	};
 } // namespace app
 
 static app::App app1 = app::App();
 
 void setup(void)
 {
-    app1.setup();
+	app1.setup();
 }
 
 void loop(void)
 {
-    app1.loop();
+	app1.loop();
 }

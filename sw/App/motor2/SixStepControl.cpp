@@ -4,7 +4,7 @@
 
 #include "SixStepControl.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	void SixStepControl::state_get_stage(Motor& motor)
 	{
@@ -24,4 +24,4 @@ namespace wwMotor2
 	{
 		_current_ctrl->duty_get(motor, motor.reference.d_pwm);
 	}
-} // wwMotor2
+} // wibot::motor

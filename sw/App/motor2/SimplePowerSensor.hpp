@@ -7,7 +7,7 @@
 
 #include "PowerSensor.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 
 	struct SimplePowerSensorConfig

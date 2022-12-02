@@ -10,9 +10,9 @@
 #include "SectionSwitcher.hpp"
 #include "lp.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
-	using namespace wwControl;
+	using namespace wibot::control;
 
 	struct EmfZeroCrossSectionSensorConfig
 	{
@@ -51,7 +51,7 @@ namespace wwMotor2
 		void config_apply(EmfZeroCrossSectionSensorConfig& config) override;
 		void section_get(Motor& motor, uint8_t& section) override;
 
-		void section_index_calibrate(wwMotor2::Motor& motor) override;
+		void section_index_calibrate(wibot::motor::Motor& motor) override;
 		void section_switch(Motor& motor, uint8_t& section) override;
 	 private:
 
@@ -78,6 +78,6 @@ namespace wwMotor2
 		uint32_t _blank_count;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_EMFZEROCROSSSECTIONSENSOR_HPP_

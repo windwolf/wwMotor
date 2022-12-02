@@ -7,7 +7,7 @@
 
 #include "Modular.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	struct SvpwmModularConfig
 	{
@@ -25,15 +25,15 @@ namespace wwMotor2
 	{
 	 public:
 		void config_apply(SvpwmModularConfig& config) override;
-		void module(wwMotor2::Motor& motor) override;
+		void module(wibot::motor::Motor& motor) override;
 	 private:
-		void dq_limit(wwMotor2::Motor& motor);
-		void ab_limit(wwMotor2::Motor& motor);
+		void dq_limit(wibot::motor::Motor& motor);
+		void ab_limit(wibot::motor::Motor& motor);
 
 		float _max_sq;
 		float _max_d_sq;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_SVPWMMODULAR_HPP_

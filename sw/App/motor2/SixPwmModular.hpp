@@ -6,7 +6,7 @@
 #define WWMOTOR_APP_MOTOR2_SIXPWMMODULAR_HPP_
 
 #include "Modular.hpp"
-namespace wwMotor2
+namespace wibot::motor
 {
 	struct SixPwmModularConfig
 	{
@@ -24,9 +24,9 @@ namespace wwMotor2
 	class SixPwmModular : public Modular, public Configurable<SixPwmModularConfig>
 	{
 	 public:
-		void module(wwMotor2::Motor& motor) override;
+		void module(wibot::motor::Motor& motor) override;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_SIXPWMMODULAR_HPP_

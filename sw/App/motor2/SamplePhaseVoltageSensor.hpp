@@ -9,10 +9,10 @@
 #include "PhaseVoltageSensor.hpp"
 #include "LinearValueMapper.hpp"
 #include "lp.hpp"
-namespace wwMotor2
+namespace wibot::motor
 {
-	using namespace ww::accessor;
-	using namespace wwControl;
+	using namespace wibot::accessor;
+	using namespace wibot::control;
 	struct SamplePhaseVoltageSensorConfig
 	{
 		uint32_t* u_a_buffer;
@@ -31,7 +31,7 @@ namespace wwMotor2
 	 public:
 		void config_apply(SamplePhaseVoltageSensorConfig& config) override;
 
-		void u_abc_get(wwMotor2::Motor& motor, Vector3f& u_abc) override;
+		void u_abc_get(wibot::motor::Motor& motor, Vector3f& u_abc) override;
 
 	 private:
 		LinearValueMapper _a_mapper;
@@ -42,6 +42,6 @@ namespace wwMotor2
 		FirstOrderLowPassFilter _c_filter;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_SAMPLEPHASEVOLTAGESENSOR_HPP_

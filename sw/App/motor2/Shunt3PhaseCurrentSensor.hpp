@@ -8,9 +8,9 @@
 #include "PhaseCurrentSensor.hpp"
 #include "LinearValueMapper.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
-	using namespace ww::accessor;
+	using namespace wibot::accessor;
 	struct Shunt3PhaseCurrentSensorConfig
 	{
 		uint32_t* i_a_buffer;
@@ -36,9 +36,9 @@ namespace wwMotor2
 
 		void config_apply(Shunt3PhaseCurrentSensorConfig& config) override;
 
-		void i_abc_get(wwMotor2::Motor& motor, Vector3f& i_abc) override;
+		void i_abc_get(wibot::motor::Motor& motor, Vector3f& i_abc) override;
 
-		void zero_calibrate(wwMotor2::Motor& motor) override;
+		void zero_calibrate(wibot::motor::Motor& motor) override;
 
 	 private:
 		LinearValueMapper _a_mapper;
@@ -46,6 +46,6 @@ namespace wwMotor2
 		LinearValueMapper _c_mapper;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_SHUNT3PHASECURRENTSENSOR_HPP_

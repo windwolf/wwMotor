@@ -15,7 +15,7 @@
 #include "PhaseVoltageSensor.hpp"
 #include "PhaseCurrentSensor.hpp"
 #include "BusCurrentController.hpp"
-namespace wwMotor2
+namespace wibot::motor
 {
 	enum class SixStepMode
 	{
@@ -61,6 +61,6 @@ namespace wwMotor2
 		Driver* _driver;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_SIXSTEPCONTROLLER_HPP_

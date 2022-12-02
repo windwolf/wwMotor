@@ -1,6 +1,6 @@
 #include "PwmDriver.hpp"
 
-namespace wwMotor2
+namespace wibot::motor
 {
 	void PwmDriver::duty_set(Motor& motor)
 	{

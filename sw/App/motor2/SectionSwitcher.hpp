@@ -6,7 +6,7 @@
 #define WWMOTOR_APP_MOTOR2_SECTIONSWITCHER_HPP_
 
 #include "base.hpp"
-namespace wwMotor2
+namespace wibot::motor
 {
 
 	class SectionSwitcher
@@ -15,6 +15,6 @@ namespace wwMotor2
 		virtual void section_switch(Motor& motor, uint8_t& section) = 0;
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_SECTIONSWITCHER_HPP_

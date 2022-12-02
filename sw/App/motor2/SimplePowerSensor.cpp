@@ -3,11 +3,11 @@
 //
 
 #include "SimplePowerSensor.hpp"
-void wwMotor2::SimplePowerSensor::u_bus_get(wwMotor2::Motor& motor, float& u_bus)
+void wibot::motor::SimplePowerSensor::u_bus_get(wibot::motor::Motor& motor, float& u_bus)
 {
 	u_bus = _config.u_bus;
 }
-void wwMotor2::SimplePowerSensor::i_bus_get(wwMotor2::Motor& motor, float& i_bus)
+void wibot::motor::SimplePowerSensor::i_bus_get(wibot::motor::Motor& motor, float& i_bus)
 {
 	i_bus = 0;
 }

@@ -17,9 +17,9 @@
 //#include "peripheral/misc.hpp"
 //
 //using namespace ww;
-//using namespace ww::peripheral;
+//using namespace wibot::peripheral;
 //using namespace wwMotor;
-//using namespace wwMotor2;
+//using namespace wibot::motor;
 //
 //extern TIM_HandleTypeDef htim1;
 //extern ADC_HandleTypeDef hadc1;
@@ -77,7 +77,7 @@
 //		FocMath::dq2ab(dq, theta, ab);
 //		driver.phase_voltage_set(ab, power.ubus_get());
 //		theta += 0.01f;
-//		ww::os::Utils::delay(1);
+//		wibot::os::Utils::delay(1);
 //	}
 //};
 //static void encoder_test()

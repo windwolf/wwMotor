@@ -7,7 +7,7 @@
 
 #include "base/base.hpp"
 #include "base/buffer.hpp"
-namespace wwMotor2
+namespace wibot::motor
 {
 	struct MotorParameter
 	{
@@ -114,6 +114,6 @@ namespace wwMotor2
 		static uint8_t section_get(float theta);
 	};
 
-} // wwMotor2
+} // wibot::motor
 
 #endif //WWMOTOR_APP_MOTOR2_BASE_HPP_
