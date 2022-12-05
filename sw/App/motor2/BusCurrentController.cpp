@@ -8,21 +8,20 @@ namespace wibot::motor
 {
 	void BusCurrentController::config_apply(BusCurrentControllerConfig& config)
 	{
-		Configurable::config_apply(config);
-		wibot::control::PidControllerConfig cfg;
-		cfg.mode = wibot::control::PidControllerMode::Serial;
-		cfg.Kp = config.Kp;
-		cfg.Ki = config.Ki;
-		cfg.Kd = config.Kd;
-		cfg.sample_time = config.sample_time;
-		cfg.tau = config.tau;
-		cfg.output_limit_enable = true;
-		cfg.output_limit_max = 1;
-		cfg.output_limit_min = 0;
-		cfg.integrator_limit_enable = true;
-		cfg.integrator_limit_max = 1;
-		cfg.integrator_limit_min = 0;
-		_pid.config_apply(cfg);
+		this->config = config;
+		_pid.config.mode = wibot::control::PidControllerMode::Serial;
+		_pid.config.Kp = config.Kp;
+		_pid.config.Ki = config.Ki;
+		_pid.config.Kd = config.Kd;
+		_pid.config.sample_time = config.sample_time;
+		_pid.config.tau = config.tau;
+		_pid.config.output_limit_enable = true;
+		_pid.config.output_limit_max = 1;
+		_pid.config.output_limit_min = 0;
+		_pid.config.integrator_limit_enable = true;
+		_pid.config.integrator_limit_max = 1;
+		_pid.config.integrator_limit_min = 0;
+		
 	}
 	void BusCurrentController::duty_get(Motor& motor, float& duty)
 	{

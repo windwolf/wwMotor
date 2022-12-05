@@ -12,15 +12,16 @@ namespace wibot::motor
 	using namespace wibot::control;
 	struct PositionControllerConfig
 	{
-		float bandWidth;
-		float delta;
+		float kp;
+		float ki;
+		float kd;
 		float sample_time;
 		MotorParameter* motor_parameter;
 	};
 	class PositionController : public Configurable<PositionControllerConfig>
 	{
 	 public:
-		void config_apply(PositionControllerConfig& config) override;
+		void config_apply(PositionControllerConfig& config);
 		void speed_get(Motor& motor, float& speed);
 	 private:
 		PidController _pid_pos;

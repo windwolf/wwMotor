@@ -8,26 +8,23 @@ namespace wibot::motor
 {
 	void SpeedController::config_apply(SpeedControllerConfig& config)
 	{
-		Configurable::config_apply(config);
+		this->config = config;
 		float k =
 			(float)config.motor_parameter->pole_pair * config.motor_parameter->flux / config.motor_parameter->interia
 				* 3.0f / 2.0f;
 
-		PidControllerConfig cfg{
-			.mode = PidControllerMode::Serial,
-			.Kp = _config.bandWidth / _config.delta / k,
-			.Ki = _config.bandWidth / _config.delta / _config.delta,
-			.Kd = 0,
-			.tau = 0,
-			.output_limit_enable = true,
-			.output_limit_max = config.motor_parameter->speed_limit,
-			.output_limit_min = -config.motor_parameter->speed_limit,
-			.integrator_limit_enable = true,
-			.integrator_limit_max = config.motor_parameter->speed_limit,
-			.integrator_limit_min = -config.motor_parameter->speed_limit,
-			.sample_time = _config.sample_time
-		};
-		_pid_spd.config_apply(cfg);
+		_pid_spd.config.mode = PidControllerMode::Serial;
+		_pid_spd.config.Kp = config.bandWidth / config.delta / k;
+		_pid_spd.config.Ki = config.bandWidth / config.delta / config.delta;
+		_pid_spd.config.Kd = 0;
+		_pid_spd.config.tau = 0;
+		_pid_spd.config.output_limit_enable = true;
+		_pid_spd.config.output_limit_max = config.motor_parameter->speed_limit;
+		_pid_spd.config.output_limit_min = -config.motor_parameter->speed_limit;
+		_pid_spd.config.integrator_limit_enable = true;
+		_pid_spd.config.integrator_limit_max = config.motor_parameter->speed_limit;
+		_pid_spd.config.integrator_limit_min = -config.motor_parameter->speed_limit;
+		_pid_spd.config.sample_time = config.sample_time;
 	}
 	void SpeedController::current_get(Motor& motor, Vector2f& i_dq)
 	{

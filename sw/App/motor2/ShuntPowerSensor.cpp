@@ -8,24 +8,21 @@ namespace wibot::motor
 {
 	void ShuntPowerSensor::config_apply(ShuntPowerSensorConfig& config)
 	{
-		Configurable::config_apply(config);
-		auto cfg = LinearValueMapperConfig{
-			.zero_offset = 0,
-			.value_per_unit = config._u_bus_value_per_unit,
-		};
-		u_bus_mapper.config_apply(cfg);
+		this->config = config;
+		u_bus_mapper.config.zero_offset = 0;
+		u_bus_mapper.config.value_per_unit = config._u_bus_value_per_unit;
 
-		cfg.zero_offset = 0;
-		cfg.value_per_unit = config._i_bus_value_per_unit;
-		i_bus_mapper.config_apply(cfg);
+		i_bus_mapper.config.zero_offset = 0;
+		i_bus_mapper.config.value_per_unit = config._i_bus_value_per_unit;
+
 	}
 	void ShuntPowerSensor::u_bus_get(Motor& motor, float& u_bus)
 	{
-		u_bus = u_bus_mapper.value_get(*_config.u_bus_buffer);
+		u_bus = u_bus_mapper.value_get(*config.u_bus_buffer);
 	}
 	void ShuntPowerSensor::i_bus_get(Motor& motor, float& i_bus)
 	{
-		i_bus = i_bus_mapper.value_get(*_config.i_bus_buffer);
+		i_bus = i_bus_mapper.value_get(*config.i_bus_buffer);
 	}
 
 	void calibrate_begin();

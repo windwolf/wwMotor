@@ -8,12 +8,12 @@ namespace wibot::motor
 		{
 			return;
 		}
-		auto res = pwm.config_get().fullScaleDuty;
+		auto res = pwm.config.fullScaleDuty;
 
-		pwm.duty_set(_config.channel_a, motor.reference.d_abc.v1 * res);
-		pwm.duty_set(_config.channel_b, motor.reference.d_abc.v2 * res);
-		pwm.duty_set(_config.channel_c, motor.reference.d_abc.v3 * res);
-		pwm.duty_set(_config.channel_s, motor.reference.d_sample * res);
+		pwm.duty_set(config.channel_a, motor.reference.d_abc.v1 * res);
+		pwm.duty_set(config.channel_b, motor.reference.d_abc.v2 * res);
+		pwm.duty_set(config.channel_c, motor.reference.d_abc.v3 * res);
+		pwm.duty_set(config.channel_s, motor.reference.d_sample * res - 2);
 		channel_ctrl(motor.reference.sw_channel);
 	};
 
@@ -25,35 +25,35 @@ namespace wibot::motor
 		}
 		if (channel & 0x01)
 		{
-			pwm.channel_enable(_config.channel_a);
+			pwm.channel_enable(config.channel_a);
 		}
 		else
 		{
-			pwm.channel_disable(_config.channel_a);
+			pwm.channel_disable(config.channel_a);
 		}
 		if (channel & 0x02)
 		{
-			pwm.channel_enable(_config.channel_b);
+			pwm.channel_enable(config.channel_b);
 		}
 		else
 		{
-			pwm.channel_disable(_config.channel_b);
+			pwm.channel_disable(config.channel_b);
 		}
 		if (channel & 0x04)
 		{
-			pwm.channel_enable(_config.channel_c);
+			pwm.channel_enable(config.channel_c);
 		}
 		else
 		{
-			pwm.channel_disable(_config.channel_c);
+			pwm.channel_disable(config.channel_c);
 		}
 		if (channel & 0x08)
 		{
-			pwm.channel_enable(_config.channel_s);
+			pwm.channel_enable(config.channel_s);
 		}
 		else
 		{
-			pwm.channel_disable(_config.channel_s);
+			pwm.channel_disable(config.channel_s);
 		}
 	};
 
@@ -74,9 +74,9 @@ namespace wibot::motor
 			return;
 		}
 		pwm.all_disable();
-		pwm.duty_set(_config.channel_a, 0.0f);
-		pwm.duty_set(_config.channel_b, 0.0f);
-		pwm.duty_set(_config.channel_c, 0.0f);
+		pwm.duty_set(config.channel_a, 0.0f);
+		pwm.duty_set(config.channel_b, 0.0f);
+		pwm.duty_set(config.channel_c, 0.0f);
 		pwm.all_enable();
 	};
 } // namespace wwMotor

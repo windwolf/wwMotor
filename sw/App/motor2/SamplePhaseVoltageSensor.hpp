@@ -29,7 +29,7 @@ namespace wibot::motor
 		public Configurable<SamplePhaseVoltageSensorConfig>
 	{
 	 public:
-		void config_apply(SamplePhaseVoltageSensorConfig& config) override;
+		void config_apply(SamplePhaseVoltageSensorConfig& config);
 
 		void u_abc_get(wibot::motor::Motor& motor, Vector3f& u_abc) override;
 

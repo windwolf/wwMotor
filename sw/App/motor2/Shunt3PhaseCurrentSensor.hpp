@@ -28,15 +28,17 @@ namespace wibot::motor
 		 * 放大倍数 = 参考电压 / 采样电阻 / 最大电流
 		 */
 		float i_value_per_unit;
+		float skip_threshold;
 	};
 	class Shunt3PhaseCurrentSensor : public PhaseCurrentSensor,
 									 Configurable<Shunt3PhaseCurrentSensorConfig>
 	{
 	 public:
 
-		void config_apply(Shunt3PhaseCurrentSensorConfig& config) override;
+		void config_apply(Shunt3PhaseCurrentSensorConfig& config);
 
 		void i_abc_get(wibot::motor::Motor& motor, Vector3f& i_abc) override;
+		void i_ab_get(Motor& motor, Vector2f& i_ab) override;
 
 		void zero_calibrate(wibot::motor::Motor& motor) override;
 

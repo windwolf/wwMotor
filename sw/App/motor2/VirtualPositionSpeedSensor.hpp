@@ -24,6 +24,8 @@ namespace wibot::motor
 		void speed_set(float speed);
 
 		void position_speed_get(Motor& motor, Vector2f& pos_spd_e, Vector2f& pos_spd_m) override;
+
+		void zero_search(Motor& motor) override;
 	 private:
 		float _position;
 		float _speed;

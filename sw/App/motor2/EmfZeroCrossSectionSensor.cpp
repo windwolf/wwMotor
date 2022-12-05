@@ -8,7 +8,7 @@ namespace wibot::motor
 {
 	void EmfZeroCrossSectionSensor::config_apply(EmfZeroCrossSectionSensorConfig& config)
 	{
-		Configurable::config_apply(config);
+		this->config = config;
 	}
 
 	void EmfZeroCrossSectionSensor::section_get(Motor& motor, uint8_t& section)
@@ -38,7 +38,7 @@ namespace wibot::motor
 	{
 		if (_last_section != motor.state.section)
 		{
-			_blank_count = _config.blank_count;
+			_blank_count = config.blank_count;
 		}
 		auto& u = motor.state.u_abc;
 		float _3n = (u.v1 + u.v2 + u.v3) + _zero_offset;
@@ -55,19 +55,19 @@ namespace wibot::motor
 		_zero_cross_span = _tick - _last_zero_cross_tick;
 		_last_zero_cross_tick = _tick;
 		auto _30_section_switch_delay_count = _zero_cross_span / 2;
-		if (_config.switch_delay_count <= _30_section_switch_delay_count)
+		if (config.switch_delay_count <= _30_section_switch_delay_count)
 		{
 			// 如果相位延迟在30°内, 延迟30°-delay_count;
-			_section_switch_delay_count = _30_section_switch_delay_count - _config.switch_delay_count;
+			_section_switch_delay_count = _30_section_switch_delay_count - config.switch_delay_count;
 			_is_slow = true;
 		}
 		else
 		{
 			auto _90_section_switch_delay_count = _30_section_switch_delay_count * 3;
-			if (_config.switch_delay_count <= _90_section_switch_delay_count)
+			if (config.switch_delay_count <= _90_section_switch_delay_count)
 			{
 				// 如果相位延迟在90°内, 延迟90°-delay_count;
-				_section_switch_delay_count = _90_section_switch_delay_count - _config.switch_delay_count;
+				_section_switch_delay_count = _90_section_switch_delay_count - config.switch_delay_count;
 				_is_slow = false;
 			}
 			else

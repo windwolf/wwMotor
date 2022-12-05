@@ -24,7 +24,12 @@ namespace wibot::motor
 	class SixPwmModular : public Modular, public Configurable<SixPwmModularConfig>
 	{
 	 public:
-		void module(wibot::motor::Motor& motor) override;
+		void module(wibot::motor::Motor& motor,
+			uint8_t& section,
+			Vector3f& d_abc,
+			Vector3f& u_abc,
+			uint8_t& channels,
+			float& d_sample) override;
 	};
 
 } // wibot::motor

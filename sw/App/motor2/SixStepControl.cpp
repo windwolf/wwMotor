@@ -17,7 +17,11 @@ namespace wibot::motor
 	}
 	void SixStepControl::driver_execute_stage(Motor& motor)
 	{
-		_modular->module(motor);
+		_modular->module(motor, motor.reference.section,
+			motor.reference.d_abc,
+			motor.reference.u_abc,
+			motor.reference.sw_channel,
+			motor.reference.d_sample);
 		_driver->duty_set(motor);
 	}
 	void SixStepControl::current_control_stage(Motor& motor)

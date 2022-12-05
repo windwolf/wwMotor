@@ -10,29 +10,25 @@ namespace wibot::motor
 {
 	void FluxObserverPositionSpeedSensor::config_apply(FluxObserverPositionSpeedSensorConfig& config)
 	{
-		Configurable::config_apply(config);
+		this->config = config;
 
-		auto pidcfg = PidControllerConfig{
-			.mode = PidControllerMode::Serial,
-			.Kp = _config.pll_kp,
-			.Ki = _config.pll_pi,
-			.Kd = 0,
-			.tau = 0,
-			.output_limit_enable = true,
-			.output_limit_max = config.motor_parameter->speed_limit,
-			.output_limit_min = -config.motor_parameter->speed_limit,
-			.integrator_limit_enable = true,
-			.integrator_limit_max = config.motor_parameter->speed_limit,
-			.integrator_limit_min = -config.motor_parameter->speed_limit,
-			.sample_time = _config.sample_time,
-		};
-		_pid.config_apply(pidcfg);
-		auto filtercfg = FirstOrderLowPassFilterConfig{
-			.sample_time = _config.sample_time,
-			.cutoff_freq = _config.cutoff_freq
-		};
-		_filter.config_apply(filtercfg);
-		_a = exp(-1.0f * config.motor_parameter->rs / config.motor_parameter->ld * _config.sample_time);
+		_pid.config.mode = PidControllerMode::Serial;
+		_pid.config.Kp = config.pll_kp;
+		_pid.config.Ki = config.pll_pi;
+		_pid.config.Kd = 0;
+		_pid.config.tau = 0;
+		_pid.config.output_limit_enable = true;
+		_pid.config.output_limit_max = config.motor_parameter->speed_limit;
+		_pid.config.output_limit_min = -config.motor_parameter->speed_limit;
+		_pid.config.integrator_limit_enable = true;
+		_pid.config.integrator_limit_max = config.motor_parameter->speed_limit;
+		_pid.config.integrator_limit_min = -config.motor_parameter->speed_limit;
+		_pid.config.sample_time = config.sample_time;
+
+		_filter.config.sample_time = config.sample_time;
+		_filter.config.cutoff_freq = config.cutoff_freq;
+
+		_a = exp(-1.0f * config.motor_parameter->rs / config.motor_parameter->ld * config.sample_time);
 		_b = (1 - _a) / config.motor_parameter->rs;
 
 	}
@@ -43,7 +39,7 @@ namespace wibot::motor
 		FocMath::abc2ab(motor.state.u_abc, _u);
 
 		Vector2f i_err_now = _i_obs - _i;
-		Vector2f zk = Math::sign(i_err_now) * _config.current_gain;
+		Vector2f zk = Math::sign(i_err_now) * config.current_gain;
 		_e_obs = (i_err_now - _i_err * _a + _zk) * _b + _e_obs;
 
 		_i_obs = (_u - _e_obs) * _b - zk + _i_obs * _a;
@@ -60,9 +56,9 @@ namespace wibot::motor
 
 		float err = e_alpha * cos + e_beta * sin; // 下一步pid作用在0-sum上, 所以这里不用取负值了
 		pos_spd_e.v2 = _pid.update(0, err);
-		pos_spd_e.v1 += pos_spd_e.v2 * _config.sample_time;
-		pos_spd_m.v2 = pos_spd_e.v2 / _config.motor_parameter->pole_pair;
-		pos_spd_m.v1 = pos_spd_e.v1 / _config.motor_parameter->pole_pair;
+		pos_spd_e.v1 += pos_spd_e.v2 * config.sample_time;
+		pos_spd_m.v2 = pos_spd_e.v2 / config.motor_parameter->pole_pair;
+		pos_spd_m.v1 = pos_spd_e.v1 / config.motor_parameter->pole_pair;
 	}
 	void FluxObserverPositionSpeedSensor::zero_search(Motor& motor)
 	{

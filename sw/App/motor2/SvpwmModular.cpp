@@ -21,7 +21,7 @@ namespace wibot::motor
 		{
 			if (sqD > sqDModule)
 			{
-				new_dq.v1 = _config.max_d_module_rate * motor.state.u_bus;
+				new_dq.v1 = config.max_d_module_rate * motor.state.u_bus;
 				if (motor.reference.u_dq.v1 < 0)
 				{
 					new_dq.v1 = -new_dq.v1;
@@ -54,7 +54,7 @@ namespace wibot::motor
 	void SvpwmModular::ab_limit(wibot::motor::Motor& motor)
 	{
 		Vector2f u_ab = motor.reference.u_ab;
-		float limit = _config.max_module_rate * motor.state.u_bus;
+		float limit = config.max_module_rate * motor.state.u_bus;
 		float ab = Math::sqrt(u_ab.v1 * u_ab.v1 + u_ab.v2 * u_ab.v2);
 
 		if (ab > limit)
@@ -65,7 +65,27 @@ namespace wibot::motor
 		motor.reference.u_ab = u_ab;
 	};
 
-	void SvpwmModular::module(Motor& motor)
+	/**
+	 * @brief
+	 * sec 1: a > b > c;
+	 * sec 2: b > a > c;
+	 * sec 3: b > c > a;
+	 * sec 4: c > b > a;
+	 * sec 5: c > a > b;
+	 * sec 6: a > c > b;
+	 * @param motor
+	 * @param section
+	 * @param d_abc
+	 * @param u_abc
+	 * @param channels
+	 * @param d_sample
+	 */
+	void SvpwmModular::module(Motor& motor,
+		uint8_t& section,
+		Vector3f& d_abc,
+		Vector3f& u_abc,
+		uint8_t& channels,
+		float& d_sample)
 	{
 		dq_limit(motor);
 		float uOut;
@@ -74,7 +94,7 @@ namespace wibot::motor
 		//Vector2f u_ab;
 		//FocMath::dq2ab(motor.reference.u_dq, motor.state.pos_spd_e.v1, u_ab);
 
-		uint8_t section;
+		uint8_t sec;
 		if (motor.reference.u_dq.v1 == 0)
 		{
 			uOut = u_dq.v2 / motor.state.u_bus;
@@ -85,17 +105,17 @@ namespace wibot::motor
 			uOut = Math::sqrt(u_dq.v1 * u_dq.v1 + u_dq.v2 * u_dq.v2) / motor.state.u_bus;
 			theta = Math::circle_normalize(Math::atan2(u_dq.v2, u_dq.v1) + motor.state.pos_spd_e.v1);
 		}
-		section = (uint8_t)(int)Math::floor(theta / _PI_3) + 1;
+		sec = (uint8_t)(int)Math::floor(theta / _PI_3) + 1;
 
-		float t1 = _SQRT3 * Math::sin((float)(section) * _PI_3 - theta) * uOut;
-		float t2 = _SQRT3 * Math::sin(theta - ((float)(section) - 1.0f) * _PI_3) * uOut;
+		float t1 = _SQRT3 * Math::sin((float)(sec) * _PI_3 - theta) * uOut;
+		float t2 = _SQRT3 * Math::sin(theta - ((float)(sec) - 1.0f) * _PI_3) * uOut;
 		float t0 = 1 - t1 - t2;
 		if (t0 < 0)
 		{
 			t0 = .0f;
 		}
 		Vector3f tAbc;
-		switch (section)
+		switch (sec)
 		{
 		case 1:
 			tAbc.v1 = t1 + t2 + t0 / 2;
@@ -132,17 +152,18 @@ namespace wibot::motor
 			tAbc.v2 = 0;
 			tAbc.v3 = 0;
 		}
-		motor.reference.section = section;
-		motor.reference.d_abc = tAbc;
-		motor.reference.u_abc = tAbc * motor.state.u_bus;
-		motor.reference.sw_channel = 0x01 | 0x02 | 0x04 | 0x08;
+		section = sec;
+		d_abc = tAbc;
+		u_abc = tAbc * motor.state.u_bus;
+		channels = 0x01 | 0x02 | 0x04 | 0x08;
 		// TODO: feed to currentSensor to decide the time window for sampling.
-		motor.reference.d_sample = 0.999f;
+		d_sample = 1.0f;
 
 	}
+
 	void SvpwmModular::config_apply(SvpwmModularConfig& config)
 	{
-		Configurable::config_apply(config);
+		this->config = config;
 		_max_sq = config.max_module_rate * config.max_module_rate;
 		_max_d_sq = config.max_d_module_rate * config.max_d_module_rate;
 	}

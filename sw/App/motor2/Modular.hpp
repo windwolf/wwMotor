@@ -12,7 +12,12 @@ namespace wibot::motor
 	class Modular
 	{
 	 public:
-		virtual void module(wibot::motor::Motor& motor) = 0;
+		virtual void module(wibot::motor::Motor& motor,
+			uint8_t& section,
+			Vector3f& d_abc,
+			Vector3f& u_abc,
+			uint8_t& channels,
+			float& d_sample) = 0;
 	};
 
 } // wibot::motor

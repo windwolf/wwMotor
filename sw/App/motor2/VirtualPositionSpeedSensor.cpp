@@ -18,12 +18,16 @@ namespace wibot::motor
 	}
 	void VirtualPositionSpeedSensor::position_speed_get(Motor& motor, Vector2f& pos_spd_e, Vector2f& pos_spd_m)
 	{
-		_position += _speed * _config.sample_time;
+		_position += _speed * config.sample_time;
 		_position = Math::circle_normalize(_position);
 		pos_spd_m.v1 = _position;
 		pos_spd_m.v2 = _speed;
-		pos_spd_e.v1 = _position * _config.polePairs;
-		pos_spd_e.v2 = _speed * _config.polePairs;
+		pos_spd_e.v1 = _position * config.polePairs;
+		pos_spd_e.v2 = _speed * config.polePairs;
+
+	}
+	void VirtualPositionSpeedSensor::zero_search(Motor& motor)
+	{
 
 	}
 } // wibot::motor
