@@ -55,8 +55,6 @@ void DebugMon_Handler(void);
 void ADC1_2_IRQHandler(void);
 void TIM1_TRG_COM_TIM17_IRQHandler(void);
 void TIM1_CC_IRQHandler(void);
-void I2C1_EV_IRQHandler(void);
-void I2C1_ER_IRQHandler(void);
 void TIM7_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 

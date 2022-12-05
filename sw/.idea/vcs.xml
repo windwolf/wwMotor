@@ -3,6 +3,8 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/CMSIS_DSP/src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/wibotDSP" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/wibotDSP/CMSIS-DSP" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/wwBase" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/wwCmake" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/wwControl" vcs="Git" />

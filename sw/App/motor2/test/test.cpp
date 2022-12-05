@@ -85,8 +85,7 @@ static PositionController positionController;
 
 static PwmDriver driver(pwm);
 static SvpwmModular svpwm;
-// --------------------------------
-// Power Sensor
+
 SimplePowerSensorConfig p1_cfg{
 	.u_bus = 10.0f,
 };
@@ -97,8 +96,61 @@ ShuntPowerSensorConfig p2_cfg{
 	._u_bus_value_per_unit = 3.3f / 4096.0f * 12.0f / (float)(180 + 12),
 	._i_bus_value_per_unit = 0.001f,
 };
-
-// --------------------------------
+Shunt3PhaseCurrentSensorConfig c1_cfg{
+	.i_a_buffer = &i_bus_abc.data[1],
+	.i_b_buffer = &i_bus_abc.data[2],
+	.i_c_buffer = &i_bus_abc.data[3],
+	.i_value_per_unit = 3.3f / 4096.0f / 0.3f / 1.56f,
+};
+static SvpwmModularConfig svpwm_cfg{
+	.max_module_rate = _1_SQRT3,
+	.max_d_module_rate = _1_SQRT3,
+	.motor_parameter = &mp,
+};
+PwmDriverConfig pwm_cfg{
+	.channel_a = PwmChannel_1P | PwmChannel_1N,
+	.channel_b = PwmChannel_2P | PwmChannel_2N,
+	.channel_c = PwmChannel_3P | PwmChannel_3N,
+	.channel_s = PwmChannel_4,
+};
+AbsoluteEncoderPositionSpeedSensorConfig pos_spd_cfg{
+	.encoder_buffer = &pos_buf.data[0],
+	.resolution = 4096,
+	.pole_pairs = 7,
+	.mech_speed_cutoff_freq = 4000 / 60,
+	.sample_time = 0.001f,
+};
+static CurrentControllerConfig curctrlcfg{
+	.bandWidth = 10000 * _2PI / 20.0f,
+	.sample_time = 0.0001f,
+	.motor_parameter = &mp,
+};
+static SpeedControllerConfig spdctrlcfg{
+	.bandWidth = 10000 * _2PI / 20,
+	.delta = 11,
+	.sample_time = 0.01f,
+	.motor_parameter = &mp,
+};
+static PositionControllerConfig posctrlcfg{
+	.bandWidth = 10000 * _2PI / 20,
+	.delta = 11,
+	.sample_time = 0.01f,
+	.motor_parameter = &mp,
+};
+static void config_init()
+{
+	mtr.reference.sw_channel = 0x0f; // for foc
+	mtr.reference.d_sample = 0.999; // for foc
+	powerSensor1.config_apply(p1_cfg);
+	powerSensor2.config_apply(p2_cfg);
+	phaseCurrentSensor.config_apply(c1_cfg);
+	svpwm.config_apply(svpwm_cfg);
+	driver.config_apply(pwm_cfg);
+	encoderPositionSpeedSensor.config_apply(pos_spd_cfg);
+	currentController.config_apply(curctrlcfg);
+	speedController.config_apply(spdctrlcfg);
+	positionController.config_apply(posctrlcfg);
+}
 static void init_periph()
 {
 	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
@@ -109,6 +161,7 @@ static void init_periph()
 	HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
 	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
 	LL_TIM_OC_SetCompareCH4(htim1.Instance, 8498);
+	//LL_TIM_SetClockDivision(htim1.Instance, 1);
 	pwm.config_get().channelsEnable =
 		PwmChannel_1P | PwmChannel_2P | PwmChannel_3P | PwmChannel_1N | PwmChannel_2N | PwmChannel_3N;
 	pwm.config_get().fullScaleDuty = 8500;
@@ -119,29 +172,40 @@ static void init_periph()
 
 	HAL_ADC_RegisterCallback(&hadc1, HAL_ADC_INJ_CONVERSION_COMPLETE_CB_ID, [](ADC_HandleTypeDef* hadc)
 	{
-	  u_bus_abc.data[0] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_1);
+	  HAL_GPIO_TogglePin(SYNC_SIG_GPIO_Port, SYNC_SIG_Pin);
+
 	  i_bus_abc.data[1] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_2);
 	  i_bus_abc.data[2] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_3);
 	  i_bus_abc.data[3] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_4);
+
+	  u_bus_abc.data[0] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_1);
+
 	  u_bus_abc.data[1] = HAL_ADCEx_InjectedGetValue(&hadc2, ADC_INJECTED_RANK_1);
 	  u_bus_abc.data[2] = HAL_ADCEx_InjectedGetValue(&hadc2, ADC_INJECTED_RANK_2);
 	  u_bus_abc.data[3] = HAL_ADCEx_InjectedGetValue(&hadc2, ADC_INJECTED_RANK_3);
-	  HAL_GPIO_TogglePin(SYNC_SIG_GPIO_Port, SYNC_SIG_Pin);
 	  wh1.done_set(nullptr);
 	});
-	HAL_ADC_Start(&hadc2);
+	//HAL_ADC_Start(&hadc2);
 	HAL_ADCEx_InjectedStart_IT(&hadc2);
 
-	HAL_ADC_Start(&hadc1);
+	//HAL_ADC_Start(&hadc1);
 	HAL_ADCEx_InjectedStart_IT(&hadc1);
 
+
+//	HAL_ADCEx_InjectedStart(&hadc1);
+//	Misc::ms_delay(10);
+//	uint32_t b1 = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_1);
+//	uint32_t b2 = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_2);
+//	uint32_t b3 = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_3);
+//	uint32_t b4 = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_4);
+
+
 }
+// --------------------------------
+// Power Sensor
 
 static void power_sensor_test()
 {
-	powerSensor1.config_apply(p1_cfg);
-	powerSensor2.config_apply(p2_cfg);
-
 	float i_bus;
 	float u_bus;
 	powerSensor1.i_bus_get(mtr, mtr.state.i_bus);
@@ -154,17 +218,10 @@ static void power_sensor_test()
 // ---------------------------------------------
 // Current Sensor
 
-Shunt3PhaseCurrentSensorConfig c1_cfg{
-	.i_a_buffer = &i_bus_abc.data[1],
-	.i_b_buffer = &i_bus_abc.data[2],
-	.i_c_buffer = &i_bus_abc.data[3],
-	.i_value_per_unit = 3.3f / 4096.0f / 0.3f / 1.56f,
-};
+
 
 static void current_sensor_test()
 {
-	phaseCurrentSensor.config_apply(c1_cfg);
-
 	phaseCurrentSensor.zero_calibrate(mtr);
 	driver.duty_set(mtr);
 	Utils::delay(50);
@@ -173,7 +230,9 @@ static void current_sensor_test()
 	mtr.reference.d_abc.v1 = 0.1;
 	mtr.reference.d_abc.v2 = 0.2;
 	mtr.reference.d_abc.v3 = 0.3;
+	mtr.reference.d_sample = 0.999;
 	driver.duty_set(mtr);
+
 	auto scp = wh1.scope_begin();
 	wh1.wait(scp, TIMEOUT_FOREVER);
 	phaseCurrentSensor.i_abc_get(mtr, mtr.state.i_abc);
@@ -182,18 +241,9 @@ static void current_sensor_test()
 
 // ---------------------------------------------
 // PWM Driver
-
-PwmDriverConfig pwm_cfg{
-	.channel_a = PwmChannel_1P | PwmChannel_1N,
-	.channel_b = PwmChannel_2P | PwmChannel_2N,
-	.channel_c = PwmChannel_3P | PwmChannel_3N,
-	.channel_s = PwmChannel_4,
-};
-
 static void driver_test()
 {
 
-	driver.config_apply(pwm_cfg);
 	mtr.reference.d_abc = Vector3f(0.5f, 0.5f, 0.5f);
 	mtr.reference.d_sample = 0.999f;
 	mtr.reference.sw_channel = 0x0f;
@@ -204,15 +254,9 @@ static void driver_test()
 // ---------------------------------------------
 // SVPWM Modular
 
-static SvpwmModularConfig svpwm_cfg{
-	.max_module_rate = _1_SQRT3,
-	.max_d_module_rate = _1_SQRT3,
-	.motor_parameter = &mp,
-};
-
 static void modular_test()
 {
-	svpwm.config_apply(svpwm_cfg);
+
 	while (1)
 	{
 //		for (int i = 0; i < 1000; ++i)
@@ -233,8 +277,8 @@ static void modular_test()
 		{
 			begin = Misc::get_tick_ns();
 			mtr.reference.u_dq.v1 = 0.0f;
-			mtr.reference.u_dq.v2 = 2.0f;
-			mtr.state.pos_spd_e.v1 += 0.000001f * (i / 100);
+			mtr.reference.u_dq.v2 = 1.0f;
+			mtr.state.pos_spd_e.v1 += 0.00001f * (i / 1000);
 			end = Misc::get_tick_ns();
 			duration1 = end - begin;
 			begin = Misc::get_tick_ns();
@@ -254,17 +298,11 @@ static void modular_test()
 
 // ---------------------------------------------
 // pos_spd_sensor
-AbsoluteEncoderPositionSpeedSensorConfig pos_spd_cfg{
-	.encoder_buffer = &pos_buf.data[0],
-	.resolution = 4096,
-	.pole_pairs = 7,
-	.mech_speed_cutoff_freq = 4000 / 60,
-	.sample_time = 0.001f,
-};
+
 
 void pos_spd_sensor_test()
 {
-	encoderPositionSpeedSensor.config_apply(pos_spd_cfg);
+
 	mtr.state.pos_spd_m.v1 = 0.0f;
 	mtr.reference.u_dq.v1 = 0.1f;
 	mtr.reference.u_dq.v2 = 0.0f;
@@ -298,15 +336,11 @@ void section_sensor_test()
 
 // ---------------------------------------------
 // Current Control
-static CurrentControllerConfig curctrlcfg{
-	.bandWidth = 10000 * _2PI / 20.0f,
-	.sample_time = 0.0001f,
-	.motor_parameter = &mp,
-};
+
 
 static void current_control_test()
 {
-	currentController.config_apply(curctrlcfg);
+
 	mtr.reference.i_dq.v1 = 0.0f;
 	mtr.reference.i_dq.v2 = 0.5f;
 
@@ -326,16 +360,9 @@ static void current_control_test()
 	wh1.scope_end();
 }
 
-static SpeedControllerConfig spdctrlcfg{
-	.bandWidth = 10000 * _2PI / 20,
-	.delta = 11,
-	.sample_time = 0.01f,
-	.motor_parameter = &mp,
-};
-
 static void speed_control_test()
 {
-	speedController.config_apply(spdctrlcfg);
+
 	mtr.reference.speed = 2.0f * _2PI;
 
 	auto level = wh1.scope_begin();
@@ -355,17 +382,8 @@ static void speed_control_test()
 	wh1.scope_end();
 }
 
-static PositionControllerConfig posctrlcfg{
-	.bandWidth = 10000 * _2PI / 20,
-	.delta = 11,
-	.sample_time = 0.01f,
-	.motor_parameter = &mp,
-};
-
 static void position_control_test()
 {
-	positionController.config_apply(posctrlcfg);
-
 	mtr.reference.position = _PI;
 
 	auto level = wh1.scope_begin();
@@ -398,13 +416,13 @@ static void foc_test()
 void app_test()
 {
 	init_periph();
+	config_init();
 	power_sensor_test();
-	driver_test();
-	modular_test();
-
 	current_sensor_test();
 	pos_spd_sensor_test();
 	section_sensor_test();
+	driver_test();
+	modular_test();
 
 	current_control_test();
 	speed_control_test();

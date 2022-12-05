@@ -1,0 +1,9 @@
+Level,Expression,Type,Value,Min,Max,Average,# Changes,Min. Change,Max. Change
+0,i_bus_abc.data[0],unsigned long,0,0,0,0,0,0,0
+0,i_bus_abc.data[1],unsigned long,2?215,0,2?829,1983.28491,188?170,4?294?966?625,2?035
+0,i_bus_abc.data[2],unsigned long,1?434,0,2?964,2001.4613,188?263,4?294?966?592,1?439
+0,i_bus_abc.data[3],unsigned long,2?300,0,2?735,1984.66187,188?100,4?294?966?694,2?461
+0,u_bus_abc.data[0],unsigned long,1,0,2,0.854890108,71?570,4?294?967?294,2
+0,u_bus_abc.data[1],unsigned long,1,0,3,1.14292896,69?327,4?294?967?294,3
+0,u_bus_abc.data[2],unsigned long,380,0,1?177,546.820129,187?046,4?294?966?884,477
+0,u_bus_abc.data[3],unsigned long,731,0,975,552.192932,187?375,4?294?967?039,913

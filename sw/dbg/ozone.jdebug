@@ -33,6 +33,7 @@ void OnProjectLoad (void) {
   //
   // User settings
   //
+  Edit.SysVar (VAR_HSS_SPEED, FREQ_10_KHZ);
   File.Open ("D:/EE/projects/wwMotor/sw/cmake-build-debug/wwMotor.elf");
 }
 
