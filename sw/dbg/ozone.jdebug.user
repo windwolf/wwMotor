@@ -1,46 +1,35 @@
 
 
-Breakpoint=D:/EE/projects/wwMotor/sw/libs/wwBase/peripheral/stm32g4xx/i2c.cpp:20, State=BP_STATE_ON
-Breakpoint=D:/EE/projects/wwMotor/sw/libs/wwBase/peripheral/stm32g4xx/i2c.cpp:143, State=BP_STATE_ON
-Breakpoint=D:/EE/projects/wwMotor/sw/libs/wwBase/peripheral/stm32g4xx/i2c.cpp:153, State=BP_STATE_ON
-Breakpoint=D:/EE/projects/wwMotor/sw/libs/wwBase/peripheral/stm32g4xx/i2c.cpp:162, State=BP_STATE_ON
-Breakpoint=D:/EE/projects/wwMotor/sw/App/motor2/test/test.cpp:431:1, State=BP_STATE_DISABLED
-GraphedExpression="mtr.reference.d_abc.v1", Color=#a00909
-GraphedExpression="mtr.reference.d_abc.v2", Color=#09a01b
-GraphedExpression="mtr.reference.d_abc.v3", Color=#09a087
-OpenDocument="AS5600I2C.cpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwDevice/device/AS5600I2C.cpp", Line=16
-OpenDocument="stm32g4xx_hal_i2c.c", FilePath="D:/EE/projects/wwMotor/sw/cubemx/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_i2c.c", Line=4433
-OpenDocument="stm32g4xx_hal_adc.c", FilePath="D:/EE/projects/wwMotor/sw/cubemx/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_adc.c", Line=2508
-OpenDocument="base.cpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwBase/base/base.cpp", Line=12
-OpenDocument="main.c", FilePath="D:/EE/projects/wwMotor/sw/cubemx/Core/Src/main.c", Line=59
-OpenDocument="base.hpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwBase/base/base.hpp", Line=19
-OpenDocument="i2c.cpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwBase/peripheral/stm32g4xx/i2c.cpp", Line=133
-OpenDocument="stm32g4xx_hal.c", FilePath="D:/EE/projects/wwMotor/sw/cubemx/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.c", Line=324
-OpenDocument="test.cpp", FilePath="D:/EE/projects/wwMotor/sw/App/motor2/test/test.cpp", Line=322
-OpenDocument="PwmDriver.cpp", FilePath="D:/EE/projects/wwMotor/sw/App/motor2/platform/PwmDriver.cpp", Line=29
-OpenDocument="startup_stm32g431xx.s", FilePath="D:/EE/projects/wwMotor/sw/cubemx/startup_stm32g431xx.s", Line=51
-OpenDocument="stm32g4xx_it.c", FilePath="D:/EE/projects/wwMotor/sw/cubemx/Core/Src/stm32g4xx_it.c", Line=227
+GraphedExpression="mtr.state.pos_spd_e.v1", Color=#a00909
+GraphedExpression="mtr.state.i_dq.v1", Color=#09a01b
+GraphedExpression="mtr.state.i_dq.v2", Color=#09a087
+GraphedExpression="mtr.reference.i_dq.v1", Color=#0984a0
+OpenDocument="test.cpp", FilePath="D:/EE/projects/wwMotor/sw/App/motor2/test/test.cpp", Line=355
+OpenDocument="stm32g4xx_hal.c", FilePath="D:/EE/projects/wwMotor/sw/cubemx/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.c", Line=400
+OpenDocument="main.c", FilePath="D:/EE/projects/wwMotor/sw/cubemx/Core/Src/main.c", Line=60
 OpenToolbar="View", Floating=0, x=1, y=0
 OpenToolbar="Debug", Floating=0, x=0, y=0
-OpenWindow="Call Stack", DockArea=BOTTOM, x=1, y=0, w=860, h=272, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Registers 1", DockArea=RIGHT, x=0, y=1, w=670, h=223, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, FilteredItems=[], RefreshRate=1
-OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=670, h=408, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Break & Tracepoints", DockArea=LEFT, x=0, y=1, w=239, h=274, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VectorCatchIndexMask=254
-OpenWindow="Memory 1", DockArea=BOTTOM, x=3, y=0, w=661, h=256, TabPos=1, TopOfStack=0, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, EditorAddress=0x0
-OpenWindow="Global Data", DockArea=BOTTOM, x=3, y=0, w=661, h=256, TabPos=0, TopOfStack=1, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Local Data", DockArea=BOTTOM, x=2, y=0, w=112, h=272, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Functions", DockArea=LEFT, x=0, y=0, w=239, h=357, FilterBarShown=1, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Data Sampling", DockArea=BOTTOM, x=0, y=0, w=264, h=272, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VisibleTab=0, UniformSampleSpacing=0
+OpenWindow="Call Stack", DockArea=BOTTOM, x=1, y=0, w=212, h=290, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Registers 1", DockArea=RIGHT, x=0, y=1, w=670, h=234, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, FilteredItems=[], RefreshRate=1
+OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=670, h=379, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Break & Tracepoints", DockArea=LEFT, x=0, y=1, w=239, h=290, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VectorCatchIndexMask=254
+OpenWindow="Memory 1", DockArea=BOTTOM, x=3, y=0, w=128, h=290, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, EditorAddress=0x0
+OpenWindow="Global Data", DockArea=BOTTOM, x=2, y=0, w=1198, h=274, TabPos=0, TopOfStack=1, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Local Data", DockArea=BOTTOM, x=2, y=0, w=1198, h=274, TabPos=1, TopOfStack=0, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Functions", DockArea=LEFT, x=0, y=0, w=239, h=169, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Code Profile", DockArea=LEFT, x=0, y=2, w=239, h=153, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, GroupByFiles=0, SortRespectsFilters=0, ParentRelativeLoad=0
+OpenWindow="Data Sampling", DockArea=BOTTOM, x=0, y=0, w=359, h=290, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VisibleTab=0, UniformSampleSpacing=0
 SmartViewPlugin="", Page="", Toolbar="Hidden", Window="SmartView 1"
-TableHeader="Global Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Access";"Scope"], ColWidths=[220;154;100;100;100;27;364]
-TableHeader="Local Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Access";"Scope"], ColWidths=[177;142;110;100;174;27;100]
-TableHeader="Call Stack", SortCol="Function", SortOrder="ASCENDING", VisibleCols=["Function";"Stack Frame";"Source";"PC";"Return Address";"Stack Used"], ColWidths=[151;118;100;100;190;201]
-TableHeader="Power Sampling", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Ch 0"], ColWidths=[100;100;100]
-TableHeader="Registers 1", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[173;102;462]
-TableHeader="RegisterSelectionDialog", SortCol="None", SortOrder="ASCENDING", VisibleCols=[], ColWidths=[]
-TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[200;100;100;770]
-TableHeader="Data Sampling Table", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";" mtr.reference.d_abc.v1";" mtr.reference.d_abc.v2";" mtr.reference.d_abc.v3"], ColWidths=[100;100;100;100;100]
-TableHeader="Data Sampling Setup", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[168;100;100;126;134;100;100;107;107]
-TableHeader="Functions", SortCol="Name", SortOrder="DESCENDING", VisibleCols=["Name";"Address";"Size";"#Insts";"Class";"Source"], ColWidths=[959;100;100;100;27;420]
+TableHeader="Local Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Access";"Scope"], ColWidths=[177;187;110;100;174;27;100]
 TableHeader="Vector Catches", SortCol="", SortOrder="ASCENDING", VisibleCols=["";"Vector Catch";"Description"], ColWidths=[50;300;500]
-TableHeader="Break & Tracepoints", SortCol="None", SortOrder="ASCENDING", VisibleCols=["";"Type";"Location";"Extras"], ColWidths=[100;100;100;581]
+TableHeader="Break & Tracepoints", SortCol="None", SortOrder="ASCENDING", VisibleCols=["";"Type";"Location";"Extras"], ColWidths=[100;100;100;100]
+TableHeader="Functions", SortCol="Name", SortOrder="DESCENDING", VisibleCols=["Name";"Address";"Size";"#Insts";"Class";"Source"], ColWidths=[959;100;100;100;27;420]
+TableHeader="Call Stack", SortCol="Function", SortOrder="ASCENDING", VisibleCols=["Function";"Stack Frame";"Source";"PC";"Return Address";"Stack Used"], ColWidths=[211;118;100;100;190;100]
+TableHeader="Code Profile", SortCol="File / Function", SortOrder="ASCENDING", VisibleCols=["File / Function";"Source Coverage";"Inst. Coverage";"Run Count";"Fetch Count";"Load"], ColWidths=[950;135;142;100;107;100]
+TableHeader="Power Sampling", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Ch 0"], ColWidths=[100;100;100]
+TableHeader="Registers 1", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[173;102;374]
+TableHeader="RegisterSelectionDialog", SortCol="None", SortOrder="ASCENDING", VisibleCols=[], ColWidths=[]
+TableHeader="Global Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Access";"Scope"], ColWidths=[220;154;100;100;100;27;476]
+TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[200;100;100;762]
+TableHeader="Data Sampling Table", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";" mtr.state.pos_spd_e.v1";" mtr.state.i_dq.v1";" mtr.state.i_dq.v2";" mtr.reference.i_dq.v1"], ColWidths=[100;100;100;100;100;100]
+TableHeader="Data Sampling Setup", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[168;100;126;126;102;110;100;107;107]

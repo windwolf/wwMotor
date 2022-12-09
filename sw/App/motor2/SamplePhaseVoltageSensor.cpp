@@ -9,19 +9,19 @@ namespace wibot::motor
 	void SamplePhaseVoltageSensor::config_apply(SamplePhaseVoltageSensorConfig& config)
 	{
 		this->config = config;
-		_a_mapper.config.zero_offset = 0;
-		_a_mapper.config.value_per_unit = config.u_value_per_unit;
+		LinearValueMapperConfig lvmCfg;
+		lvmCfg.zero_offset = 0;
+		lvmCfg.value_per_unit = config.u_value_per_unit;
+		_a_mapper.config_apply(lvmCfg);
+		_b_mapper.config_apply(lvmCfg);
+		_c_mapper.config_apply(lvmCfg);
 
-		_b_mapper.config = _a_mapper.config;
-		_c_mapper.config = _a_mapper.config;
-
-		_a_filter.config.cutoff_freq = config.cutoff_freq;
-		_a_filter.config.sample_time = config.sample_time;
-		_a_filter.config_apply(_a_filter.config);
-		_b_filter.config = _a_filter.config;
-		_b_filter.config_apply(_b_filter.config);
-		_c_filter.config = _a_filter.config;
-		_c_filter.config_apply(_c_filter.config);
+		FirstOrderLowPassFilterConfig lpCfg;
+		lpCfg.cutoff_freq = config.cutoff_freq;
+		lpCfg.sample_time = config.sample_time;
+		_a_filter.config_apply(lpCfg);
+		_b_filter.config_apply(lpCfg);
+		_c_filter.config_apply(lpCfg);
 	}
 
 	void SamplePhaseVoltageSensor::u_abc_get(Motor& motor, Vector3f& u_abc)

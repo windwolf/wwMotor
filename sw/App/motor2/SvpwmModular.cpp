@@ -90,6 +90,7 @@ namespace wibot::motor
 		dq_limit(motor);
 		float uOut;
 		float theta;
+		float ts;
 		Vector2f u_dq = motor.reference.u_dq;
 		//Vector2f u_ab;
 		//FocMath::dq2ab(motor.reference.u_dq, motor.state.pos_spd_e.v1, u_ab);
@@ -121,43 +122,57 @@ namespace wibot::motor
 			tAbc.v1 = t1 + t2 + t0 / 2;
 			tAbc.v2 = t2 + t0 / 2;
 			tAbc.v3 = t0 / 2;
+			ts = tAbc.v1 + t0 / 4;
 			break;
 		case 2:
 			tAbc.v1 = t1 + t0 / 2;
 			tAbc.v2 = t1 + t2 + t0 / 2;
 			tAbc.v3 = t0 / 2;
+			ts = tAbc.v2 + t0 / 4;
 			break;
 		case 3:
 			tAbc.v1 = t0 / 2;
 			tAbc.v2 = t1 + t2 + t0 / 2;
 			tAbc.v3 = t2 + t0 / 2;
+			ts = tAbc.v2 + t0 / 4;
 			break;
 		case 4:
 			tAbc.v1 = t0 / 2;
 			tAbc.v2 = t1 + t0 / 2;
 			tAbc.v3 = t1 + t2 + t0 / 2;
+			ts = tAbc.v3 + t0 / 4;
 			break;
 		case 5:
 			tAbc.v1 = t2 + t0 / 2;
 			tAbc.v2 = t0 / 2;
 			tAbc.v3 = t1 + t2 + t0 / 2;
+			ts = tAbc.v3 + t0 / 4;
 			break;
 		case 6:
 			tAbc.v1 = t1 + t2 + t0 / 2;
 			tAbc.v2 = t0 / 2;
 			tAbc.v3 = t1 + t0 / 2;
+			ts = tAbc.v1 + t0 / 4;
 			break;
 		default:
 			tAbc.v1 = 0;
 			tAbc.v2 = 0;
 			tAbc.v3 = 0;
+			ts = 1.0f;
 		}
 		section = sec;
 		d_abc = tAbc;
 		u_abc = tAbc * motor.state.u_bus;
 		channels = 0x01 | 0x02 | 0x04 | 0x08;
-		// TODO: feed to currentSensor to decide the time window for sampling.
-		d_sample = 1.0f;
+
+		if (ts > 1.0f)
+		{
+			d_sample = 1.0f;
+		}
+		else
+		{
+			d_sample = ts;
+		}
 
 	}
 

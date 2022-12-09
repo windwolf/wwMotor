@@ -78,5 +78,13 @@ namespace wibot::motor
 		pwm.duty_set(config.channel_b, 0.0f);
 		pwm.duty_set(config.channel_c, 0.0f);
 		pwm.all_enable();
-	};
+	}
+	void PwmDriver::config_apply(PwmDriverConfig& config)
+	{
+		this->config = config;
+		PwmConfig pCfg;
+		pCfg.fullScaleDuty = config.fullScaleDuty;
+		pCfg.channelsEnable = config.channel_c | config.channel_b | config.channel_a;
+		pwm.config_apply(pCfg);
+	}
 } // namespace wwMotor

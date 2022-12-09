@@ -15,6 +15,7 @@ namespace wibot::motor
 		uint32_t channel_b;
 		uint32_t channel_c;
 		uint32_t channel_s;
+		uint16_t fullScaleDuty;
 	};
 	class PwmDriver : public Driver, public Configurable<PwmDriverConfig>
 	{
@@ -23,6 +24,7 @@ namespace wibot::motor
 		PwmDriver(Pwm& pwm) : pwm(pwm)
 		{
 		}
+		void config_apply(PwmDriverConfig& config);
 		void duty_set(Motor& motor) override;
 		void breakdown() override;
 		void resume() override;

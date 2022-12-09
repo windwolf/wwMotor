@@ -30,7 +30,7 @@ namespace wibot::motor
 
 		// Limits
 		/**
-		 * @brief Speed limit (rad/s)
+		 * @brief Speed limit (rpm)
 		 */
 		float speed_limit;
 		float u_bus_max;

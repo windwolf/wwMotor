@@ -9,12 +9,15 @@ namespace wibot::motor
 	void ShuntPowerSensor::config_apply(ShuntPowerSensorConfig& config)
 	{
 		this->config = config;
-		u_bus_mapper.config.zero_offset = 0;
-		u_bus_mapper.config.value_per_unit = config._u_bus_value_per_unit;
+		LinearValueMapperConfig lvmCfg;
 
-		i_bus_mapper.config.zero_offset = 0;
-		i_bus_mapper.config.value_per_unit = config._i_bus_value_per_unit;
+		lvmCfg.zero_offset = 0;
+		lvmCfg.value_per_unit = config._u_bus_value_per_unit;
+		u_bus_mapper.config_apply(lvmCfg);
 
+		lvmCfg.zero_offset = 0;
+		lvmCfg.value_per_unit = config._i_bus_value_per_unit;
+		i_bus_mapper.config_apply(lvmCfg);
 	}
 	void ShuntPowerSensor::u_bus_get(Motor& motor, float& u_bus)
 	{

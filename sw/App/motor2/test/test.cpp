@@ -52,7 +52,7 @@ static MotorParameter mp = {
 	.friction = 0.0001f,
 
 	// Limits
-	.speed_limit = 70 * _2PI, // 4000 / 60 * 2pi
+	.speed_limit = 5000,
 	.u_bus_max = 5.0f,
 	.i_bus_limit = 1.0f,
 	.i_phase_limit = 0.5f,
@@ -122,15 +122,16 @@ PwmDriverConfig pwm_cfg{
 	.channel_b = PwmChannel_2P | PwmChannel_2N,
 	.channel_c = PwmChannel_3P | PwmChannel_3N,
 	.channel_s = PwmChannel_4,
+	.fullScaleDuty = 8500,
 };
 
 AbsoluteEncoderPositionSpeedSensorConfig pos_spd_cfg{
 	.encoder_buffer = &pos_buf.data[0],
 	.resolution = 4096,
 	.pole_pairs = 7,
-	.direction = 1,
-	.mech_pos_cutoff_freq = _2PI * 4000 / 60,
-	.mech_speed_cutoff_freq = 4000 / 60,
+	.direction = EncoderDirection::Forward,
+	.mech_pos_cutoff_freq = mp.speed_limit / 60 * 10.0f,
+	.mech_speed_cutoff_freq = mp.speed_limit / 60 * 10.f,
 	.sample_time = 0.0001f,
 };
 static VirtualPositionSpeedSensorConfig vpos_spd_cfg{
@@ -179,11 +180,11 @@ static void config_init()
 {
 	mtr.reference.sw_channel = 0x0f; // for foc
 	mtr.reference.d_sample = 1.0f; // for foc
-	powerSensor1.config = p1_cfg;
+	powerSensor1.config_apply(p1_cfg);
 	powerSensor2.config_apply(p2_cfg);
 	phaseCurrentSensor.config_apply(c1_cfg);
 	svpwm.config_apply(svpwm_cfg);
-	driver.config = pwm_cfg;
+	driver.config_apply(pwm_cfg);
 	encoderPositionSpeedSensor.config_apply(pos_spd_cfg);
 	currentController.config_apply(curctrlcfg);
 	speedController.config_apply(spdctrlcfg);
@@ -200,9 +201,11 @@ static void init_periph()
 	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
 	LL_TIM_OC_SetCompareCH4(htim1.Instance, 8498);
 	//LL_TIM_SetClockDivision(htim1.Instance, 1);
-	pwm.config.channelsEnable =
-		PwmChannel_1P | PwmChannel_2P | PwmChannel_3P | PwmChannel_1N | PwmChannel_2N | PwmChannel_3N;
-	pwm.config.fullScaleDuty = 8500;
+//	PwmConfig pCfg;
+//	pCfg.fullScaleDuty = 8500;
+//	pCfg.channelsEnable = PwmChannel_1P | PwmChannel_2P | PwmChannel_3P | PwmChannel_1N | PwmChannel_2N | PwmChannel_3N;
+//	pwm.channel_enable(PwmChannel_1P | PwmChannel_2P | PwmChannel_3P | PwmChannel_1N | PwmChannel_2N | PwmChannel_3N);
+//	pwm.config.fullScaleDuty = 8500;
 	pwm.all_enable();
 
 	HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
@@ -210,18 +213,24 @@ static void init_periph()
 
 	HAL_ADC_RegisterCallback(&hadc1, HAL_ADC_INJ_CONVERSION_COMPLETE_CB_ID, [](ADC_HandleTypeDef* hadc)
 	{
-	  //TODO: 尝试改成TIM.UPDATE 事件触发,
 	  HAL_GPIO_TogglePin(SYNC_SIG_GPIO_Port, SYNC_SIG_Pin);
-
-	  u_bus_abc.data[0] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_1);
-	  i_bus_abc.data[1] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_2);
-	  i_bus_abc.data[2] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_3);
-	  i_bus_abc.data[3] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_4);
-
-	  u_bus_abc.data[1] = HAL_ADCEx_InjectedGetValue(&hadc2, ADC_INJECTED_RANK_1);
-	  u_bus_abc.data[2] = HAL_ADCEx_InjectedGetValue(&hadc2, ADC_INJECTED_RANK_2);
-	  u_bus_abc.data[3] = HAL_ADCEx_InjectedGetValue(&hadc2, ADC_INJECTED_RANK_3);
-	  pos_buf.data[0] = HAL_ADCEx_InjectedGetValue(&hadc2, ADC_INJECTED_RANK_4);
+	  u_bus_abc.data[0] = LL_ADC_INJ_ReadConversionData32(hadc1.Instance, LL_ADC_INJ_RANK_1);
+	  i_bus_abc.data[1] = LL_ADC_INJ_ReadConversionData32(hadc1.Instance, LL_ADC_INJ_RANK_2);
+	  i_bus_abc.data[2] = LL_ADC_INJ_ReadConversionData32(hadc1.Instance, LL_ADC_INJ_RANK_3);
+	  i_bus_abc.data[3] = LL_ADC_INJ_ReadConversionData32(hadc1.Instance, LL_ADC_INJ_RANK_4);
+	  u_bus_abc.data[1] = LL_ADC_INJ_ReadConversionData32(hadc2.Instance, LL_ADC_INJ_RANK_1);
+	  u_bus_abc.data[2] = LL_ADC_INJ_ReadConversionData32(hadc2.Instance, LL_ADC_INJ_RANK_2);
+	  u_bus_abc.data[3] = LL_ADC_INJ_ReadConversionData32(hadc2.Instance, LL_ADC_INJ_RANK_3);
+	  pos_buf.data[0] = LL_ADC_INJ_ReadConversionData32(hadc2.Instance, LL_ADC_INJ_RANK_4);
+//	  u_bus_abc.data[0] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_1);
+//	  i_bus_abc.data[1] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_2);
+//	  i_bus_abc.data[2] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_3);
+//	  i_bus_abc.data[3] = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_4);
+//
+//	  u_bus_abc.data[1] = HAL_ADCEx_InjectedGetValue(&hadc2, ADC_INJECTED_RANK_1);
+//	  u_bus_abc.data[2] = HAL_ADCEx_InjectedGetValue(&hadc2, ADC_INJECTED_RANK_2);
+//	  u_bus_abc.data[3] = HAL_ADCEx_InjectedGetValue(&hadc2, ADC_INJECTED_RANK_3);
+//	  pos_buf.data[0] = HAL_ADCEx_InjectedGetValue(&hadc2, ADC_INJECTED_RANK_4);
 	  wh_innerloop.done_set(nullptr);
 	});
 	// HAL_ADC_Start(&hadc2);
@@ -314,7 +323,7 @@ static void modular_test()
 	}
 	mtr.reference.u_dq.v1 = 0.0f;
 	mtr.reference.u_dq.v2 = 5.0f;
-	while (1)
+	while (0)
 	{
 
 		encoderPositionSpeedSensor.position_speed_get(mtr, mtr.state.pos_spd_e, mtr.state.pos_spd_m);
@@ -335,6 +344,7 @@ void pos_spd_sensor_test()
 	mtr.reference.u_dq.v1 = 1.0f;
 	mtr.reference.u_dq.v2 = 0.0f;
 	mtr.state.pos_spd_m.v1 = 0.0f;
+	powerSensor1.u_bus_get(mtr, mtr.state.u_bus);
 	directSectionSensor.section_get(mtr, mtr.state.section);
 	svpwm.module(mtr, mtr.reference.section,
 		mtr.reference.d_abc,
@@ -398,16 +408,18 @@ static void pid_test()
 {
 
 	PidController pid;
-	pid.config.Kp = 0.517106150780880;
-	pid.config.Ki = 4210.20654;
-	pid.config.Kd = 0.0f;
-	pid.config.sample_time = 0.0001f;
-	pid.config.mode = PidControllerMode::Serial;
-	pid.config.integrator_limit_enable = pid.config.output_limit_enable = true;
-	pid.config.integrator_limit_min = pid.config.output_limit_min = -10.0f;
-	pid.config.integrator_limit_max = pid.config.output_limit_max = 10.0f;
+	PidControllerConfig pidCfg;
+	pidCfg.Kp = 0.517106150780880;
+	pidCfg.Ki = 4210.20654;
+	pidCfg.Kd = 0.0f;
+	pidCfg.sample_time = 0.0001f;
+	pidCfg.mode = PidControllerMode::Serial;
+	pidCfg.integrator_limit_enable = pidCfg.output_limit_enable = true;
+	pidCfg.integrator_limit_min = pidCfg.output_limit_min = -10.0f;
+	pidCfg.integrator_limit_max = pidCfg.output_limit_max = 10.0f;
+
 	Misc::ms_delay(1000);
-	while (1)
+	while (0)
 	{
 		pid_test_out = pid.update(0.3, pid_test_out);
 		Misc::ms_delay(1);
@@ -416,7 +428,6 @@ static void pid_test()
 
 static void current_control_test()
 {
-
 	mtr.reference.i_dq.v1 = 0.0f;
 	mtr.reference.i_dq.v2 = 0.1f;
 
@@ -433,7 +444,7 @@ static void current_control_test()
 		encoderPositionSpeedSensor.position_speed_get(mtr, mtr.state.pos_spd_e, mtr.state.pos_spd_m);
 		directSectionSensor.section_get(mtr, mtr.state.section);
 		phaseCurrentSensor.i_ab_get(mtr, mtr.state.i_ab);
-		//FocMath::abc2ab(mtr.state.i_abc, mtr.state.i_ab);
+
 		FocMath::ab2dq(mtr.state.i_ab, mtr.state.pos_spd_e.v1, mtr.state.i_dq);
 
 		currentController.voltage_get(mtr, mtr.reference.u_dq);
@@ -578,7 +589,7 @@ static void foc_test()
 //	mtr.reference.u_dq.v1 = mtr.state.u_bus * 0.2;
 //	mtr.reference.u_dq.v1 = 0.0f;
 
-	while (1)
+	while (0)
 	{
 		cmd.mode = FocCommandMode::OpenLoop;
 		cmd.voltage.v1 = 0.0f;
@@ -594,6 +605,15 @@ static void foc_test()
 		cmd.voltage.v1 = mtr.state.u_bus * 0.1;
 		cmd.voltage.v2 = 0.0f;
 		// cmd.speed = 20.0f;
+		foc.command_set(mtr, cmd);
+		os::Utils::delay(2000);
+	}
+
+	while (1)
+	{
+		cmd.mode = FocCommandMode::Current;
+		cmd.current.v1 = 0.1f;
+		cmd.current.v2 = 0.0f;
 		foc.command_set(mtr, cmd);
 		os::Utils::delay(2000);
 	}
@@ -621,8 +641,9 @@ static void foc_test()
 void app_test()
 {
 	// pid_test();
-	init_periph();
 	config_init();
+	init_periph();
+
 	power_sensor_test();
 	current_sensor_test();
 	pos_spd_sensor_test();

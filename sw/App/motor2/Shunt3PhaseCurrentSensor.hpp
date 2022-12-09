@@ -28,6 +28,9 @@ namespace wibot::motor
 		 * 放大倍数 = 参考电压 / 采样电阻 / 最大电流
 		 */
 		float i_value_per_unit;
+		/**
+		 * 当某相的占空比大于该阈值时, 将根据所在扇区忽略该相采用, 使用数值重构.
+		 */
 		float skip_threshold;
 	};
 	class Shunt3PhaseCurrentSensor : public PhaseCurrentSensor,

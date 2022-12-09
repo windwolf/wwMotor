@@ -25,22 +25,23 @@ namespace wibot::motor
 	void DqCurrentController::config_apply(CurrentControllerConfig& config)
 	{
 		this->config = config;
-		pid_d.config.mode = PidControllerMode::Serial;
-		pid_d.config.Kp = config.bandWidth * config.motor_parameter->ld;
-		pid_d.config.Ki = config.motor_parameter->rs / config.motor_parameter->ld;
-		pid_d.config.Kd = 0;
-		pid_d.config.tau = 0;
-		pid_d.config.output_limit_enable = true;
-		pid_d.config.output_limit_max = config.motor_parameter->u_bus_max;
-		pid_d.config.output_limit_min = -config.motor_parameter->u_bus_max;
-		pid_d.config.integrator_limit_enable = true;
-		pid_d.config.integrator_limit_max = config.motor_parameter->u_bus_max;
-		pid_d.config.integrator_limit_min = -config.motor_parameter->u_bus_max;
-		pid_d.config.sample_time = config.sample_time;
+		PidControllerConfig pidCfg;
+		pidCfg.mode = PidControllerMode::Serial;
+		pidCfg.Kp = config.bandWidth * config.motor_parameter->ld;
+		pidCfg.Ki = config.motor_parameter->rs / config.motor_parameter->ld;
+		pidCfg.Kd = 0;
+		pidCfg.tau = 0;
+		pidCfg.output_limit_enable = true;
+		pidCfg.output_limit_max = config.motor_parameter->u_bus_max;
+		pidCfg.output_limit_min = -config.motor_parameter->u_bus_max;
+		pidCfg.integrator_limit_enable = true;
+		pidCfg.integrator_limit_max = config.motor_parameter->u_bus_max;
+		pidCfg.integrator_limit_min = -config.motor_parameter->u_bus_max;
+		pidCfg.sample_time = config.sample_time;
+		pid_d.config_apply(pidCfg);
 
-		pid_q.config = pid_d.config;
-		pid_q.config.Kp = config.bandWidth * config.motor_parameter->lq;
-		pid_q.config.Ki = config.motor_parameter->rs / config.motor_parameter->lq;
-
+		pidCfg.Kp = config.bandWidth * config.motor_parameter->lq;
+		pidCfg.Ki = config.motor_parameter->rs / config.motor_parameter->lq;
+		pid_q.config_apply(pidCfg);
 	}
 } // wibot::motor

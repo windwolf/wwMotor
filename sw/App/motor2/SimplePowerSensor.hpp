@@ -18,7 +18,7 @@ namespace wibot::motor
 							  public Configurable<SimplePowerSensorConfig>
 	{
 	 public:
-
+		void config_apply(SimplePowerSensorConfig& config);
 		void u_bus_get(Motor& motor, float& u_bus) override;
 		void i_bus_get(Motor& motor, float& i_bus) override;
 	};

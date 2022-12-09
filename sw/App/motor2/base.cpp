@@ -17,7 +17,7 @@ namespace wibot::motor
 		float cos;
 		Math::sincos(theta, &sin, &cos);
 		dq.v1 = ab.v1 * cos + ab.v2 * sin;
-		dq.v2 = ab.v2 * cos - ab.v1 * sin;
+		dq.v2 = -ab.v1 * sin + ab.v2 * cos;
 	};
 
 	void FocMath::dq2ab(Vector2f dq, float theta, Vector2f& ab)
