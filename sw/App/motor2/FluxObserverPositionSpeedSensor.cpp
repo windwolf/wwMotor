@@ -64,7 +64,7 @@ namespace wibot::motor
 		pos_spd_m.v2 = pos_spd_e.v2 / config.motor_parameter->pole_pair;
 		pos_spd_m.v1 = pos_spd_e.v1 / config.motor_parameter->pole_pair;
 	}
-	void FluxObserverPositionSpeedSensor::zero_search(Motor& motor)
+	void FluxObserverPositionSpeedSensor::calibrate(Motor& motor)
 	{
 	}
 

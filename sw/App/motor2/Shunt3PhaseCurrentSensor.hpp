@@ -43,7 +43,12 @@ namespace wibot::motor
 		void i_abc_get(wibot::motor::Motor& motor, Vector3f& i_abc) override;
 		void i_ab_get(Motor& motor, Vector2f& i_ab) override;
 
-		void zero_calibrate(wibot::motor::Motor& motor) override;
+		/**
+		 * Calibrate the phase current sensor.
+	     * @note Make sure the Controll is in CALIBRATE state, during the calibration.
+		 * @param motor
+		 */
+		void calibrate(wibot::motor::Motor& motor) override;
 
 	 private:
 		LinearValueMapper _a_mapper;

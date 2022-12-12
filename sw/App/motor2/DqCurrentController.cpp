@@ -10,16 +10,18 @@ namespace wibot::motor
 	using namespace wibot::control;
 	void DqCurrentController::voltage_get(Motor& motor, Vector2<float>& u_dq)
 	{
-		u_dq.v1 = pid_d.update(motor.reference.i_dq.v1, motor.state.i_dq.v1);
-		u_dq.v2 = pid_q.update(motor.reference.i_dq.v2, motor.state.i_dq.v2);
+		Vector2f udq;
+		udq.v1 = pid_d.update(motor.reference.i_dq.v1, motor.state.i_dq.v1);
+		udq.v2 = pid_q.update(motor.reference.i_dq.v2, motor.state.i_dq.v2);
 
 		if (!config.disableFeedforward)
 		{
-			u_dq.v1 += -motor.state.i_dq.v2 * config.motor_parameter->lq * motor.state.pos_spd_e.v2;
-			u_dq.v2 += +(motor.state.i_dq.v1 * config.motor_parameter->ld + config.motor_parameter->flux)
+			udq.v1 += -motor.state.i_dq.v2 * config.motor_parameter->lq * motor.state.pos_spd_e.v2;
+			udq.v2 += +(motor.state.i_dq.v1 * config.motor_parameter->ld + config.motor_parameter->flux)
 				* motor.state.pos_spd_e.v2;
 
 		}
+		u_dq = udq;
 	}
 
 	void DqCurrentController::config_apply(CurrentControllerConfig& config)

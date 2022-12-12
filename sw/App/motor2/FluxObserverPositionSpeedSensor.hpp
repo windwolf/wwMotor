@@ -31,7 +31,7 @@ namespace wibot::motor
 
 		void position_speed_get(Motor& motor, Vector2f& pos_spd_e, Vector2f& pos_spd_m) override;
 
-		void zero_search(Motor& motor);
+		void calibrate(Motor& motor);
 	 private:
 		FirstOrderLowPassFilter _filter;
 		PidController _pid;

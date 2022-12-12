@@ -101,6 +101,7 @@ namespace wibot::motor
 			float d_pwm;
 
 			Vector3f u_abc;
+
 		} reference;
 
 	};

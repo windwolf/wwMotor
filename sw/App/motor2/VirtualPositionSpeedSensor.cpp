@@ -26,8 +26,13 @@ namespace wibot::motor
 		pos_spd_e.v2 = _speed * config.polePairs;
 
 	}
-	void VirtualPositionSpeedSensor::zero_search(Motor& motor)
+	void VirtualPositionSpeedSensor::calibrate(Motor& motor)
 	{
+
+	}
+	void VirtualPositionSpeedSensor::config_apply(VirtualPositionSpeedSensorConfig& config)
+	{
+		this->config = config;
 
 	}
 } // wibot::motor

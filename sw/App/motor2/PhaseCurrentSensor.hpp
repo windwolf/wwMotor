@@ -20,7 +20,7 @@ namespace wibot::motor
 		 */
 		virtual void i_abc_get(wibot::motor::Motor& motor, Vector3f& i_abc) = 0;
 		virtual void i_ab_get(wibot::motor::Motor& motor, Vector2f& i_ab) = 0;
-		virtual void zero_calibrate(wibot::motor::Motor& motor) = 0;
+		virtual void calibrate(wibot::motor::Motor& motor) = 0;
 	};
 
 } // wibot::motor

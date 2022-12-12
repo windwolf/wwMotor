@@ -23,7 +23,7 @@ namespace wibot::motor
 	 public:
 
 		void position_speed_get(Motor& motor, Vector2f& pos_spd_e, Vector2f& pos_spd_m) override;
-		void zero_search(Motor& motor) override;
+		void calibrate(Motor& motor) override;
 		void module(Motor& motor, uint8_t& section,
 			Vector3f& d_abc, Vector3f& u_abc,
 			uint8_t& channels, float& d_sample) override;
