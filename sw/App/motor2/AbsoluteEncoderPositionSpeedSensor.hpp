@@ -41,7 +41,7 @@ namespace wibot::motor
 		AbsoluteEncoderPositionSpeedSensor(DataSource* data_source) : _data_source(data_source)
 		{
 		};
-		void config_apply(AbsoluteEncoderPositionSpeedSensorConfig& config);
+		void apply_config() override;
 
 		/**
 		 * @brief get position and speed in electrical and mechanical domain.
@@ -85,7 +85,7 @@ namespace wibot::motor
 		float _PP_TS;
 		void calibrate_rotate(Motor& motor);
 		void rotate(Motor& motor, float start_pos, float travel, uint32_t step, uint32_t step_delay) const;
-		void sample_data(const Motor& motor, int step);
+		void sample_data(const Motor& motor, uint32_t step);
 	};
 
 } // wibot::motor

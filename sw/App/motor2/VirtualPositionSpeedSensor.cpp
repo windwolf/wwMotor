@@ -30,9 +30,4 @@ namespace wibot::motor
 	{
 
 	}
-	void VirtualPositionSpeedSensor::config_apply(VirtualPositionSpeedSensorConfig& config)
-	{
-		this->config = config;
-
-	}
 } // wibot::motor

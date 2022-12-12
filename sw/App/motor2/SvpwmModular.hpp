@@ -24,7 +24,7 @@ namespace wibot::motor
 						 public Configurable<SvpwmModularConfig>
 	{
 	 public:
-		void config_apply(SvpwmModularConfig& config);
+		void apply_config() override;
 		void module(wibot::motor::Motor& motor,
 			uint8_t& section,
 			Vector3f& d_abc,

@@ -183,16 +183,26 @@ static void config_init()
 {
 	mtr.reference.sw_channel = 0x0f; // for foc
 	mtr.reference.d_sample = 1.0f; // for foc
-	powerSensor1.config_apply(p1_cfg);
-	powerSensor2.config_apply(p2_cfg);
-	phaseCurrentSensor.config_apply(c1_cfg);
-	svpwm.config_apply(svpwm_cfg);
-	driver.config_apply(pwm_cfg);
-	encoderPositionSpeedSensor.config_apply(pos_spd_cfg);
-	virtualPositionSpeedSensor.config_apply(vpos_spd_cfg);
-	currentController.config_apply(curctrlcfg);
-	speedController.config_apply(spdctrlcfg);
-	positionController.config_apply(posctrlcfg);
+	powerSensor1.config = p1_cfg;
+	powerSensor1.apply_config();
+	powerSensor2.config = p2_cfg;
+	powerSensor2.apply_config();
+	phaseCurrentSensor.config = c1_cfg;
+	phaseCurrentSensor.apply_config();
+	svpwm.config = svpwm_cfg;
+	svpwm.apply_config();
+	driver.config = pwm_cfg;
+	driver.apply_config();
+	encoderPositionSpeedSensor.config = pos_spd_cfg;
+	encoderPositionSpeedSensor.apply_config();
+	virtualPositionSpeedSensor.config = vpos_spd_cfg;
+	virtualPositionSpeedSensor.apply_config();
+	currentController.config = curctrlcfg;
+	currentController.apply_config();
+	speedController.config = spdctrlcfg;
+	speedController.apply_config();
+	positionController.config = posctrlcfg;
+	positionController.apply_config();
 }
 static void init_periph()
 {

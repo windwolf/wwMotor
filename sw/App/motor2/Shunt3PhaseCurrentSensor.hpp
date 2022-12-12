@@ -34,11 +34,11 @@ namespace wibot::motor
 		float skip_threshold;
 	};
 	class Shunt3PhaseCurrentSensor : public PhaseCurrentSensor,
-									 Configurable<Shunt3PhaseCurrentSensorConfig>
+									 public Configurable<Shunt3PhaseCurrentSensorConfig>
 	{
 	 public:
 
-		void config_apply(Shunt3PhaseCurrentSensorConfig& config);
+		void apply_config() override;
 
 		void i_abc_get(wibot::motor::Motor& motor, Vector3f& i_abc) override;
 		void i_ab_get(Motor& motor, Vector2f& i_ab) override;

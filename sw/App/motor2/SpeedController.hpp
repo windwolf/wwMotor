@@ -27,7 +27,7 @@ namespace wibot::motor
 	class SpeedController : public Configurable<SpeedControllerConfig>
 	{
 	 public:
-		void config_apply(SpeedControllerConfig& config);
+		void apply_config() override;
 		void current_get(Motor& motor, Vector2f& i_dq);
 	 private:
 		PidController _pid_spd;

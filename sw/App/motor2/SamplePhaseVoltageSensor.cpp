@@ -6,22 +6,27 @@
 
 namespace wibot::motor
 {
-	void SamplePhaseVoltageSensor::config_apply(SamplePhaseVoltageSensorConfig& config)
+	void SamplePhaseVoltageSensor::apply_config()
 	{
-		this->config = config;
-		LinearValueMapperConfig lvmCfg;
-		lvmCfg.zero_offset = 0;
-		lvmCfg.value_per_unit = config.u_value_per_unit;
-		_a_mapper.config_apply(lvmCfg);
-		_b_mapper.config_apply(lvmCfg);
-		_c_mapper.config_apply(lvmCfg);
+		_a_mapper.config.zero_offset = 0;
+		_a_mapper.config.value_per_unit = config.u_value_per_unit;
+		_a_mapper.apply_config();
+		_b_mapper.config.zero_offset = 0;
+		_b_mapper.config.value_per_unit = config.u_value_per_unit;
+		_b_mapper.apply_config();
+		_c_mapper.config.zero_offset = 0;
+		_c_mapper.config.value_per_unit = config.u_value_per_unit;
+		_c_mapper.apply_config();
 
-		FirstOrderLowPassFilterConfig lpCfg;
-		lpCfg.cutoff_freq = config.cutoff_freq;
-		lpCfg.sample_time = config.sample_time;
-		_a_filter.config_apply(lpCfg);
-		_b_filter.config_apply(lpCfg);
-		_c_filter.config_apply(lpCfg);
+		_a_filter.config.cutoff_freq = config.cutoff_freq;
+		_a_filter.config.sample_time = config.sample_time;
+		_a_filter.apply_config();
+		_b_filter.config.cutoff_freq = config.cutoff_freq;
+		_b_filter.config.sample_time = config.sample_time;
+		_b_filter.apply_config();
+		_c_filter.config.cutoff_freq = config.cutoff_freq;
+		_c_filter.config.sample_time = config.sample_time;
+		_c_filter.apply_config();
 	}
 
 	void SamplePhaseVoltageSensor::u_abc_get(Motor& motor, Vector3f& u_abc)

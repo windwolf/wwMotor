@@ -27,7 +27,7 @@ namespace wibot::motor
 		public PositionSpeedSensor, public Configurable<FluxObserverPositionSpeedSensorConfig>
 	{
 	 public:
-		void config_apply(FluxObserverPositionSpeedSensorConfig& config);
+		void apply_config() override;
 
 		void position_speed_get(Motor& motor, Vector2f& pos_spd_e, Vector2f& pos_spd_m) override;
 

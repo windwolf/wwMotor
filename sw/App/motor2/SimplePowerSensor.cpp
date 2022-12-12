@@ -11,7 +11,3 @@ void wibot::motor::SimplePowerSensor::i_bus_get(wibot::motor::Motor& motor, floa
 {
 	i_bus = 0;
 }
-void wibot::motor::SimplePowerSensor::config_apply(wibot::motor::SimplePowerSensorConfig& config)
-{
-	this->config = config;
-}

@@ -6,10 +6,6 @@
 
 namespace wibot::motor
 {
-	void EmfZeroCrossSectionSensor::config_apply(EmfZeroCrossSectionSensorConfig& config)
-	{
-		this->config = config;
-	}
 
 	void EmfZeroCrossSectionSensor::section_get(Motor& motor, uint8_t& section)
 	{

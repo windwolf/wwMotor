@@ -6,23 +6,22 @@
 
 namespace wibot::motor
 {
-	void PositionController::config_apply(PositionControllerConfig& config)
+	void PositionController::apply_config()
 	{
 		this->config = config;
-		PidControllerConfig pidCfg;
-		pidCfg.mode = PidControllerMode::Serial;
-		pidCfg.Kp = config.kp;
-		pidCfg.Ki = config.ki;
-		pidCfg.Kd = config.kd;
-		pidCfg.tau = 0;
-		pidCfg.output_limit_enable = true;
-		pidCfg.output_limit_max = config.motor_parameter->speed_limit / 60 * _2PI;
-		pidCfg.output_limit_min = -config.motor_parameter->speed_limit / 60 * _2PI;
-		pidCfg.integrator_limit_enable = true;
-		pidCfg.integrator_limit_max = config.motor_parameter->speed_limit / 60 * _2PI;
-		pidCfg.integrator_limit_min = -config.motor_parameter->speed_limit / 60 * _2PI;
-		pidCfg.sample_time = config.sample_time;
-		_pid_pos.config_apply(pidCfg);
+		_pid_pos.config.mode = PidControllerMode::Serial;
+		_pid_pos.config.Kp = config.kp;
+		_pid_pos.config.Ki = config.ki;
+		_pid_pos.config.Kd = config.kd;
+		_pid_pos.config.tau = 0;
+		_pid_pos.config.output_limit_enable = true;
+		_pid_pos.config.output_limit_max = config.motor_parameter->speed_limit / 60 * _2PI;
+		_pid_pos.config.output_limit_min = -config.motor_parameter->speed_limit / 60 * _2PI;
+		_pid_pos.config.integrator_limit_enable = true;
+		_pid_pos.config.integrator_limit_max = config.motor_parameter->speed_limit / 60 * _2PI;
+		_pid_pos.config.integrator_limit_min = -config.motor_parameter->speed_limit / 60 * _2PI;
+		_pid_pos.config.sample_time = config.sample_time;
+		_pid_pos.apply_config();
 	};
 
 	void PositionController::speed_get(Motor& motor, float& speed)

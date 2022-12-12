@@ -19,7 +19,6 @@ namespace wibot::motor
 		public PositionSpeedSensor, public Configurable<VirtualPositionSpeedSensorConfig>
 	{
 	 public:
-		void config_apply(VirtualPositionSpeedSensorConfig& config);
 
 		void position_set(float position);
 

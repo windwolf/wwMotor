@@ -24,7 +24,7 @@ namespace wibot::motor
 	class BusCurrentController : public Configurable<BusCurrentControllerConfig>
 	{
 	 public:
-		void config_apply(BusCurrentControllerConfig& config);
+		void apply_config() override;
 
 		void duty_get(Motor& motor, float& duty);
 

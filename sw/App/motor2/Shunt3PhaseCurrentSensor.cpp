@@ -53,19 +53,19 @@ namespace wibot::motor
 			i_abc.v3 -= mid;
 		}
 	}
-	void Shunt3PhaseCurrentSensor::config_apply(Shunt3PhaseCurrentSensorConfig& config)
+	void Shunt3PhaseCurrentSensor::apply_config()
 	{
-		this->config = config;
-		LinearValueMapperConfig lvmCfg;
-		lvmCfg.zero_offset = config.i_a_offset;
-		lvmCfg.value_per_unit = config.i_value_per_unit;
-		_a_mapper.config_apply(lvmCfg);
+		_a_mapper.config.zero_offset = config.i_a_offset;
+		_a_mapper.config.value_per_unit = config.i_value_per_unit;
+		_a_mapper.apply_config();
 
-		lvmCfg.zero_offset = config.i_b_offset;
-		_b_mapper.config_apply(lvmCfg);
+		_b_mapper.config.zero_offset = config.i_b_offset;
+		_b_mapper.config.value_per_unit = config.i_value_per_unit;
+		_b_mapper.apply_config();
 
-		lvmCfg.zero_offset = config.i_c_offset;
-		_c_mapper.config_apply(lvmCfg);
+		_c_mapper.config.zero_offset = config.i_c_offset;
+		_c_mapper.config.value_per_unit = config.i_value_per_unit;
+		_c_mapper.apply_config();
 	}
 
 	void Shunt3PhaseCurrentSensor::calibrate(Motor& motor)
@@ -87,16 +87,15 @@ namespace wibot::motor
 			i_c_sum += *config.i_c_buffer;
 			os::Utils::delay(1);
 		}
-		LinearValueMapperConfig lvmCfg;
-		lvmCfg.zero_offset = config.i_a_offset = i_a_sum / calibrationRound;
-		lvmCfg.value_per_unit = config.i_value_per_unit;
-		_a_mapper.config_apply(lvmCfg);
 
-		lvmCfg.zero_offset = config.i_b_offset = i_b_sum / calibrationRound;
-		_b_mapper.config_apply(lvmCfg);
+		_a_mapper.config.zero_offset = config.i_a_offset = i_a_sum / calibrationRound;
+		_a_mapper.apply_config();
 
-		lvmCfg.zero_offset = config.i_c_offset = i_c_sum / calibrationRound;
-		_c_mapper.config_apply(lvmCfg);
+		_b_mapper.config.zero_offset = config.i_b_offset = i_b_sum / calibrationRound;
+		_b_mapper.apply_config();
+
+		_c_mapper.config.zero_offset = config.i_c_offset = i_c_sum / calibrationRound;
+		_c_mapper.apply_config();
 
 		motor.reference.d_abc = o_d_abc;
 		motor.reference.d_sample = o_d_s;

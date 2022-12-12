@@ -48,7 +48,7 @@
 //		.ubus = 10.0f,
 //	};
 //	SimplePower power;
-//	power.config_apply(power_cfg);
+//	power.apply_config(power_cfg);
 //
 //	float theta = 0.0f;
 //
@@ -67,7 +67,7 @@
 //	};
 //
 //	DriverSVPWM driver(executor);
-//	driver.config_apply(svpwm_cfg);
+//	driver.apply_config(svpwm_cfg);
 //
 //	Vector2f dq(10.f, 0.0f);
 //

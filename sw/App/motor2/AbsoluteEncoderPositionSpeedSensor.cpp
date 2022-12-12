@@ -13,39 +13,39 @@ namespace wibot::motor
 
 #define CALIBRATION_SAMPLING_ROUND 50
 
-	void AbsoluteEncoderPositionSpeedSensor::config_apply(AbsoluteEncoderPositionSpeedSensorConfig& config)
+	void AbsoluteEncoderPositionSpeedSensor::apply_config()
 	{
-		this->config = config;
-
 		this->_2PI_RES = _2PI / (float)config.resolution;
 		this->_1_TS = 1.0f / config.sample_time;
 		this->_PP_TS = (float)config.pole_pairs * this->_1_TS;
 
-		PiecewiseLinearValueMapperConfig<ENCODER_MAPPER_POINT_COUNT> pvmCfg;
-		pvmCfg.value_per_unit = this->_2PI_RES;
-		pvmCfg.in_wrap = config.resolution;
-		pvmCfg.out_wrap = _2PI;
-		_mapper.apply_config(pvmCfg);
+		_mapper.config.in_wrap = config.resolution;
+		_mapper.config.out_wrap = _2PI;
+		_mapper.apply_config();
 
-		FirstOrderLowPassFilterConfig lpCfg;
-		lpCfg.sample_time = config.sample_time;
-		lpCfg.cutoff_freq = config.mech_pos_cutoff_freq * _2PI;
-		lpCfg.enable_wrap = true;
-		lpCfg.wrap_value = _PI;
-		filter_pos_m_.config_apply(lpCfg);
+		filter_pos_m_.config.sample_time = config.sample_time;
+		filter_pos_m_.config.cutoff_freq = config.mech_pos_cutoff_freq * _2PI;
+		filter_pos_m_.config.enable_wrap = true;
+		filter_pos_m_.config.wrap_value = _PI;
+		filter_pos_m_.apply_config();
 
-		lpCfg.wrap_value = _PI * config.pole_pairs;
-		lpCfg.cutoff_freq = config.mech_pos_cutoff_freq * _2PI * (float)config.pole_pairs;
-		filter_pos_e_.config_apply(lpCfg);
+		filter_pos_e_.config.sample_time = config.sample_time;
+		filter_pos_e_.config.cutoff_freq = config.mech_pos_cutoff_freq * _2PI * (float)config.pole_pairs;
+		filter_pos_e_.config.enable_wrap = true;
+		filter_pos_e_.config.wrap_value = _PI * config.pole_pairs;
+		filter_pos_e_.apply_config();
 
-		lpCfg.enable_wrap = false;
-		lpCfg.wrap_value = 0;
-		lpCfg.cutoff_freq = config.mech_speed_cutoff_freq;
-		filter_spd_m_.config_apply(lpCfg);
+		filter_spd_m_.config.sample_time = config.sample_time;
+		filter_spd_m_.config.cutoff_freq = config.mech_speed_cutoff_freq;
+		filter_spd_m_.config.enable_wrap = false;
+		filter_spd_m_.config.wrap_value = 0;
+		filter_spd_m_.apply_config();
 
-		lpCfg.cutoff_freq = config.mech_speed_cutoff_freq * (float)config.pole_pairs;
-		filter_spd_e_.config_apply(lpCfg);
-
+		filter_spd_e_.config.sample_time = config.sample_time;
+		filter_spd_e_.config.cutoff_freq = config.mech_speed_cutoff_freq * (float)config.pole_pairs;
+		filter_spd_e_.config.enable_wrap = false;
+		filter_spd_e_.config.wrap_value = 0;
+		filter_spd_e_.apply_config();
 	}
 
 	void AbsoluteEncoderPositionSpeedSensor::position_speed_get(Motor& motor, Vector2f& pos_spd_e, Vector2f& pos_spd_m)
@@ -153,9 +153,9 @@ namespace wibot::motor
 
 	}
 
-	void AbsoluteEncoderPositionSpeedSensor::sample_data(const Motor& motor, int step)
+	void AbsoluteEncoderPositionSpeedSensor::sample_data(const Motor& motor, uint32_t step)
 	{
-		for (int r = 0; r < CALIBRATION_SAMPLING_ROUND; r++)
+		for (uint32_t r = 0; r < CALIBRATION_SAMPLING_ROUND; r++)
 		{
 			auto raw = _data_source->get_data();
 			_mapper.calibrate(step, raw, motor.state.pos_spd_m.v1);
@@ -169,7 +169,7 @@ namespace wibot::motor
 		uint32_t step,
 		uint32_t step_delay) const
 	{
-		for (int j = 0; j < step + 1; j++)
+		for (uint32_t j = 0; j < step + 1; j++)
 		{
 			motor.state.pos_spd_m.v1 =
 				Math::circle_normalize(start_pos + travel / step / j);

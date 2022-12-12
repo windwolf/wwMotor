@@ -26,7 +26,7 @@ namespace wibot::motor
 	class DqCurrentController : public Configurable<CurrentControllerConfig>
 	{
 	 public:
-		void config_apply(CurrentControllerConfig& config);
+		void apply_config() override;
 		void voltage_get(wibot::motor::Motor& motor, Vector2<float>& u_dq);
 
 	 private:

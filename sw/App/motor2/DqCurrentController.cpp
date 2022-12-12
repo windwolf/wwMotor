@@ -19,31 +19,38 @@ namespace wibot::motor
 			udq.v1 += -motor.state.i_dq.v2 * config.motor_parameter->lq * motor.state.pos_spd_e.v2;
 			udq.v2 += +(motor.state.i_dq.v1 * config.motor_parameter->ld + config.motor_parameter->flux)
 				* motor.state.pos_spd_e.v2;
-
 		}
 		u_dq = udq;
 	}
 
-	void DqCurrentController::config_apply(CurrentControllerConfig& config)
+	void DqCurrentController::apply_config()
 	{
-		this->config = config;
-		PidControllerConfig pidCfg;
-		pidCfg.mode = PidControllerMode::Serial;
-		pidCfg.Kp = config.bandWidth * config.motor_parameter->ld;
-		pidCfg.Ki = config.motor_parameter->rs / config.motor_parameter->ld;
-		pidCfg.Kd = 0;
-		pidCfg.tau = 0;
-		pidCfg.output_limit_enable = true;
-		pidCfg.output_limit_max = config.motor_parameter->u_bus_max;
-		pidCfg.output_limit_min = -config.motor_parameter->u_bus_max;
-		pidCfg.integrator_limit_enable = true;
-		pidCfg.integrator_limit_max = config.motor_parameter->u_bus_max;
-		pidCfg.integrator_limit_min = -config.motor_parameter->u_bus_max;
-		pidCfg.sample_time = config.sample_time;
-		pid_d.config_apply(pidCfg);
+		pid_d.config.mode = PidControllerMode::Serial;
+		pid_d.config.Kp = config.bandWidth * config.motor_parameter->ld;
+		pid_d.config.Ki = config.motor_parameter->rs / config.motor_parameter->ld;
+		pid_d.config.Kd = 0;
+		pid_d.config.tau = 0;
+		pid_d.config.output_limit_enable = true;
+		pid_d.config.output_limit_max = config.motor_parameter->u_bus_max;
+		pid_d.config.output_limit_min = -config.motor_parameter->u_bus_max;
+		pid_d.config.integrator_limit_enable = true;
+		pid_d.config.integrator_limit_max = config.motor_parameter->u_bus_max;
+		pid_d.config.integrator_limit_min = -config.motor_parameter->u_bus_max;
+		pid_d.config.sample_time = config.sample_time;
+		pid_d.apply_config();
 
-		pidCfg.Kp = config.bandWidth * config.motor_parameter->lq;
-		pidCfg.Ki = config.motor_parameter->rs / config.motor_parameter->lq;
-		pid_q.config_apply(pidCfg);
+		pid_q.config.mode = PidControllerMode::Serial;
+		pid_q.config.Kp = config.bandWidth * config.motor_parameter->lq;
+		pid_q.config.Ki = config.motor_parameter->rs / config.motor_parameter->lq;
+		pid_q.config.Kd = 0;
+		pid_q.config.tau = 0;
+		pid_q.config.output_limit_enable = true;
+		pid_q.config.output_limit_max = config.motor_parameter->u_bus_max;
+		pid_q.config.output_limit_min = -config.motor_parameter->u_bus_max;
+		pid_q.config.integrator_limit_enable = true;
+		pid_q.config.integrator_limit_max = config.motor_parameter->u_bus_max;
+		pid_q.config.integrator_limit_min = -config.motor_parameter->u_bus_max;
+		pid_q.config.sample_time = config.sample_time;
+		pid_q.apply_config();
 	}
 } // wibot::motor

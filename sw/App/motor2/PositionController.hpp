@@ -21,7 +21,7 @@ namespace wibot::motor
 	class PositionController : public Configurable<PositionControllerConfig>
 	{
 	 public:
-		void config_apply(PositionControllerConfig& config);
+		void apply_config() override;
 		void speed_get(Motor& motor, float& speed);
 	 private:
 		PidController _pid_pos;

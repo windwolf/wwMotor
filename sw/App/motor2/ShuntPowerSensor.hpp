@@ -22,11 +22,9 @@ namespace wibot::motor
 							 public Configurable<ShuntPowerSensorConfig>
 	{
 	 public:
-
+		void apply_config() override;
 		void u_bus_get(Motor& motor, float& u_bus) override;
 		void i_bus_get(Motor& motor, float& i_bus) override;
-
-		void config_apply(ShuntPowerSensorConfig& config);
 
 	 private:
 		LinearValueMapper u_bus_mapper;

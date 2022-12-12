@@ -176,9 +176,8 @@ namespace wibot::motor
 
 	}
 
-	void SvpwmModular::config_apply(SvpwmModularConfig& config)
+	void SvpwmModular::apply_config()
 	{
-		this->config = config;
 		_max_sq = config.max_module_rate * config.max_module_rate;
 		_max_d_sq = config.max_d_module_rate * config.max_d_module_rate;
 	}

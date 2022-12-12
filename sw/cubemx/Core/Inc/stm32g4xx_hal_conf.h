@@ -23,7 +23,7 @@
 #define STM32G4xx_HAL_CONF_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Exported types ------------------------------------------------------------*/
@@ -36,7 +36,7 @@
 
 #define HAL_MODULE_ENABLED
 
-  #define HAL_ADC_MODULE_ENABLED
+#define HAL_ADC_MODULE_ENABLED
 /*#define HAL_COMP_MODULE_ENABLED   */
 #define HAL_CORDIC_MODULE_ENABLED
 /*#define HAL_CRC_MODULE_ENABLED   */
@@ -60,7 +60,7 @@
 /*#define HAL_SAI_MODULE_ENABLED   */
 /*#define HAL_SMARTCARD_MODULE_ENABLED   */
 /*#define HAL_SMBUS_MODULE_ENABLED   */
-/*#define HAL_SPI_MODULE_ENABLED   */
+#define HAL_SPI_MODULE_ENABLED
 /*#define HAL_SRAM_MODULE_ENABLED   */
 #define HAL_TIM_MODULE_ENABLED
 #define HAL_UART_MODULE_ENABLED
@@ -101,7 +101,7 @@
 #define USE_HAL_SAI_REGISTER_CALLBACKS        0U
 #define USE_HAL_SMARTCARD_REGISTER_CALLBACKS  0U
 #define USE_HAL_SMBUS_REGISTER_CALLBACKS      0U
-#define USE_HAL_SPI_REGISTER_CALLBACKS        0U
+#define USE_HAL_SPI_REGISTER_CALLBACKS        1U
 #define USE_HAL_SRAM_REGISTER_CALLBACKS       0U
 #define USE_HAL_TIM_REGISTER_CALLBACKS        1U
 #define USE_HAL_UART_REGISTER_CALLBACKS       1U
@@ -115,11 +115,11 @@
   *        (when HSE is used as system clock source, directly or through the PLL).
   */
 #if !defined  (HSE_VALUE)
-  #define HSE_VALUE    (24000000UL) /*!< Value of the External oscillator in Hz */
+#define HSE_VALUE    (24000000UL) /*!< Value of the External oscillator in Hz */
 #endif /* HSE_VALUE */
 
 #if !defined  (HSE_STARTUP_TIMEOUT)
-  #define HSE_STARTUP_TIMEOUT    (100UL)   /*!< Time out for HSE start up, in ms */
+#define HSE_STARTUP_TIMEOUT    (100UL)   /*!< Time out for HSE start up, in ms */
 #endif /* HSE_STARTUP_TIMEOUT */
 
 /**
@@ -128,7 +128,7 @@
   *        (when HSI is used as system clock source, directly or through the PLL).
   */
 #if !defined  (HSI_VALUE)
-  #define HSI_VALUE    (16000000UL) /*!< Value of the Internal oscillator in Hz*/
+#define HSI_VALUE    (16000000UL) /*!< Value of the Internal oscillator in Hz*/
 #endif /* HSI_VALUE */
 
 /**
@@ -139,7 +139,7 @@
   *        which is subject to manufacturing process variations.
   */
 #if !defined  (HSI48_VALUE)
-  #define HSI48_VALUE   (48000000UL) /*!< Value of the Internal High Speed oscillator for USB FS/RNG in Hz.
+#define HSI48_VALUE   (48000000UL) /*!< Value of the Internal High Speed oscillator for USB FS/RNG in Hz.
                                                The real value my vary depending on manufacturing process variations.*/
 #endif /* HSI48_VALUE */
 

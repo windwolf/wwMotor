@@ -48,7 +48,6 @@ namespace wibot::motor
 		public Configurable<EmfZeroCrossSectionSensorConfig>
 	{
 	 public:
-		void config_apply(EmfZeroCrossSectionSensorConfig& config);
 		void section_get(Motor& motor, uint8_t& section) override;
 
 		void section_index_calibrate(wibot::motor::Motor& motor) override;

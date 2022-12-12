@@ -8,29 +8,27 @@
 
 namespace wibot::motor
 {
-	void FluxObserverPositionSpeedSensor::config_apply(FluxObserverPositionSpeedSensorConfig& config)
+	void FluxObserverPositionSpeedSensor::apply_config()
 	{
 		this->config = config;
 
-		PidControllerConfig pidCfg;
-		pidCfg.mode = PidControllerMode::Serial;
-		pidCfg.Kp = config.pll_kp;
-		pidCfg.Ki = config.pll_pi;
-		pidCfg.Kd = 0;
-		pidCfg.tau = 0;
-		pidCfg.output_limit_enable = true;
-		pidCfg.output_limit_max = config.motor_parameter->speed_limit / 60 * _2PI;
-		pidCfg.output_limit_min = -config.motor_parameter->speed_limit / 60 * _2PI;
-		pidCfg.integrator_limit_enable = true;
-		pidCfg.integrator_limit_max = config.motor_parameter->speed_limit / 60 * _2PI;
-		pidCfg.integrator_limit_min = -config.motor_parameter->speed_limit / 60 * _2PI;
-		pidCfg.sample_time = config.sample_time;
-		_pid.config_apply(pidCfg);
+		_pid.config.mode = PidControllerMode::Serial;
+		_pid.config.Kp = config.pll_kp;
+		_pid.config.Ki = config.pll_pi;
+		_pid.config.Kd = 0;
+		_pid.config.tau = 0;
+		_pid.config.output_limit_enable = true;
+		_pid.config.output_limit_max = config.motor_parameter->speed_limit / 60 * _2PI;
+		_pid.config.output_limit_min = -config.motor_parameter->speed_limit / 60 * _2PI;
+		_pid.config.integrator_limit_enable = true;
+		_pid.config.integrator_limit_max = config.motor_parameter->speed_limit / 60 * _2PI;
+		_pid.config.integrator_limit_min = -config.motor_parameter->speed_limit / 60 * _2PI;
+		_pid.config.sample_time = config.sample_time;
+		_pid.apply_config();
 
-		FirstOrderLowPassFilterConfig lpCfg;
-		lpCfg.sample_time = config.sample_time;
-		lpCfg.cutoff_freq = config.cutoff_freq;
-		_filter.config_apply(lpCfg);
+		_filter.config.sample_time = config.sample_time;
+		_filter.config.cutoff_freq = config.cutoff_freq;
+		_filter.apply_config();
 
 		_a = exp(-1.0f * config.motor_parameter->rs / config.motor_parameter->ld * config.sample_time);
 		_b = (1 - _a) / config.motor_parameter->rs;
