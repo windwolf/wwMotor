@@ -15,7 +15,6 @@ namespace wibot::motor
 	 public:
 		virtual void section_get(wibot::motor::Motor& motor, uint8_t& section) = 0;
 
-		virtual void section_index_calibrate(wibot::motor::Motor& motor) = 0;
 	};
 
 } // wibot::motor

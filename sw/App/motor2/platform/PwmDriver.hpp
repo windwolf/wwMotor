@@ -24,7 +24,7 @@ namespace wibot::motor
 		PwmDriver(Pwm& pwm) : pwm(pwm)
 		{
 		}
-		void config_apply(PwmDriverConfig& config);
+		Result apply_config() override;
 		void duty_set(Motor& motor) override;
 		void breakdown() override;
 		void resume() override;

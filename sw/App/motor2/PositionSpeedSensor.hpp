@@ -13,7 +13,7 @@ namespace wibot::motor
 	class PositionSpeedSensor
 	{
 	 public:
-		virtual void position_speed_get(Motor& motor, Vector2f& pos_spd_e, Vector2f& pos_spd_m) = 0;
+		virtual void position_speed_get(Motor& motor, Vector2f& position, Vector2f& speed) = 0;
 
 		virtual void calibrate(Motor& motor) = 0;
 	};

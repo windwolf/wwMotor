@@ -38,8 +38,35 @@ namespace wibot::motor
 		float i_phase_limit;
 	};
 
+	enum class MotorRunMode
+	{
+		Stop = 0,
+		/**
+		 * 校准模式. 一切皆有参考得到.
+		 */
+		Calibrate,
+		/**
+		 * 开环. 电压由参考提供, 位置信息由传感器或者观测器得到.
+		 */
+		OpenLoop,
+		/**
+		 * 电流环. 电流由参考提供, 电压由控制器得到, 位置信息由传感器或者观测器得到.
+		 */
+		Current,
+		/**
+		 * 速度环. 速度由参考提供, 电流, 电压均由控制器得到, 位置信息由传感器或者观测器得到.
+		 */
+		Speed,
+		/**
+		 * 位置环. 位置由参考提供, 速度, 电流, 电压均由控制器得到, 位置信息由传感器或者观测器得到.
+		 */
+		Position,
+
+	};
+
 	struct Motor
 	{
+		MotorRunMode mode;
 		/**
 		 * 各控制组件不直接修改state, 而是通过控制器调用各组件后, 由控制器修改state
 		 */
@@ -48,21 +75,16 @@ namespace wibot::motor
 			float u_bus; // bus voltage
 			float i_bus; // bus current
 
-			Vector2f pos_spd_e; // position and speed in electrical domain
-			Vector2f pos_spd_m; // position and speed in mechanical domain
+			Vector2f position; // v1: electrical angle, v2: mechanical angle
+			Vector2f speed; // v1: electrical speed, v2: mechanical speed
 			uint8_t section; // section of electrical position
 			Vector3f u_abc; // port voltage
 			Vector3f i_abc; // phase current
 			Vector2f i_ab;
+			/**
+			 * For FOC only.
+			 */
 			Vector2f i_dq;
-
-//			Vector2f i_dq_ref;
-//			float speed_ref;
-//			float position_ref;
-
-//			Vector2f u_dq_ref;
-//			Vector2f u_ab_ref;
-//			uint8_t section;
 
 		} state;
 
@@ -84,7 +106,7 @@ namespace wibot::motor
 
 			/**
 			 * For FOC control, all channels are enabled.
-			 * For 6Step control, channels's on/off setted by Modular.
+			 * For 6Step control, channels are switched by Modular.
 			 * 0x01: A, 0x02: B, 0x04: C, 0x08: D
 			 *
 			 */
@@ -98,7 +120,7 @@ namespace wibot::motor
 			 * Only for 6 step control
 			 *
 			 */
-			float d_pwm;
+			float d_bus;
 
 			Vector3f u_abc;
 
