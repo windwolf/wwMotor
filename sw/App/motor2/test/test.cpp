@@ -31,8 +31,10 @@
 #include "tim.h"
 #include "adc.h"
 #include "i2c.h"
+#include "spi.h"
 #include "utils.hpp"
 #include "math_shared.hpp"
+#include "MT6816SPI.hpp"
 
 using namespace wibot;
 using namespace wibot::os;
@@ -72,30 +74,36 @@ BUFFER32_DECLARE_STATIC(pos_buf, 1)
 #define I2C1_ERROR 0x08
 #define AS5600_READY 0x10
 #define AS5600_ERROR 0x20
+#define MT6816_READY 0x40
+#define MT6816_ERROR 0x80
 EventGroup eg1("eg_curr");
 EventGroup eg2("eg_pos");
 EventGroup eg3("eg_out");
+EventGroup eg4("eg_mt6816");
 WaitHandler wh_innerloop(eg1, ADC_READY, ADC_ERROR);
 WaitHandler wh_outerloop(eg3, AS5600_READY, AS5600_ERROR);
 I2cMaster i2c1(hi2c1);
+Spi spi(hspi3);
 AS5600I2C as5600(i2c1, eg2, I2C1_READY, I2C1_ERROR);
-MemoryDataSource i_bus_a(&i_bus_abc.data[1]);
-MemoryDataSource i_bus_b(&i_bus_abc.data[2]);
-MemoryDataSource i_bus_c(&i_bus_abc.data[3]);
+MT6816SPI mt6816(spi, eg4, MT6816_READY, AS5600_ERROR);
+MemoryDataSource i_a(&i_bus_abc.data[1]);
+MemoryDataSource i_b(&i_bus_abc.data[2]);
+MemoryDataSource i_c(&i_bus_abc.data[3]);
+MemoryDataSource u_bus(&u_bus_abc.data[0]);
 static PwmDriver driver(pwm);
 
 
 static FocControlConfig cfg = {
 	.power_sensor
 	{
-		.u_bus = &as5600,
+		.u_bus = &u_bus,
 		.u_bus_pu = 3.3f / 4096.0f * 12.0f / (float)(180 + 12),
 	},
 	.current_sensor
 	{
-		.i_a = &i_bus_a,
-		.i_b = &i_bus_b,
-		.i_c = &i_bus_c,
+		.i_a = &i_a,
+		.i_b = &i_b,
+		.i_c = &i_c,
 		.i_pu = 3.3f / 4096.0f / 0.33f / 1.53f,
 		.low_duty_skip_threshold = 0.75f,
 	},
@@ -105,7 +113,8 @@ static FocControlConfig cfg = {
 	},
 	.encoder
 	{
-		.resolution = 4096,
+        .codex = &mt6816,
+		.resolution = 16386,
 		.direction = EncoderDirection::Forward,
 		.calibration_voltage = 1.0f,
 	},
@@ -249,7 +258,7 @@ void outerloop_task(uint32_t arg)
 		wh_outerloop.wait(scope, TIMEOUT_FOREVER);
 		sw.start();
 		foc.command_loop(mtr);
-		as5600.angle_get(pos_buf.data[0]);
+        pos_buf.data[0] = as5600.angle_get();
 		//duration = sw.tick();
 		foc.lf_loop(mtr);
 		duration = sw.tick();
