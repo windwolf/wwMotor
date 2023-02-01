@@ -80,12 +80,12 @@ EventGroup eg1("eg_curr");
 EventGroup eg2("eg_pos");
 EventGroup eg3("eg_out");
 EventGroup eg4("eg_mt6816");
-WaitHandler wh_innerloop(eg1, ADC_READY, ADC_ERROR);
-WaitHandler wh_outerloop(eg3, AS5600_READY, AS5600_ERROR);
+WaitHandler wh_innerloop(eg1);
+WaitHandler wh_outerloop(eg3);
 I2cMaster i2c1(hi2c1);
 Spi spi(hspi3);
-AS5600I2C as5600(i2c1, eg2, I2C1_READY, I2C1_ERROR);
-MT6816SPI mt6816(spi, eg4, MT6816_READY, AS5600_ERROR);
+//AS5600I2C as5600(i2c1, eg2);
+MT6816SPI mt6816(spi, eg4);
 MemoryDataSource i_a(&i_bus_abc.data[1]);
 MemoryDataSource i_b(&i_bus_abc.data[2]);
 MemoryDataSource i_c(&i_bus_abc.data[3]);
@@ -224,47 +224,45 @@ static void init_periph()
 //	HAL_Delay(1000);
 //	HAL_I2C_Mem_Read_IT(&hi2c1, 0x36 << 1, 0x0e, 1, data, 2);
 //	HAL_Delay(1000);
-	as5600.init();
+
+	//as5600.init();
+    mt6816.init();
 }
 
 using namespace wibot;
 
 void innerloop_task(uint32_t arg)
 {
-	auto scope = wh_innerloop.scope_begin();
 	wh_innerloop.done_set(nullptr);
 	StopWatch sw;
 	[[maybe_unused]] volatile auto duration = 0;
 
 	while (true)
 	{
-		wh_innerloop.wait(scope, TIMEOUT_FOREVER);
+		wh_innerloop.wait(TIMEOUT_FOREVER);
 		sw.start();
 		foc.hf_loop(mtr);
 		duration = sw.tick();
 
 	}
-	wh_innerloop.scope_end();
 }
 
 void outerloop_task(uint32_t arg)
 {
-	auto scope = wh_outerloop.scope_begin();
 	wh_outerloop.done_set(nullptr);
 	StopWatch sw;
 	[[maybe_unused]] volatile auto duration = 0;
 	while (true)
 	{
-		wh_outerloop.wait(scope, TIMEOUT_FOREVER);
+		wh_outerloop.wait(TIMEOUT_FOREVER);
 		sw.start();
 		foc.command_loop(mtr);
-        pos_buf.data[0] = as5600.angle_get();
+        pos_buf.data[0] = mt6816.get_angle();
 		//duration = sw.tick();
 		foc.lf_loop(mtr);
 		duration = sw.tick();
 
 	}
-	wh_outerloop.scope_end();
 }
 float ref_angle;
 float encoder_angle;
@@ -300,11 +298,11 @@ static void foc_test()
 
 	foc.calibrate(mtr);
 
-	[[maybe_unused]] auto cfg = as5600.get_config();
-	[[maybe_unused]] volatile static uint8_t sta;
-	sta = as5600.get_status();
-	[[maybe_unused]] auto zpos = as5600.get_zpos();
-	[[maybe_unused]] auto mpos = as5600.get_mpos();
+	//[[maybe_unused]] auto cfg = as5600.get_config();
+	//[[maybe_unused]] volatile static uint8_t sta;
+	//sta = as5600.get_status();
+	//[[maybe_unused]] auto zpos = as5600.get_zpos();
+	//[[maybe_unused]] auto mpos = as5600.get_mpos();
 
 	cmd.mode = wibot::motor::MotorRunMode::OpenLoop;
 	cmd.voltage.v1 = 0.0f;
@@ -365,6 +363,9 @@ static void foc_test()
 	foc.set_command(mtr, cmd);
 	os::Utils::delay(2000);
 }
+static void six_test() {
+
+}
 
 void app_test()
 {
@@ -379,5 +380,7 @@ void app_test()
 	// modular_test();
 
 	foc_test();
+
+    six_test();
 }
 

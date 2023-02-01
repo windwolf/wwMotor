@@ -19,3 +19,7 @@
 [submodule "sw/libs/wibotDSP"]
 	path = sw/libs/wibotDSP
 	url = ../wibotDSP.git
+[submodule "sw/libs/wibotGraph"]
+	path = sw/libs/wibotGraph
+	url = ../wibotGraph.git
+	branch = main
