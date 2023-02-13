@@ -34,7 +34,7 @@
 #include "spi.h"
 #include "utils.hpp"
 #include "math_shared.hpp"
-#include "MT6816SPI.hpp"
+#include "MT6835SPI.hpp"
 
 using namespace wibot;
 using namespace wibot::os;
@@ -85,7 +85,7 @@ WaitHandler wh_outerloop(eg3);
 I2cMaster i2c1(hi2c1);
 Spi spi(hspi3);
 //AS5600I2C as5600(i2c1, eg2);
-MT6816SPI mt6816(spi, eg4);
+MT6835SPI mt6835(spi, eg4);
 MemoryDataSource i_a(&i_bus_abc.data[1]);
 MemoryDataSource i_b(&i_bus_abc.data[2]);
 MemoryDataSource i_c(&i_bus_abc.data[3]);
@@ -97,7 +97,7 @@ static FocControlConfig cfg = {
 	.power_sensor
 	{
 		.u_bus = &u_bus,
-		.u_bus_pu = 3.3f / 4096.0f * 12.0f / (float)(180 + 12),
+		.u_bus_pu = 3.3f / 4096.0f / 12.0f * (float)(180 + 12),
 	},
 	.current_sensor
 	{
@@ -113,8 +113,8 @@ static FocControlConfig cfg = {
 	},
 	.encoder
 	{
-        .codex = &mt6816,
-		.resolution = 16386,
+        .codex = &mt6835,
+		.resolution = 1<<21,
 		.direction = EncoderDirection::Forward,
 		.calibration_voltage = 1.0f,
 	},
@@ -226,7 +226,7 @@ static void init_periph()
 //	HAL_Delay(1000);
 
 	//as5600.init();
-    mt6816.init();
+    mt6835.init();
 }
 
 using namespace wibot;
@@ -257,7 +257,7 @@ void outerloop_task(uint32_t arg)
 		wh_outerloop.wait(TIMEOUT_FOREVER);
 		sw.start();
 		foc.command_loop(mtr);
-        pos_buf.data[0] = mt6816.get_angle();
+        pos_buf.data[0] = mt6835.get_angle();
 		//duration = sw.tick();
 		foc.lf_loop(mtr);
 		duration = sw.tick();
@@ -296,6 +296,8 @@ static void foc_test()
 
 	os::Utils::delay(100);
 
+    cmd.mode= wibot::motor::MotorRunMode::Calibrate;
+    foc.set_command(mtr, cmd);
 	foc.calibrate(mtr);
 
 	//[[maybe_unused]] auto cfg = as5600.get_config();
@@ -333,7 +335,7 @@ static void foc_test()
 	}
 
 	// Test stay in current close loop
-	while (1)
+	while (0)
 	{
 		cmd.mode = MotorRunMode::Current;
 		cmd.current.v1 = 0.1f;
