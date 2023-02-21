@@ -130,9 +130,9 @@ namespace wibot::motor
         os::Utils::delay(100);
 
         // set zero offset
-        rotate(motor, 0.0f, _2PI, 200, 1);
+        rotate(motor, 0.0f, _2PI, 200, 10);
         os::Utils::delay(10);
-        rotate(motor, 0.0f, -_2PI, 200, 1);
+        rotate(motor, 0.0f, -_2PI, 200, 10);
         os::Utils::delay(10);
 
         uint32_t zero_offset = 0;
@@ -152,16 +152,16 @@ namespace wibot::motor
         // rotate 360 degree forward
         for (; i < ENCODER_MAPPER_POINT_COUNT; ++i)
         {
-            rotate(motor, output_res * (i - 1), output_res, 10, 1);
+            rotate(motor, output_res * (i - 1), output_res, 10, 10);
             sample_data(motor, i);
         }
         // i = PC - 1; rotate to 0 degree
-        rotate(motor, output_res * i, output_res, 10, 1);
+        rotate(motor, output_res * i, output_res, 10, 10);
 
         // rotate 360 degree backward
         for (; i > 0; --i)
         {
-            rotate(motor, output_res * (i + 1), -output_res, 10, 1);
+            rotate(motor, output_res * (i + 1), -output_res, 10, 10);
             sample_data(motor, i);
         }
         _mapper.calibrate_end();
@@ -178,7 +178,7 @@ namespace wibot::motor
         {
             auto raw = config.codex->get_data();
             _mapper.calibrate(step, raw, motor.state.position.v2);
-            Utils::delay(1);
+            Utils::delay(10);
         }
     }
 

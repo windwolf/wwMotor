@@ -257,7 +257,7 @@ void outerloop_task(uint32_t arg)
 		wh_outerloop.wait(TIMEOUT_FOREVER);
 		sw.start();
 		foc.command_loop(mtr);
-        pos_buf.data[0] = mt6835.get_angle();
+        //pos_buf.data[0] = mt6835.get_angle();
 		//duration = sw.tick();
 		foc.lf_loop(mtr);
 		duration = sw.tick();
@@ -306,11 +306,17 @@ static void foc_test()
 	//[[maybe_unused]] auto zpos = as5600.get_zpos();
 	//[[maybe_unused]] auto mpos = as5600.get_mpos();
 
-	cmd.mode = wibot::motor::MotorRunMode::OpenLoop;
-	cmd.voltage.v1 = 0.0f;
+	cmd.mode = wibot::motor::MotorRunMode::Calibrate;
+	cmd.voltage.v1 = mtr.state.u_bus * 0.1;
 	cmd.voltage.v2 = 0.0f;
 	foc.set_command(mtr, cmd);
 	os::Utils::delay(1000);
+    for (int i = 0; i < 100; ++i)
+    {
+        mtr.state.position.v1 = i * _2PI / 100.0;
+        mtr.state.position.v2 = Math::circle_normalize(i * _2PI / 100.0 * 5);
+        os::Utils::delay(1);
+    }
 
 	// test stay in open loop
 	while (0)
@@ -324,14 +330,14 @@ static void foc_test()
 	}
 
 	// Test rotation in open loop
-	while (0)
+	while (1)
 	{
 		cmd.mode = MotorRunMode::OpenLoop;
 		cmd.voltage.v1 = 0.0f;
 		cmd.voltage.v2 = mtr.state.u_bus * 0.1;
 		// cmd.speed = 20.0f;
 		foc.set_command(mtr, cmd);
-		os::Utils::delay(2000);
+		os::Utils::delay(1000);
 	}
 
 	// Test stay in current close loop
@@ -344,7 +350,7 @@ static void foc_test()
 		os::Utils::delay(2000);
 	}
 
-	// Test rotate in current close loo[
+	// Test rotate in current close loop
 	while (1)
 	{
 		cmd.mode = MotorRunMode::Current;
