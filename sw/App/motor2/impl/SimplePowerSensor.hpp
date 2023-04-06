@@ -7,20 +7,16 @@
 
 #include "motor2/PowerSensor.hpp"
 
-namespace wibot::motor
-{
+namespace wibot::motor {
 
-	struct SimplePowerSensorConfig
-	{
-		float u_bus;
-	};
-	class SimplePowerSensor : public PowerSensor,
-							  public Configurable<SimplePowerSensorConfig>
-	{
-	 public:
-		void u_bus_get(Motor& motor, float& u_bus) override;
-		void i_bus_get(Motor& motor, float& i_bus) override;
-	};
+struct SimplePowerSensorConfig {
+    float u_bus;
+};
+class SimplePowerSensor : public PowerSensor, public Configurable<SimplePowerSensorConfig> {
+   public:
+    void u_bus_get(Motor& motor, float& u_bus) override;
+    void i_bus_get(Motor& motor, float& i_bus) override;
+};
 
-}
-#endif //WWMOTOR_APP_MOTOR2_POWERSENSOR_CPP_SIMPLEPOWERSENSOR_HPP_
+}  // namespace wibot::motor
+#endif  // WWMOTOR_APP_MOTOR2_POWERSENSOR_CPP_SIMPLEPOWERSENSOR_HPP_

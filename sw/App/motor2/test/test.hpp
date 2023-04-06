@@ -6,9 +6,11 @@
 #define WWMOTOR_APP_MOTOR2_TEST_TEST_HPP_
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
+
+void six_test();
+void foc_test();
 
 void app_test();
 
@@ -16,4 +18,4 @@ void app_test();
 }
 #endif
 
-#endif //WWMOTOR_APP_MOTOR2_TEST_TEST_HPP_
+#endif  // WWMOTOR_APP_MOTOR2_TEST_TEST_HPP_

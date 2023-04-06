@@ -8,25 +8,19 @@
 #include "base.hpp"
 #include "motor2/base.hpp"
 #include "motor2/BusDutyReferenceUpdater.hpp"
-namespace wibot
-{
-	namespace motor
-	{
-		struct PassThroughBusCurrentControllerConfig
-		{
-			MotorParameter* motor_parameter;
-		};
+namespace wibot {
+namespace motor {
+struct PassThroughBusCurrentControllerConfig {
+    MotorParameter* motor_parameter;
+};
 
-		class PassThroughBusCurrentController :
-			public BusDutyReferenceUpdater,
-			public Configurable<PassThroughBusCurrentControllerConfig>
-		{
-		 public:
-			void dbus_update(Motor& motor, float& d_bus) override;
+class PassThroughBusCurrentController : public BusDutyReferenceUpdater,
+                                        public Configurable<PassThroughBusCurrentControllerConfig> {
+   public:
+    void dbus_update(Motor& motor, float& d_bus) override;
+};
 
-		};
+}  // namespace motor
+}  // namespace wibot
 
-	} // wibot
-} // motor
-
-#endif //WWMOTOR_APP_MOTOR2_IMPL_PASSTHROUGHBUSCURRENTCONTROLLER_HPP_
+#endif  // WWMOTOR_APP_MOTOR2_IMPL_PASSTHROUGHBUSCURRENTCONTROLLER_HPP_

@@ -1,37 +1,37 @@
 #include "tasks.hpp"
 //
-//#include "main.h"
-//#include "stm32g4xx_hal.h"
-//#include "stm32g4xx_hal_tim.h"
-//#include "stm32g4xx_hal_tim_ex.h"
-//#include "stm32g4xx_ll_tim.h"
-//#include "stm32g4xx_hal_adc.h"
-//#include "stm32g4xx_hal_adc_ex.h"
-//#include "stm32g4xx_ll_adc.h"
-//#include "pwm.hpp"
-//#include "motor/base.hpp"
-//#include "motor/component/driver.hpp"
-//#include "motor/platform/pwm_driver_executor.hpp"
-//#include "motor/component/foc_math.hpp"
-//#include "motor/ctrl/foc_control.hpp"
-//#include "peripheral/misc.hpp"
+// #include "main.h"
+// #include "stm32g4xx_hal.h"
+// #include "stm32g4xx_hal_tim.h"
+// #include "stm32g4xx_hal_tim_ex.h"
+// #include "stm32g4xx_ll_tim.h"
+// #include "stm32g4xx_hal_adc.h"
+// #include "stm32g4xx_hal_adc_ex.h"
+// #include "stm32g4xx_ll_adc.h"
+// #include "pwm.hpp"
+// #include "motor/base.hpp"
+// #include "motor/component/driver.hpp"
+// #include "motor/platform/pwm_driver_executor.hpp"
+// #include "motor/component/foc_math.hpp"
+// #include "motor/ctrl/foc_control.hpp"
+// #include "peripheral/misc.hpp"
 //
-//using namespace ww;
-//using namespace wibot::peripheral;
-//using namespace wwMotor;
-//using namespace wibot::motor;
+// using namespace ww;
+// using namespace wibot::peripheral;
+// using namespace wwMotor;
+// using namespace wibot::motor;
 //
-//extern TIM_HandleTypeDef htim1;
-//extern ADC_HandleTypeDef hadc1;
-//extern ADC_HandleTypeDef hadc2;
+// extern TIM_HandleTypeDef htim1;
+// extern ADC_HandleTypeDef hadc1;
+// extern ADC_HandleTypeDef hadc2;
 //
-//Pwm pwm(htim1);
+// Pwm pwm(htim1);
 //
-//BUFFER16_DECLARE_STATIC(adc1_buf, 4)
+// BUFFER16_DECLARE_STATIC(adc1_buf, 4)
 //// BUFFER16_DECLARE_STATIC(adc2_buf, 4)
-//BUFFER16_DECLARE_STATIC(pos_buf, 4)
+// BUFFER16_DECLARE_STATIC(pos_buf, 4)
 //
-//static void pwm_test()
+// static void pwm_test()
 //{
 //	pwm.config_get().channelsEnable =
 //		PwmChannel_1 | PwmChannel_2 | PwmChannel_3 | PwmChannel_4;
@@ -40,9 +40,9 @@
 //	pwm.init();
 //	pwm.all_enable();
 //	pwm.duty_set(PwmChannel_1 | PwmChannel_2 | PwmChannel_3, 1000);
-//};
+// };
 //
-//static void driver_test()
+// static void driver_test()
 //{
 //	auto power_cfg = SimplePowerConfig{
 //		.ubus = 10.0f,
@@ -79,18 +79,18 @@
 //		theta += 0.01f;
 //		wibot::os::Utils::delay(1);
 //	}
-//};
-//static void encoder_test()
+// };
+// static void encoder_test()
 //{
 //
-//};
+// };
 //
-//static void curr_sensor_test()
+// static void curr_sensor_test()
 //{
 //
-//};
+// };
 //
-//static MotorParameter motor = {
+// static MotorParameter motor = {
 //	.polePair = 7,
 //	.rs = 5.0f,
 //	.ld = 0.0018f,
@@ -105,9 +105,9 @@
 //	.u_bus_max = 12.0f,
 //	.i_bus_limit = 1.0f,
 //	.i_phase_limit = 1.0f,
-//};
+// };
 //
-//static FocControl::Config cfg{
+// static FocControl::Config cfg{
 //	.pos_spd_sensor_cfg =
 //		{
 //			.encoder_data = &pos_buf.data[0],
@@ -154,9 +154,9 @@
 //		{
 //			.ubus = 12.0f,
 //		},
-//};
+// };
 //
-//static void foc_test()
+// static void foc_test()
 //{
 //	PwmDriverExecutor::Config eCfg{
 //		.channel_a = PwmChannel_1,
@@ -174,14 +174,14 @@
 //		foc.update();
 //		uint32_t period = Misc::get_tick_us() - start;
 //	}
-//};
+// };
 //
-//static void foc2_test()
+// static void foc2_test()
 //{
 //
-//}
+// }
 //
-//void app_test(ULONG argument)
+// void app_test(ULONG argument)
 //{
 //	pwm_test();
 //	// driver_test();
@@ -189,4 +189,4 @@
 //	// curr_sensor_test();
 //
 //	// foc_test();
-//};
+// };

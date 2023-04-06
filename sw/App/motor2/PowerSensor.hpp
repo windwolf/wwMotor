@@ -6,16 +6,14 @@
 #define WWMOTOR_APP_MOTOR2_POWERSENSOR_HPP_
 
 #include "base.hpp"
-namespace wibot::motor
-{
+namespace wibot::motor {
 
-	class PowerSensor
-	{
-	 public:
-		virtual void u_bus_get(Motor& motor, float& u_bus) = 0;
-		virtual void i_bus_get(Motor& motor, float& i_bus) = 0;
-	};
+class PowerSensor {
+   public:
+    virtual void u_bus_get(Motor& motor, float& u_bus) = 0;
+    virtual void i_bus_get(Motor& motor, float& i_bus) = 0;
+};
 
-} // wibot::motor
+}  // namespace wibot::motor
 
-#endif //WWMOTOR_APP_MOTOR2_POWERSENSOR_HPP_
+#endif  // WWMOTOR_APP_MOTOR2_POWERSENSOR_HPP_

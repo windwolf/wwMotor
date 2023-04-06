@@ -7,17 +7,15 @@
 
 #include "base.hpp"
 
-namespace wibot::motor
-{
+namespace wibot::motor {
 
-	class PositionSpeedSensor
-	{
-	 public:
-		virtual void position_speed_get(Motor& motor, Vector2f& position, Vector2f& speed) = 0;
+class PositionSpeedSensor {
+   public:
+    virtual void position_speed_get(Motor& motor, Vector2f& position, Vector2f& speed) = 0;
 
-		virtual void calibrate(Motor& motor) = 0;
-	};
+    virtual void calibrate(Motor& motor) = 0;
+};
 
-} // wibot::motor
+}  // namespace wibot::motor
 
-#endif //WWMOTOR_APP_MOTOR2_POSITIONSPEEDSENSOR_HPP_
+#endif  // WWMOTOR_APP_MOTOR2_POSITIONSPEEDSENSOR_HPP_

@@ -4,6 +4,4 @@
 
 #include "FluxObserverWithLowSpeedOpenPositionSpeedSensor.hpp"
 
-namespace wibot::motor
-{
-} // wibot::motor
+namespace wibot::motor {}  // namespace wibot::motor

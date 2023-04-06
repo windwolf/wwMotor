@@ -6,23 +6,19 @@
 #define WWMOTOR_APP_MOTOR2_FLUXOBSERVERWITHLOWSPEEDOPENPOSITIONSPEEDSENSOR_HPP_
 
 #include "FluxObserverPositionSpeedSensor.hpp"
-namespace wibot::motor
-{
+namespace wibot::motor {
 
-	struct FluxObserverWithLowSpeedOpenPositionSpeedSensorConfig
-	{
-		FluxObserverPositionSpeedSensorConfig config;
-		float low_speed_threshold;
-	};
-	class FluxObserverWithLowSpeedOpenPositionSpeedSensor : public PositionSpeedSensor,
-															public Configurable<
-																FluxObserverWithLowSpeedOpenPositionSpeedSensorConfig>
-	{
+struct FluxObserverWithLowSpeedOpenPositionSpeedSensorConfig {
+    FluxObserverPositionSpeedSensorConfig config;
+    float                                 low_speed_threshold;
+};
+class FluxObserverWithLowSpeedOpenPositionSpeedSensor
+    : public PositionSpeedSensor,
+      public Configurable<FluxObserverWithLowSpeedOpenPositionSpeedSensorConfig> {
+   private:
+    FluxObserverPositionSpeedSensor _inner_sensor;
+};
 
-	 private:
-		FluxObserverPositionSpeedSensor _inner_sensor;
-	};
+}  // namespace wibot::motor
 
-} // wibot::motor
-
-#endif //WWMOTOR_APP_MOTOR2_FLUXOBSERVERWITHLOWSPEEDOPENPOSITIONSPEEDSENSOR_HPP_
+#endif  // WWMOTOR_APP_MOTOR2_FLUXOBSERVERWITHLOWSPEEDOPENPOSITIONSPEEDSENSOR_HPP_

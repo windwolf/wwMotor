@@ -6,20 +6,18 @@
 #define WWMOTOR_APP_MOTOR2_PHASEVOLTAGESENSOR_HPP_
 
 #include "base.hpp"
-namespace wibot::motor
-{
+namespace wibot::motor {
 
-	class PhaseVoltageSensor
-	{
-	 public:
-		/**
-		 * @brief Get the mid port voltage of the motor.
-		 * @param motor
-		 * @param u_abc
-		 */
-		virtual void u_abc_get(wibot::motor::Motor& motor, Vector3f& u_abc) = 0;
-	};
+class PhaseVoltageSensor {
+   public:
+    /**
+     * @brief Get the mid port voltage of the motor.
+     * @param motor
+     * @param u_abc
+     */
+    virtual void u_abc_get(wibot::motor::Motor& motor, Vector3f& u_abc) = 0;
+};
 
-} // wibot::motor
+}  // namespace wibot::motor
 
-#endif //WWMOTOR_APP_MOTOR2_PHASEVOLTAGESENSOR_HPP_
+#endif  // WWMOTOR_APP_MOTOR2_PHASEVOLTAGESENSOR_HPP_

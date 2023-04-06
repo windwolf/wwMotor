@@ -7,18 +7,16 @@
 
 #include "base.hpp"
 
-namespace wibot::motor
-{
+namespace wibot::motor {
 
-	class Driver
-	{
-	 public:
-		virtual void duty_set(Motor& motor) = 0;
-		virtual void breakdown() = 0;
-		virtual void resume() = 0;
-		virtual void charge_prepare() = 0;
-	};
+class Driver {
+   public:
+    virtual void duty_set(Motor& motor) = 0;
+    virtual void breakdown()            = 0;
+    virtual void resume()               = 0;
+    virtual void charge_prepare()       = 0;
+};
 
-} // wibot::motor
+}  // namespace wibot::motor
 
-#endif //WWMOTOR_APP_MOTOR2_DRIVER_HPP_
+#endif  // WWMOTOR_APP_MOTOR2_DRIVER_HPP_

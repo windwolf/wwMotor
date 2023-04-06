@@ -6,12 +6,10 @@
 #define WWMOTOR_APP_MOTOR2_DQVOLTAGEREFERENCEUPDATER_HPP_
 #include "base.hpp"
 
-namespace wibot::motor
-{
-	class DqVoltageReferenceUpdater
-	{
-	 public:
-		virtual void dq_voltage_update(Motor& motor, Vector2f& v_dq) = 0;
-	};
-} // wibot::motor
-#endif //WWMOTOR_APP_MOTOR2_DQVOLTAGEREFERENCEUPDATER_HPP_
+namespace wibot::motor {
+class DqVoltageReferenceUpdater {
+   public:
+    virtual void dq_voltage_update(Motor& motor, Vector2f& v_dq) = 0;
+};
+}  // namespace wibot::motor
+#endif  // WWMOTOR_APP_MOTOR2_DQVOLTAGEREFERENCEUPDATER_HPP_

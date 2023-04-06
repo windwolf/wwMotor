@@ -1,10 +1,10 @@
 #include "appMain.hpp"
 
-#define LOG_MODULE "appMain"
-#include "log.h"
+#include "message_parser_test.hpp"
 
-namespace app
-{
+#include "log.h"
+LOGGER("appMain")
+namespace app {
 
 // using namespace wibot::peripheral;
 // using namespace wibot::accessor;
@@ -15,40 +15,32 @@ namespace app
 // using namespace wibot::comm;
 // using namespace wibot::comm::test;
 
-	class App
-	{
+class App {
+   public:
+    App();
+    void setup();
+    void loop();
 
-	 public:
-		App();
-		void setup();
-		void loop();
+   private:
+    // Application components
+};
 
-	 private:
-		//Application components
-	};
+App::App(){};
+void App::setup(){
+    // TODO: Application setup code here.
+};
 
-	App::App()
-	{
-	};
-	void App::setup()
-	{
-		//TODO: Application setup code here.
-	};
-
-	void App::loop()
-	{
-		//TODO: Application main loop code here, if not use RTOS.
-	};
-} // namespace app
+void App::loop(){
+    // TODO: Application main loop code here, if not use RTOS.
+};
+}  // namespace app
 
 static app::App app1 = app::App();
 
-void setup(void)
-{
-	app1.setup();
+void setup(void) {
+    app1.setup();
 }
 
-void loop(void)
-{
-	app1.loop();
+void loop(void) {
+    app1.loop();
 }

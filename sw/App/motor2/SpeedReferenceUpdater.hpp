@@ -6,13 +6,11 @@
 #define WWMOTOR_APP_MOTOR2_SPEEDREFERENCEUPDATER_HPP_
 #include "base.hpp"
 
-namespace wibot::motor
-{
-	class SpeedReferenceUpdater
-	{
-	 public:
-		virtual void speed_update(Motor& motor, float& speed) = 0;
-	};
+namespace wibot::motor {
+class SpeedReferenceUpdater {
+   public:
+    virtual void speed_update(Motor& motor, float& speed) = 0;
+};
 
-}// wibot::motor
-#endif //WWMOTOR_APP_MOTOR2_SPEEDREFERENCEUPDATER_HPP_
+}  // namespace wibot::motor
+#endif  // WWMOTOR_APP_MOTOR2_SPEEDREFERENCEUPDATER_HPP_

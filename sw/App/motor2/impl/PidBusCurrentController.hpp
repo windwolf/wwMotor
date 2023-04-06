@@ -8,33 +8,29 @@
 #include "motor2/base.hpp"
 #include "pid.hpp"
 #include "motor2/BusDutyReferenceUpdater.hpp"
-namespace wibot::motor
-{
-	struct BusCurrentControllerConfig
-	{
-		float Kp;
-		float Ki;
-		float Kd;
+namespace wibot::motor {
+struct BusCurrentControllerConfig {
+    float Kp;
+    float Ki;
+    float Kd;
 
-		/* Derivative low-pass filter time constant */
-		float tau;
+    /* Derivative low-pass filter time constant */
+    float tau;
 
-		/* Sample time (in seconds) */
-		float sample_time;
-	};
-	class PidBusCurrentController
-		: public BusDutyReferenceUpdater,
-		  public Configurable<BusCurrentControllerConfig>
-	{
-	 public:
-		Result apply_config() override;
+    /* Sample time (in seconds) */
+    float sample_time;
+};
+class PidBusCurrentController : public BusDutyReferenceUpdater,
+                                public Configurable<BusCurrentControllerConfig> {
+   public:
+    Result apply_config() override;
 
-		void dbus_update(Motor& motor, float& duty) override;
+    void dbus_update(Motor& motor, float& duty) override;
 
-	 private:
-		wibot::control::PidController _pid;
-	};
+   private:
+    wibot::control::PidController _pid;
+};
 
-} // wibot::motor
+}  // namespace wibot::motor
 
-#endif //WWMOTOR_APP_MOTOR2_BUSCURRENTCONTROLLER_HPP_
+#endif  // WWMOTOR_APP_MOTOR2_BUSCURRENTCONTROLLER_HPP_

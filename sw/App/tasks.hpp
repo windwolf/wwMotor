@@ -3,15 +3,15 @@
 
 #include "motor2/test/test.hpp"
 
-//#ifdef __cplusplus
-//extern "C"
+// #ifdef __cplusplus
+// extern "C"
 //{
-//#endif
+// #endif
 //
-//    void app_test(uint32_t argument);
+//     void app_test(uint32_t argument);
 //
-//#ifdef __cplusplus
-//}
-//#endif
+// #ifdef __cplusplus
+// }
+// #endif
 //
-#endif // __WWMOTOR_APP_TASKS_HPP__
+#endif  // __WWMOTOR_APP_TASKS_HPP__

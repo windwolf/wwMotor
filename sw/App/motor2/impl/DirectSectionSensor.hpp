@@ -7,15 +7,13 @@
 
 #include "motor2/SectionSensor.hpp"
 #include "motor2/base.hpp"
-namespace wibot::motor
-{
+namespace wibot::motor {
 
-	class DirectSectionSensor : public SectionSensor
-	{
-	 public:
-		void section_get(wibot::motor::Motor& motor, uint8_t& section) override;
-	};
+class DirectSectionSensor : public SectionSensor {
+   public:
+    void section_get(wibot::motor::Motor& motor, uint8_t& section) override;
+};
 
-} // wibot::motor
+}  // namespace wibot::motor
 
-#endif //WWMOTOR_APP_MOTOR2_DIRECTSECTIONSENSOR_HPP_
+#endif  // WWMOTOR_APP_MOTOR2_DIRECTSECTIONSENSOR_HPP_

@@ -45,7 +45,7 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 TX_THREAD test_thread;
-uint8_t test_thread_stack[2000];
+uint8_t test_thread_stack[5000];
 
 /* USER CODE END PV */
 
@@ -65,12 +65,12 @@ UINT App_ThreadX_Init(VOID *memory_ptr)
   TX_BYTE_POOL *byte_pool = (TX_BYTE_POOL*)memory_ptr;
 
   /* USER CODE BEGIN App_ThreadX_MEM_POOL */
-	(void)byte_pool;
+    (void)byte_pool;
   /* USER CODE END App_ThreadX_MEM_POOL */
 
   /* USER CODE BEGIN App_ThreadX_Init */
-	tx_thread_create(&test_thread, "test_thread", app_test, 0, test_thread_stack,
-		sizeof(test_thread_stack), 3, 3, 0, TX_AUTO_START);
+    tx_thread_create(&test_thread, "test_thread", app_test, 0, test_thread_stack,
+        sizeof(test_thread_stack), 3, 3, 0, TX_AUTO_START);
   /* USER CODE END App_ThreadX_Init */
 
   return ret;

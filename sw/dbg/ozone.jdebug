@@ -5,8 +5,8 @@
 **********************************************************************
 
 File          : D:/EE/projects/wwMotor/sw/dbg/ozone.jdebug
-Created       : 30 Nov 2022 22:49
-Ozone Version : V3.28a
+Created       : 9 Mar 2023 21:13
+Ozone Version : V3.28d
 */
 
 /*********************************************************************
@@ -33,7 +33,6 @@ void OnProjectLoad (void) {
   //
   // User settings
   //
-  Edit.SysVar (VAR_HSS_SPEED, FREQ_10_KHZ);
   File.Open ("D:/EE/projects/wwMotor/sw/cmake-build-debug/wwMotor.elf");
 }
 

@@ -6,12 +6,10 @@
 #define WWMOTOR_APP_MOTOR2_IBUSREFERENCEUPDATER_HPP_
 #include "base.hpp"
 
-namespace wibot::motor
-{
-	class BusCurrentReferenceUpdater
-	{
-	 public:
-		virtual void ibus_update(Motor& motor, float& i_bus) = 0;
-	};
-} // wibot::motor
-#endif //WWMOTOR_APP_MOTOR2_IBUSREFERENCEUPDATER_HPP_
+namespace wibot::motor {
+class BusCurrentReferenceUpdater {
+   public:
+    virtual void ibus_update(Motor& motor, float& i_bus) = 0;
+};
+}  // namespace wibot::motor
+#endif  // WWMOTOR_APP_MOTOR2_IBUSREFERENCEUPDATER_HPP_

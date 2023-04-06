@@ -7,31 +7,28 @@
 
 #include "motor2/PositionSpeedSensor.hpp"
 
-namespace wibot::motor
-{
-	struct VirtualPositionSpeedSensorConfig
-	{
-		uint8_t polePairs;
-		float sample_time;
-	};
+namespace wibot::motor {
+struct VirtualPositionSpeedSensorConfig {
+    uint8_t polePairs;
+    float   sample_time;
+};
 
-	class VirtualPositionSpeedSensor :
-		public PositionSpeedSensor, public Configurable<VirtualPositionSpeedSensorConfig>
-	{
-	 public:
+class VirtualPositionSpeedSensor : public PositionSpeedSensor,
+                                   public Configurable<VirtualPositionSpeedSensorConfig> {
+   public:
+    void position_set(float position);
 
-		void position_set(float position);
+    void speed_set(float speed);
 
-		void speed_set(float speed);
+    void position_speed_get(Motor& motor, Vector2f& position, Vector2f& speed) override;
 
-		void position_speed_get(Motor& motor, Vector2f& position, Vector2f& speed) override;
+    void calibrate(Motor& motor) override;
 
-		void calibrate(Motor& motor) override;
-	 private:
-		float _position;
-		float _speed;
-	};
+   private:
+    float _position;
+    float _speed;
+};
 
-} // wibot::motor
+}  // namespace wibot::motor
 
-#endif //WWMOTOR_APP_MOTOR2_VIRTUALPOSITIONSPEEDSENSOR_HPP_
+#endif  // WWMOTOR_APP_MOTOR2_VIRTUALPOSITIONSPEEDSENSOR_HPP_

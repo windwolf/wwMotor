@@ -6,12 +6,10 @@
 #define WWMOTOR_APP_MOTOR2_DQCURRENTREFERENCEUPDATE_HPP_
 #include "base.hpp"
 
-namespace wibot::motor
-{
-	class DqCurrentReferenceUpdater
-	{
-	 public:
-		virtual void dq_current_update(Motor& motor, Vector2f& i_dq) = 0;
-	};
-}
-#endif //WWMOTOR_APP_MOTOR2_DQCURRENTREFERENCEUPDATE_HPP_
+namespace wibot::motor {
+class DqCurrentReferenceUpdater {
+   public:
+    virtual void dq_current_update(Motor& motor, Vector2f& i_dq) = 0;
+};
+}  // namespace wibot::motor
+#endif  // WWMOTOR_APP_MOTOR2_DQCURRENTREFERENCEUPDATE_HPP_
