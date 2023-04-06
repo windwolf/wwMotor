@@ -35,25 +35,21 @@ enum class CommandType : uint8_t {
     PID_POSITION_GET_REQ  = 0x1B,
     PID_POSITION_GET_RESP = 0x1C,
 
-    MONITOR_STATE_START_REQ = 0x30,
-    MONITOR_STATE_END_REQ   = 0x31,
-    MONITOR_STATE_RESP      = 0x32,  // ubus, ibus, spdm, posm,
+    MONITOR_RESP            = 0x30,
+    MONITOR_STATE_START_REQ = 0x31,  // ubus, ibus, spdm, posm,
+    MONITOR_STATE_END_REQ   = 0x32,
 
-    MONITOR_ABC_START_REQ = 0x33,
+    MONITOR_ABC_START_REQ = 0x33,  // iabc, uabc(dabc_ref)
     MONITOR_ABC_END_REQ   = 0x34,
-    MONITOR_ABC_RESP      = 0x35,  // iabc, uabc(dabc_ref)
 
-    MONITOR_DQ_START_REQ = 0x36,
-    MONITOR_DQ_END_REQ   = 0x37,
-    MONITOR_DQ_RESP      = 0x38,  // idq, idq_ref
+    MONITOR_DQ_START_REQ = 0x35,  // idq, idq_ref
+    MONITOR_DQ_END_REQ   = 0x36,
 
-    MONITOR_SPD_START_REQ = 0x39,
-    MONITOR_SPD_END_REQ   = 0x3A,
-    MONITOR_SPD_RESP      = 0x3B,  // spde, spdm, spde_ref, spdm_ref
+    MONITOR_SPD_START_REQ = 0x37,  // spde, spdm, spde_ref, spdm_ref
+    MONITOR_SPD_END_REQ   = 0x38,
 
-    MONITOR_POS_START_REQ = 0x3C,
-    MONITOR_POS_END_REQ   = 0x3D,
-    MONITOR_POS_RESP      = 0x3E,  // pose, spdm, pose_ref, spdm_ref
+    MONITOR_POS_START_REQ = 0x39,  // pose, spdm, pose_ref, spdm_ref
+    MONITOR_POS_END_REQ   = 0x3A,
 };
 
 class ControlProtocol : public Initializable {
@@ -294,18 +290,14 @@ class ControlProtocol : public Initializable {
             .command = {static_cast<uint8_t>(CommandType::MODE_OPEN_LOOP_REQ)},
             .length{
                 .mode = MESSAGE_LENGTH_SCHEMA_MODE::FIXED_LENGTH,
-                .fixed{
-                    .length = 8,
-                },
+                .fixed{.length = 8},
             },
         },
         {
             .command = {static_cast<uint8_t>(CommandType::MODE_CURRENT_CLOSE_LOOP_REQ)},
             .length{
                 .mode = MESSAGE_LENGTH_SCHEMA_MODE::FIXED_LENGTH,
-                .fixed{
-                    .length = 8,
-                },
+                .fixed{.length = 8},
             },
         },
         {
@@ -352,11 +344,7 @@ class ControlProtocol : public Initializable {
         .lengthSchemaCount = 7,
         .defaultLength{
             .mode = MESSAGE_LENGTH_SCHEMA_MODE::FIXED_LENGTH,
-            .fixed =
-                {
-                    .length = 0,
-
-                },
+            .fixed{.length = 0},
         },
 
         .crcSize = MESSAGE_SCHEMA_SIZE::BIT8,
