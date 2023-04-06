@@ -1,52 +1,51 @@
 
 
-Breakpoint=D:/EE/projects/wwMotor/sw/libs/wwBase/peripheral/stm32g4xx/spi.cpp:21, State=BP_STATE_DISABLED
+
+Breakpoint=D:/EE/projects/wwMotor/sw/libs/wwBase/peripheral/stm32g4xx/spi.cpp:22:10, State=BP_STATE_DISABLED
+OpenDocument="message_parser.hpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwTalk/message/message_parser.hpp", Line=198
+OpenDocument="log.hpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwBase/base/log.hpp", Line=0
 OpenDocument="main.c", FilePath="D:/EE/projects/wwMotor/sw/cubemx/Core/Src/main.c", Line=65
 OpenDocument="CircularBuffer.test.cpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwBase/base/CircularBuffer.test.cpp", Line=51
-OpenDocument="message_parser.cpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwTalk/message/message_parser.cpp", Line=220
+OpenDocument="message_parser.cpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwTalk/message/message_parser.cpp", Line=0
 OpenDocument="startup_stm32g431xx.s", FilePath="D:/EE/projects/wwMotor/sw/cubemx/startup_stm32g431xx.s", Line=54
 OpenDocument="message_parser_test.cpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwTalk/message/message_parser_test.cpp", Line=205
 OpenDocument="test.cpp", FilePath="D:/EE/projects/wwMotor/sw/App/motor2/test/test.cpp", Line=0
 OpenDocument="test_foc.cpp", FilePath="D:/EE/projects/wwMotor/sw/App/motor2/test/test_foc.cpp", Line=223
 OpenDocument="CircularBuffer.hpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwBase/base/CircularBuffer.hpp", Line=55
 OpenDocument="wait_handler.cpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwBase/base/wait_handler.cpp", Line=48
-OpenDocument="SvpwmModular.cpp", FilePath="D:/EE/projects/wwMotor/sw/App/motor2/impl/SvpwmModular.cpp", Line=141
+OpenDocument="SvpwmModular.cpp", FilePath="D:/EE/projects/wwMotor/sw/App/motor2/impl/SvpwmModular.cpp", Line=119
 OpenDocument="tx_thread_schedule.S", FilePath="D:/EE/projects/wwMotor/sw/cubemx/Middlewares/ST/threadx/ports/cortex_m4/gnu/src/tx_thread_schedule.S", Line=226
 OpenDocument="tx_event_flags_set.c", FilePath="D:/EE/projects/wwMotor/sw/cubemx/Middlewares/ST/threadx/common/src/tx_event_flags_set.c", Line=74
-OpenDocument="ParityCalculator.cpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwBase/base/ParityCalculator.cpp", Line=0
 OpenDocument="stm32g4xx_ll_tim.h", FilePath="D:/EE/projects/wwMotor/sw/cubemx/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h", Line=2577
-OpenDocument="appMain.cpp", FilePath="D:/EE/projects/wwMotor/sw/App/appMain.cpp", Line=16
-OpenDocument="AbsoluteEncoderPositionSpeedSensor.cpp", FilePath="D:/EE/projects/wwMotor/sw/App/motor2/impl/AbsoluteEncoderPositionSpeedSensor.cpp", Line=163
+OpenDocument="appMain.cpp", FilePath="D:/EE/projects/wwMotor/sw/App/appMain.cpp", Line=4
+OpenDocument="AbsoluteEncoderPositionSpeedSensor.cpp", FilePath="D:/EE/projects/wwMotor/sw/App/motor2/impl/AbsoluteEncoderPositionSpeedSensor.cpp", Line=131
 OpenDocument="DataSource.cpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwBase/base/DataSource.cpp", Line=0
 OpenDocument="FocControl.cpp", FilePath="D:/EE/projects/wwMotor/sw/App/motor2/FocControl.cpp", Line=63
-OpenDocument="math_shared.hpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wibotDSP/basic/math_shared.hpp", Line=94
-OpenDocument="MT6816SPI.cpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwDevice/device/MT6816SPI.cpp", Line=24
-OpenDocument="arm_sin_f32.c", FilePath="D:/EE/projects/wwMotor/sw/libs/wibotDSP/CMSIS-DSP/Source/FastMathFunctions/arm_sin_f32.c", Line=96
+OpenDocument="math_shared.hpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wibotDSP/basic/math_shared.hpp", Line=59
+OpenDocument="MT6816SPI.cpp", FilePath="D:/EE/projects/wwMotor/sw/libs/wwDevice/device/MT6816SPI.cpp", Line=9
+OpenDocument="arm_sin_f32.c", FilePath="D:/EE/projects/wwMotor/sw/libs/wibotDSP/CMSIS-DSP/Source/FastMathFunctions/arm_sin_f32.c", Line=79
 OpenDocument="stm32g4xx_ll_dma.h", FilePath="D:/EE/projects/wwMotor/sw/cubemx/Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h", Line=856
 OpenDocument="stm32g4xx_it.c", FilePath="D:/EE/projects/wwMotor/sw/cubemx/Core/Src/stm32g4xx_it.c", Line=86
 OpenDocument="core_cm4.h", FilePath="D:/EE/projects/wwMotor/sw/cubemx/Drivers/CMSIS/Include/core_cm4.h", Line=1650
 OpenToolbar="View", Floating=0, x=1, y=0
 OpenToolbar="Debug", Floating=0, x=0, y=0
-OpenWindow="Call Stack", DockArea=BOTTOM, x=1, y=0, w=400, h=431, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Registers 1", DockArea=RIGHT, x=0, y=1, w=336, h=248, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, FilteredItems=[], RefreshRate=1
-OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=336, h=244, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Break & Tracepoints", DockArea=LEFT, x=0, y=2, w=514, h=188, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VectorCatchIndexMask=254
-OpenWindow="Memory 1", DockArea=BOTTOM, x=3, y=0, w=309, h=415, TabPos=1, TopOfStack=0, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, EditorAddress=0x0
-OpenWindow="Global Data", DockArea=BOTTOM, x=3, y=0, w=309, h=415, TabPos=0, TopOfStack=1, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Local Data", DockArea=BOTTOM, x=2, y=0, w=607, h=431, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Watched Data 1", DockArea=LEFT, x=0, y=0, w=514, h=158, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Functions", DockArea=LEFT, x=0, y=1, w=514, h=145, FilterBarShown=1, TotalValueBarShown=0, ToolBarShown=0
-OpenWindow="Terminal", DockArea=BOTTOM, x=0, y=0, w=601, h=431, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Call Stack", DockArea=BOTTOM, x=1, y=0, w=400, h=332, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Registers 1", DockArea=RIGHT, x=0, y=1, w=336, h=297, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, FilteredItems=[], RefreshRate=1
+OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=336, h=294, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Break & Tracepoints", DockArea=LEFT, x=0, y=1, w=514, h=328, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, VectorCatchIndexMask=254
+OpenWindow="Memory 1", DockArea=BOTTOM, x=3, y=0, w=608, h=316, TabPos=1, TopOfStack=0, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, EditorAddress=0x0
+OpenWindow="Global Data", DockArea=BOTTOM, x=3, y=0, w=608, h=316, TabPos=0, TopOfStack=1, FilterBarShown=1, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Local Data", DockArea=BOTTOM, x=2, y=0, w=308, h=332, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Functions", DockArea=LEFT, x=0, y=0, w=514, h=263, FilterBarShown=1, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Terminal", DockArea=BOTTOM, x=0, y=0, w=601, h=332, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
 SmartViewPlugin="", Page="", Toolbar="Hidden", Window="SmartView 1"
 TableHeader="Global Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Access";"Scope"], ColWidths=[220;154;100;100;100;27;100]
 TableHeader="Vector Catches", SortCol="", SortOrder="ASCENDING", VisibleCols=["";"Vector Catch";"Description"], ColWidths=[50;300;500]
-TableHeader="Break & Tracepoints", SortCol="None", SortOrder="ASCENDING", VisibleCols=["";"Type";"Location";"Extras"], ColWidths=[100;100;100;214]
+TableHeader="Break & Tracepoints", SortCol="None", SortOrder="ASCENDING", VisibleCols=["";"Type";"Location";"Extras"], ColWidths=[100;100;100;224]
 TableHeader="Local Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Access";"Scope"], ColWidths=[170;209;110;100;174;74;100]
-TableHeader="Functions", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Address";"Size";"#Insts";"Class";"Source"], ColWidths=[959;100;100;100;27;420]
 TableHeader="Call Stack", SortCol="Function", SortOrder="ASCENDING", VisibleCols=["Function";"Stack Frame";"Source";"PC";"Return Address";"Stack Used"], ColWidths=[211;118;119;100;190;100]
 TableHeader="Power Sampling", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Ch 0"], ColWidths=[100;100;100]
 TableHeader="Registers 1", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Description"], ColWidths=[173;118;259]
 TableHeader="RegisterSelectionDialog", SortCol="None", SortOrder="ASCENDING", VisibleCols=[], ColWidths=[]
-TableHeader="TargetExceptionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[200;100;100;762]
-TableHeader="Watched Data 1", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Value";"Location";"Refresh";"Access"], ColWidths=[160;183;100;100;100]
+TableHeader="Functions", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Address";"Size";"#Insts";"Class";"Source"], ColWidths=[959;100;100;100;27;100]
 WatchedExpression="cb._write-cb._read", DisplayFormat=DISPLAY_FORMAT_HEX, Window=Watched Data 1

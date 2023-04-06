@@ -89,12 +89,11 @@ class ControlProtocol : public Initializable {
 
    protected:
     Result _init() override {
-        INIT_BEGIN()
-        MEMBER_INIT_ERROR_CHECK(_eventGroup)
-        INIT_END()
+        _eventGroup.init();
+        return Result::OK;
     }
     void _deinit() override {
-        MEMBER_DEINIT(_eventGroup)
+        _eventGroup.deinit();
     }
 
    public:
