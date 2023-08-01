@@ -20,36 +20,127 @@ using namespace wibot::comm;
 enum class CommandType : uint8_t {
     MODE_STOP_REQ                = 0x00,
     MODE_CALIBRATE_REQ           = 0x01,
-    MODE_OPEN_LOOP_REQ           = 0x02,
-    MODE_CURRENT_CLOSE_LOOP_REQ  = 0x03,
-    MODE_SPEED_CLOSE_LOOP_REQ    = 0x04,
-    MODE_POSITION_CLOSE_LOOP_REQ = 0x05,
+    MODE_OPEN_LOOP_REQ           = 0x02,  // 8, udq_ref
+    MODE_CURRENT_CLOSE_LOOP_REQ  = 0x03,  // 8, idq_ref
+    MODE_SPEED_CLOSE_LOOP_REQ    = 0x04,  // 4, spdm_ref
+    MODE_POSITION_CLOSE_LOOP_REQ = 0x05,  // 4, posm_ref
 
-    PID_CURRENT_SET_REQ   = 0x11,
+    PID_CURRENT_SET_REQ   = 0x11,         // 12, pid
     PID_CURRENT_GET_REQ   = 0x13,
-    PID_CURRENT_GET_RESP  = 0x14,
-    PID_SPEED_SET_REQ     = 0x15,
+    PID_CURRENT_GET_RESP  = 0x14,         // 12, pid
+    PID_SPEED_SET_REQ     = 0x15,         // 12, pid
     PID_SPEED_GET_REQ     = 0x17,
-    PID_SPEED_GET_RESP    = 0x18,
-    PID_POSITION_SET_REQ  = 0x19,
+    PID_SPEED_GET_RESP    = 0x18,         // 12, pid
+    PID_POSITION_SET_REQ  = 0x19,         // 12, pid
     PID_POSITION_GET_REQ  = 0x1B,
-    PID_POSITION_GET_RESP = 0x1C,
+    PID_POSITION_GET_RESP = 0x1C,         // 12, pid
 
-    MONITOR_RESP            = 0x30,
-    MONITOR_STATE_START_REQ = 0x31,  // ubus, ibus, spdm, posm,
-    MONITOR_STATE_END_REQ   = 0x32,
+    MONITOR_RESP = 0x30,
 
-    MONITOR_ABC_START_REQ = 0x33,  // iabc, uabc(dabc_ref)
-    MONITOR_ABC_END_REQ   = 0x34,
+    MONITOR_UBUS_START_REQ = 0x40,  // ubus, 1
+    MONITOR_UBUS_STOP_REQ  = 0x50,
+    MONITOR_IBUS_START_REQ = 0x41,  // ibus, 1
+    MONITOR_IBUS_STOP_REQ  = 0x51,
 
-    MONITOR_DQ_START_REQ = 0x35,  // idq, idq_ref
-    MONITOR_DQ_END_REQ   = 0x36,
+    MONITOR_SPDM_START_REQ    = 0x42,  // spdm 1
+    MONITOR_SPDM_STOP_REQ     = 0x52,
+    MONITOR_SPDMREF_START_REQ = 0x43,  // spdm_ref 1
+    MONITOR_SPDMREF_STOP_REQ  = 0x53,
 
-    MONITOR_SPD_START_REQ = 0x37,  // spde, spdm, spde_ref, spdm_ref
-    MONITOR_SPD_END_REQ   = 0x38,
+    MONITOR_POSM_START_REQ    = 0x44,  // posm 1
+    MONITOR_POSM_STOP_REQ     = 0x54,
+    MONITOR_POSMREF_START_REQ = 0x45,  // posm_ref 1
+    MONITOR_POSMREF_STOP_REQ  = 0x55,
 
-    MONITOR_POS_START_REQ = 0x39,  // pose, spdm, pose_ref, spdm_ref
-    MONITOR_POS_END_REQ   = 0x3A,
+    MONITOR_UABC_START_REQ    = 0x46,  // uabc 3
+    MONITOR_UABC_STOP_REQ     = 0x56,
+    MONITOR_DABCREF_START_REQ = 0x47,  // dabc_ref 3
+    MONITOR_DABCREF_STOP_REQ  = 0x57,
+    MONITOR_IABC_START_REQ    = 0x48,  // iabc 3
+    MONITOR_IABC_STOP_REQ     = 0x58,
+    //    MONITOR_IABCREF_START_REQ = 0x49,  // iabc_ref 3
+    //    MONITOR_IABCREF_STOP_REQ  = 0x59,
+
+    //    MONITOR_UDQ_START_REQ    = 0x4A,  // udq 2 (foc only)
+    //    MONITOR_UDQ_STOP_REQ     = 0x5A,
+    MONITOR_UDQREF_START_REQ = 0x4B,  // udq_ref 2 (foc only)
+    MONITOR_UDQREF_STOP_REQ  = 0x5B,
+    MONITOR_IDQ_START_REQ    = 0x4C,  // idq 2 (foc only)
+    MONITOR_IDQ_STOP_REQ     = 0x5C,
+    MONITOR_IDQREF_START_REQ = 0x4D,  // idq_ref 2 (foc only)
+    MONITOR_IDQREF_STOP_REQ  = 0x5D,
+
+    MONITOR_SEC_START_REQ = 0x4E,  // section 0.25
+    MONITOR_SEC_STOP_REQ  = 0x5E,
+
+    MONITOR_SECREF_START_REQ = 0x4F,  // section_ref 0.25
+    MONITOR_SECREF_STOP_REQ  = 0x5F,
+
+    MONITOR_SPDE_START_REQ = 0x60,  // spde 1
+    MONITOR_SPDE_STOP_REQ  = 0x70,
+    //    MONITOR_SPDEREF_START_REQ = 0x61,  // spde_ref 1
+    //    MONITOR_SPDEREF_STOP_REQ  = 0x71,
+
+    MONITOR_POSE_START_REQ = 0x62,  // pose 1
+    MONITOR_POSE_STOP_REQ  = 0x72,
+    //    MONITOR_POSEREF_START_REQ = 0x63,  // pose_ref 1
+    //    MONITOR_POSEREF_STOP_REQ  = 0x73,
+
+    MONITOR_IBUSREF_START_REQ = 0x64,  // ibus_ref 1 (6step only)
+    MONITOR_IBUSREF_STOP_REQ  = 0x74,
+    MONITOR_DBUSREF_START_REQ = 0x65,  // dbus_ref 1 (6step only)
+    MONITOR_DBUSREF_STOP_REQ  = 0x75,
+    MONITOR_SWREF_START_REQ   = 0x66,  // sw_channel 0.25 (6step only)
+    MONITOR_SWREF_STOP_REQ    = 0x76,
+
+    MONITOR_DSPLREF_START_REQ = 0x67,  // dsample 1
+    MONITOR_DSPLREF_STOP_REQ  = 0x77,
+};
+
+union MonitorState {
+    uint32_t value;
+    struct {
+        bool ubus     : 1;
+        bool ibus     : 1;
+        bool spdm     : 1;
+        bool spdm_ref : 1;
+        bool posm     : 1;
+        bool posm_ref : 1;
+
+        bool uabc     : 1;
+        bool dabc_ref : 1;
+        bool iabc     : 1;
+        // bool iabc_ref : 1;
+        // bool udq      : 1;
+        bool udq_ref  : 1;
+        bool idq      : 1;
+        bool idq_ref  : 1;
+        bool sec      : 1;
+        bool sec_ref  : 1;
+
+        bool spde : 1;
+        //        bool spde_ref : 1;
+        bool pose : 1;
+        //        bool pose_ref : 1;
+
+        bool ibus_ref    : 1;
+        bool dbus_ref    : 1;
+        bool sw_ref      : 1;
+        bool dsample_ref : 1;
+    };
+};
+union ReqState {
+    uint32_t value;
+    struct {
+        bool pidCurrent  : 1;
+        bool pidSpeed    : 1;
+        bool pidPosition : 1;
+    };
+};
+enum class PidType {
+    current,
+    speed,
+    position,
 };
 
 class ControlProtocol : public Initializable {
@@ -60,30 +151,23 @@ class ControlProtocol : public Initializable {
     uint8_t                   _rx_buffer[RX_BUFFER_SIZE];
     uint8_t                   _tx_buffer[TX_BUFFER_SIZE];
     CircularBuffer<uint8_t>   _rx_cir_buffer;
-    CircularBuffer<uint8_t>   _tx_cir_buffer;
+    // CircularBuffer<uint8_t>   _tx_cir_buffer;
     MessageParser             _parser;
     os::EventGroup            _eventGroup;
     WaitHandler               _rxWaitHandle;
     WaitHandler               _txWaitHandle;
-    WaitHandler               _waitHandle;
     uint8_t                   _frameBuffer[16];
     FocControl&               _focCtrl;
     Motor&                    _motor;
-    bool                      _monitorState = false;
-    bool                      _monitorAbc   = false;
-    bool                      _monitorDq    = false;
-    bool                      _monitorSpd   = false;
-    bool                      _monitorPos   = false;
-    bool                      _pidCurrReq   = false;
-    bool                      _pidSpdReq    = false;
-    bool                      _pidPosReq    = false;
+    MonitorState              _monitorState;
+    ReqState                  _reqState;
 
    public:
     ControlProtocol(UART& uart, FocControl& focCtrl, Motor& motor)
         : _uart(uart), _rx_cir_buffer(_rx_buffer, RX_BUFFER_SIZE),
-          _tx_cir_buffer(_tx_buffer, TX_BUFFER_SIZE), _parser(_rx_cir_buffer), _eventGroup("comm"),
-          _rxWaitHandle(_eventGroup), _txWaitHandle(_eventGroup),
-          _waitHandle(_rxWaitHandle.merge(_txWaitHandle)), _focCtrl(focCtrl), _motor(motor) {
+          //_tx_cir_buffer(_tx_buffer, TX_BUFFER_SIZE),
+          _parser(_rx_cir_buffer), _eventGroup("comm"), _rxWaitHandle(_eventGroup),
+          _txWaitHandle(_eventGroup), _focCtrl(focCtrl), _motor(motor) {
         _parser.init(schema);
     }
 
@@ -97,194 +181,35 @@ class ControlProtocol : public Initializable {
     }
 
    public:
-    void start() {
-        _uart.start(_rx_cir_buffer, _rxWaitHandle);
-        while (true) {
-            auto rst = _waitHandle.wait(TIMEOUT_FOREVER);
-            if (rst == Result::OK) {
-                if (_waitHandle.triggeredFor(_rxWaitHandle) == Result::OK) {
-                    doRxWork();
-                }
-                if (_waitHandle.triggeredFor(_txWaitHandle) == Result::OK) {
-                    doTxWork();
-                }
-            }
-        }
-    }
+    void startRx();
+    void startTx();
 
-    void doTxWork() {
-        _doMonitor();
-        if (_pidCurrReq) {
-            _doGetCurrentPid();
-        }
-        if (_pidSpdReq) {
-            //_doGetSpeedPid();
-        }
-        if (_pidPosReq) {
-            //_doGetPositionPid();
-        }
+    Buffer8 doTxWork();
 
-        // _uart.write(_tx_cir_buffer.readVirtual(), _txWaitHandle);
-    }
-
-    void doRxWork() {
-        MessageFrame frame(Buffer8{.data = _frameBuffer, .size = 16});
-        auto         suc = _parser.parse(&frame);
-        if (suc == Result::OK) {
-            auto cmd = static_cast<CommandType>(frame.getCommand().data[0]);
-            switch (cmd) {
-                case CommandType::PID_CURRENT_GET_REQ: {
-                    _pidCurrReq = true;
-                    break;
-                }
-                case CommandType::PID_SPEED_GET_REQ: {
-                    _pidSpdReq = true;
-                    break;
-                }
-                case CommandType::PID_POSITION_GET_REQ: {
-                    _pidPosReq = true;
-                    break;
-                }
-                case CommandType::PID_CURRENT_SET_REQ:
-                case CommandType::PID_SPEED_SET_REQ:
-                case CommandType::PID_POSITION_SET_REQ: {
-                    auto ctn = frame.getContent();
-                    _doSetPid(cmd, ctn.getFloat(0), ctn.getFloat(4), ctn.getFloat(8));
-                    break;
-                }
-                case CommandType::MODE_STOP_REQ: {
-                    _doStop();
-                    break;
-                }
-                case CommandType::MODE_CALIBRATE_REQ: {
-                    _doCalibrate();
-                    break;
-                }
-                case CommandType::MODE_OPEN_LOOP_REQ: {
-                    auto ctn = frame.getContent();
-                    _doOpenLoop(ctn.getFloat(0), ctn.getFloat(4));
-                    break;
-                }
-                case CommandType::MODE_CURRENT_CLOSE_LOOP_REQ: {
-                    auto ctn = frame.getContent();
-                    _doCurrentCloseLoop(ctn.getFloat(0), ctn.getFloat(4));
-                    break;
-                }
-                case CommandType::MODE_SPEED_CLOSE_LOOP_REQ: {
-                    auto ctn = frame.getContent();
-                    _doSpeedLoop(ctn.getFloat(0));
-                    break;
-                }
-                case CommandType::MODE_POSITION_CLOSE_LOOP_REQ: {
-                    auto ctn = frame.getContent();
-                    _doPositionLoop(ctn.getFloat(0));
-                    break;
-                }
-                case CommandType::MONITOR_DQ_START_REQ: {
-                    _monitorDq = true;
-                    break;
-                }
-                case CommandType::MONITOR_DQ_END_REQ: {
-                    _monitorDq = false;
-                    break;
-                }
-                default:
-                    break;
-            }
-        }
-    }
+    void doRxWork();
 
    private:
-    void _doMonitor() {
-        uint8_t      bufferData[16];
-        Buffer8      buffer{.data = bufferData, .size = 16};
-        auto         pid = _focCtrl.getCurrentPid();
-        MessageFrame frame(buffer);
-        frame.getCommand().setUint8(0, static_cast<uint8_t>(CommandType::PID_CURRENT_GET_RESP));
-        auto ctn = frame.getContent();
-        ctn.setFloat(0, pid.v1, true);
-        ctn.setFloat(4, pid.v2, true);
-        ctn.setFloat(8, pid.v3, true);
-        auto fd = frame.getFrameData();
-        _tx_cir_buffer.write(fd.data, fd.size);
-        if (_monitorState) {
-        }
-        if (_monitorAbc) {
-            //_doMonitorAbc();
-        }
-        if (_monitorDq) {
-            //_doMonitorDq();
-        }
-        if (_monitorSpd) {
-            // _doMonitorSpd();
-        }
-        if (_monitorPos) {
-            // _doMonitorPos();
-        }
-    }
+    Buffer8 _doMonitor();
 
-    void _doGetCurrentPid() {
-        uint8_t      bufferData[16];
-        Buffer8      buffer{.data = bufferData, .size = 16};
-        auto         pid = _focCtrl.getCurrentPid();
-        MessageFrame frame(buffer);
-        frame.getCommand().setUint8(0, static_cast<uint8_t>(CommandType::PID_CURRENT_GET_RESP));
-        auto ctn = frame.getContent();
-        ctn.setFloat(0, pid.v1, true);
-        ctn.setFloat(4, pid.v2, true);
-        ctn.setFloat(8, pid.v3, true);
-        auto fd = frame.getFrameData();
-        _tx_cir_buffer.write(fd.data, fd.size);
-    }
+    Buffer8 _doGetPid(PidType type);
 
-    void _doSetPid(CommandType type, float p, float i, float d) {
-        switch (type) {
-            case CommandType::PID_CURRENT_GET_REQ: {
-                _focCtrl.setCurrentPid(p, i, d);
-                break;
-            }
-            case CommandType::PID_SPEED_SET_REQ: {
-                //_focCtrl.set_speed_pid(_motor, p, i, d);
-                break;
-            }
-            case CommandType::PID_POSITION_SET_REQ: {
-                //_focCtrl.set_position_pid(_motor, p, i, d);
-                break;
-            }
-            default:
-                break;
-        }
-    }
-    void _doStop() {
-        FocCommand cmd(MotorRunMode::Stop);
-        _focCtrl.set_command(_motor, cmd);
-    };
-    void _doCalibrate() {
-        FocCommand cmd(MotorRunMode::Calibrate);
-        _focCtrl.set_command(_motor, cmd);
-    };
-    void _doOpenLoop(float ud, float uq) {
-        FocCommand cmd(MotorRunMode::OpenLoop);
-        cmd.voltage = Vector2f(ud, uq), _focCtrl.set_command(_motor, cmd);
-    };
-    void _doCurrentCloseLoop(float id, float iq) {
-        FocCommand cmd(MotorRunMode::Current);
-        cmd.current = Vector2f(id, iq);
-        _focCtrl.set_command(_motor, cmd);
-    };
-    void _doSpeedLoop(float ref) {
-        FocCommand cmd(MotorRunMode::Speed);
-        cmd.speed = ref;
-        _focCtrl.set_command(_motor, cmd);
-    };
-    void _doPositionLoop(float ref) {
-        FocCommand cmd(MotorRunMode::Position);
-        cmd.position = ref;
-        _focCtrl.set_command(_motor, cmd);
-    };
+    void _doSetPid(CommandType type, float p, float i, float d);
+    void _doStop();
+    ;
+    void _doCalibrate();
+    ;
+    void _doOpenLoop(float ud, float uq);
+    ;
+    void _doCurrentCloseLoop(float id, float iq);
+    ;
+    void _doSpeedLoop(float ref);
+    ;
+    void _doPositionLoop(float ref);
+
+    void _resetUart();
 
    private:
-    constexpr static MessageLengthSchemaDefinition definitions[7] = {
+    constexpr static MessageLengthSchemaDefinition definitions[8] = {
         {
             .command = {static_cast<uint8_t>(CommandType::MODE_OPEN_LOOP_REQ)},
             .length{
@@ -333,20 +258,33 @@ class ControlProtocol : public Initializable {
                 .mode = MESSAGE_LENGTH_SCHEMA_MODE::FIXED_LENGTH,
                 .fixed{.length = 12},
             },
-        }};
+        },
+        {
+            .command = {static_cast<uint8_t>(CommandType::MONITOR_RESP)},
+            .length{
+                .mode = MESSAGE_LENGTH_SCHEMA_MODE::DYNAMIC_LENGTH,
+                .dynamic{
+                    .lengthSize = MESSAGE_SCHEMA_SIZE::BIT8,
+                    .endian     = MESSAGE_SCHEMA_LENGTH_ENDIAN::BIG,
+                },
+            },
+        },
+    };
     constexpr static MessageSchema schema = {
 
         .prefix        = {0x55, 0x50},
         .prefixSize    = 2,
         .commandSize   = MESSAGE_SCHEMA_SIZE::BIT8,
         .lengthSchemas = const_cast<MessageLengthSchemaDefinition*>(ControlProtocol::definitions),
-        .lengthSchemaCount = 7,
+        .lengthSchemaCount = 8,
         .defaultLength{
             .mode = MESSAGE_LENGTH_SCHEMA_MODE::FIXED_LENGTH,
             .fixed{.length = 0},
         },
 
         .crcSize = MESSAGE_SCHEMA_SIZE::BIT8,
+        .crcRange =
+            MESSAGE_SCHEMA_RANGE_CMD | MESSAGE_SCHEMA_RANGE_LENGTH | MESSAGE_SCHEMA_RANGE_CONTENT,
     };
 };
 

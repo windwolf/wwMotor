@@ -9,6 +9,7 @@
 #include "device/AS5600I2C.hpp"
 #include "i2c.h"
 #include "i2c.hpp"
+#include "usart.h"
 #include "main.h"
 #include "math_shared.hpp"
 #include "message_parser.hpp"
@@ -88,6 +89,7 @@ static MemoryDataSource i_b(&i_bus_abc.data[2]);
 static MemoryDataSource i_c(&i_bus_abc.data[3]);
 static MemoryDataSource u_bus(&u_bus_abc.data[0]);
 static PwmDriver        driver(pwm);
+static UART             uart1(huart1, "uart1");
 
 static FocControlConfig cfg = {
     .power_sensor{
@@ -140,11 +142,12 @@ static PwmDriverConfig pwm_cfg{
 static FocControl foc(&driver);
 
 static uint8_t   ctrlLoopThdStack[3000];
-static uint8_t   commThdStack[3000];
+static uint8_t   commTxThdStack[3000];
+static uint8_t   commRxThdStack[3000];
 static TX_THREAD ctrlLoopThd;
-static TX_THREAD commThd;
-
-static void config_init() {
+static TX_THREAD commRxThd;
+static TX_THREAD commTxThd;
+static void      config_init() {
     driver.config = pwm_cfg;
     driver.apply_config();
     foc.config = cfg;
@@ -155,6 +158,7 @@ static void config_init() {
     eg2.init();
     eg3.init();
 }
+
 static void init_periph() {
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
     HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
@@ -241,28 +245,31 @@ static void ctrlLoop_task(uint32_t arg) {
         r++;
     }
 }
+ControlProtocol cp(uart1, foc, mtr);
 
-static void comm_task(uint32_t arg) {
+static void comm_rx_task(uint32_t arg) {
+    cp.startRx();
+}
+static void comm_tx_task(uint32_t arg) {
+    cp.startTx();
 }
 
 [[maybe_unused]] static uint16_t encoder_raw_data;
-void                             foc_test() {
+
+void foc_test() {
     config_init();
     init_periph();
-    UART_HandleTypeDef h;
-    UART               u(h, "");
-    ControlProtocol    cp(u, foc, mtr);
+
     cp.init();
-    cp.start();
-    cp.doRxWork();
-    cp.doTxWork();
+
     FocCommand cmd;
 
     tx_thread_create(&ctrlLoopThd, (char*)"ctrlLoop", ctrlLoop_task, 0, ctrlLoopThdStack,
-                                                 sizeof(ctrlLoopThdStack), 2, 1, 0, TX_AUTO_START);
-
-    tx_thread_create(&commThd, (char*)"commLoop", comm_task, 0, commThdStack, sizeof(commThdStack),
-                                                 1, 1, 0, TX_AUTO_START);
+                     sizeof(ctrlLoopThdStack), 2, 1, 0, TX_AUTO_START);
+    tx_thread_create(&commRxThd, (char*)"commRx", comm_rx_task, 0, commRxThdStack,
+                     sizeof(commRxThdStack), 1, 1, 0, TX_AUTO_START);
+    tx_thread_create(&commTxThd, (char*)"commTx", comm_tx_task, 0, commTxThdStack,
+                     sizeof(commTxThdStack), 1, 1, 0, TX_AUTO_START);
 
     os::Utils::delay(100);
 
