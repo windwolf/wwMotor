@@ -27,7 +27,7 @@ struct SamplingPhaseVoltageSensorConfig {
 class SamplingPhaseVoltageSensor : public PhaseVoltageSensor,
                                    public Configurable<SamplingPhaseVoltageSensorConfig> {
    public:
-    Result apply_config() override;
+    Result setConfig(&config);
 
     void u_abc_get(wibot::motor::Motor& motor, Vector3f& u_abc) override;
 

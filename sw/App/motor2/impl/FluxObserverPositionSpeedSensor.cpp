@@ -17,11 +17,11 @@ Result FluxObserverPositionSpeedSensor::apply_config() {
     _pid.config.Kd                      = 0;
     _pid.config.tau                     = 0;
     _pid.config.output_limit_enable     = true;
-    _pid.config.output_limit_max        = config.motor_parameter->speed_limit / 60 * _2PI;
-    _pid.config.output_limit_min        = -config.motor_parameter->speed_limit / 60 * _2PI;
+    _pid.config.output_limit_max        = config.motor_parameter->speed_limit / 60 * k2PI;
+    _pid.config.output_limit_min        = -config.motor_parameter->speed_limit / 60 * k2PI;
     _pid.config.integrator_limit_enable = true;
-    _pid.config.integrator_limit_max    = config.motor_parameter->speed_limit / 60 * _2PI;
-    _pid.config.integrator_limit_min    = -config.motor_parameter->speed_limit / 60 * _2PI;
+    _pid.config.integrator_limit_max    = config.motor_parameter->speed_limit / 60 * k2PI;
+    _pid.config.integrator_limit_min    = -config.motor_parameter->speed_limit / 60 * k2PI;
     _pid.config.sample_time             = config.sample_time;
     result                              = _pid.apply_config();
     if (result != Result::OK) {

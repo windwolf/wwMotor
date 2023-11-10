@@ -1,25 +1,6 @@
-[submodule "sw/libs/wwCmake"]
-	path = sw/libs/wwCmake
-	url = https://github.com/windwolf/wwCmake.git
-[submodule "sw/libs/wwBase"]
-	path = sw/libs/wwBase
-	url = https://github.com/windwolf/wwBase.git
-[submodule "sw/libs/wwControl"]
-	path = sw/libs/wwControl
-	url = https://github.com/windwolf/wwControl.git
-[submodule "sw/libs/wwDevice"]
-	path = sw/libs/wwDevice
-	url = https://github.com/windwolf/wwDevice.git
-[submodule "sw/libs/wwTalk"]
-	path = sw/libs/wwTalk
-	url = https://github.com/windwolf/wwTalk.git
 [submodule "sw/libs/CMSIS_DSP/src"]
 	path = sw/libs/CMSIS_DSP/src
 	url = ../../ARM-software/CMSIS-DSP.git
-[submodule "sw/libs/wibotDSP"]
-	path = sw/libs/wibotDSP
-	url = ../wibotDSP.git
-[submodule "sw/libs/wibotGraph"]
-	path = sw/libs/wibotGraph
-	url = ../wibotGraph.git
-	branch = main
+[submodule "sw/libs/wibotlib4arm"]
+	path = sw/libs/wibotlib4arm
+	url = ../wibotlib4arm.git

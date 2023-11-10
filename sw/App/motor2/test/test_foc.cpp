@@ -54,7 +54,7 @@ static MotorParameter mp = {
     .rs        = 3.465f,
     .ld        = 1.568e-3 / 2,
     .lq        = 1.64e-3 / 2,
-    .flux      = 1.4109 / 2.0 * 0.034145 / _2PI / _SQRT3,  // Te=34.145ms Vlpp=1.4109.
+    .flux      = 1.4109 / 2.0 * 0.034145 / k2PI / _SQRT3,  // Te=34.145ms Vlpp=1.4109.
 
     .interia  = 4.5e-6f,
     .friction = 0.0001f,
@@ -113,7 +113,7 @@ static FocControlConfig cfg = {
         .calibration_voltage = 1.0f,
     },
     .current_controller{
-        .bw                 = 10000.0f * _2PI / 300.0f,
+        .bw                 = 10000.0f * k2PI / 300.0f,
         .disableFeedforward = false,
         .useParams          = true,
     },
@@ -132,7 +132,7 @@ static FocControlConfig cfg = {
 };
 
 static PwmDriverConfig pwm_cfg{
-    .channel_a     = PwmChannel_1P | PwmChannel_1N,
+    .channelA      = PwmChannel_1P | PwmChannel_1N,
     .channel_b     = PwmChannel_2P | PwmChannel_2N,
     .channel_c     = PwmChannel_3P | PwmChannel_3N,
     .channel_s     = PwmChannel_4,
@@ -294,8 +294,8 @@ void foc_test() {
     foc.set_command(mtr, cmd);
     os::Utils::delay(1000);
     for (int i = 0; i < 100; ++i) {
-        mtr.state.position.v1 = i * _2PI / 100.0;
-        mtr.state.position.v2 = Math::circle_normalize(i * _2PI / 100.0 * 5);
+        mtr.state.position.v1 = i * k2PI / 100.0;
+        mtr.state.position.v2 = Math::circleNormalize(i * k2PI / 100.0 * 5);
         os::Utils::delay(1);
     }
 
@@ -338,12 +338,12 @@ void foc_test() {
     }
     while (1) {
         cmd.mode  = MotorRunMode::Speed;
-        cmd.speed = _2PI * 1;
+        cmd.speed = k2PI * 1;
         foc.set_command(mtr, cmd);
         os::Utils::delay(2000);
     }
     cmd.mode     = MotorRunMode::Position;
-    cmd.position = _PI;
+    cmd.position = kPI;
     foc.set_command(mtr, cmd);
     os::Utils::delay(2000);
 }

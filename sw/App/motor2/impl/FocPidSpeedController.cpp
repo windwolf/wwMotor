@@ -14,11 +14,11 @@ Result FocPidSpeedController::apply_config() {
     _pid_spd.config.Kd                      = 0;
     _pid_spd.config.tau                     = 0;
     _pid_spd.config.output_limit_enable     = true;
-    _pid_spd.config.output_limit_max        = config.motor_parameter->speed_limit / 60 * _2PI;
-    _pid_spd.config.output_limit_min        = -config.motor_parameter->speed_limit / 60 * _2PI;
+    _pid_spd.config.output_limit_max        = config.motor_parameter->speed_limit / 60 * k2PI;
+    _pid_spd.config.output_limit_min        = -config.motor_parameter->speed_limit / 60 * k2PI;
     _pid_spd.config.integrator_limit_enable = true;
-    _pid_spd.config.integrator_limit_max    = config.motor_parameter->speed_limit / 60 * _2PI;
-    _pid_spd.config.integrator_limit_min    = -config.motor_parameter->speed_limit / 60 * _2PI;
+    _pid_spd.config.integrator_limit_max    = config.motor_parameter->speed_limit / 60 * k2PI;
+    _pid_spd.config.integrator_limit_min    = -config.motor_parameter->speed_limit / 60 * k2PI;
     _pid_spd.config.sample_time             = config.sample_time;
     return _pid_spd.apply_config();
 }

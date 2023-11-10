@@ -1,66 +1,63 @@
 #include "PwmDriver.hpp"
 
 namespace wibot::motor {
-void PwmDriver::duty_set(Motor& motor) {
+void PwmDriver::setDuty(Motor& motor) {
     if (_breakdown_flag) {
         return;
     }
-    auto res = pwm.config.fullScaleDuty;
 
-    pwm.duty_set(config.channel_a, motor.reference.d_abc.v1 * res);
-    pwm.duty_set(config.channel_b, motor.reference.d_abc.v2 * res);
-    pwm.duty_set(config.channel_c, motor.reference.d_abc.v3 * res);
-    pwm.duty_set(config.channel_s, motor.reference.d_sample * res - 2);
-    channel_ctrl(motor.reference.sw_channel);
+    _pwm->setDuty(_config.channelA, motor.reference.d_abc.v1);
+    _pwm->setDuty(_config.channelB, motor.reference.d_abc.v2);
+    _pwm->setDuty(_config.channelC, motor.reference.d_abc.v3);
+    _pwm->setDuty(_config.channelS, motor.reference.d_sample);  //TODO: must not be 1
+    controlChannel(motor.reference.sw_channel);
 };
 
-void PwmDriver::channel_ctrl(uint8_t channel) {
+void PwmDriver::controlChannel(PwmChannel channel) {
     if (_breakdown_flag) {
         return;
     }
     if (channel & 0x01) {
-        pwm.channel_enable(config.channel_a);
+        _pwm->enableChannel(_config.channelA);
     } else {
-        pwm.channel_disable(config.channel_a);
+        _pwm->disableChannel(_config.channelA);
     }
     if (channel & 0x02) {
-        pwm.channel_enable(config.channel_b);
+        _pwm->enableChannel(_config.channelB);
     } else {
-        pwm.channel_disable(config.channel_b);
+        _pwm->disableChannel(_config.channelB);
     }
     if (channel & 0x04) {
-        pwm.channel_enable(config.channel_c);
+        _pwm->enableChannel(_config.channelC);
     } else {
-        pwm.channel_disable(config.channel_c);
+        _pwm->disableChannel(_config.channelC);
     }
     if (channel & 0x08) {
-        pwm.channel_enable(config.channel_s);
+        _pwm->enableChannel(_config.channelS);
     } else {
-        pwm.channel_disable(config.channel_s);
+        _pwm->disableChannel(_config.channelS);
     }
 };
 
 void PwmDriver::breakdown() {
     _breakdown_flag = true;
-    pwm.all_disable();
+    _pwm->disableChannel(_config.channelA | _config.channelB | _config.channelC);
 };
 void PwmDriver::resume() {
     _breakdown_flag = false;
-    pwm.all_enable();
+    _pwm->enableChannel(_config.channelA | _config.channelB | _config.channelC);
 };
-void PwmDriver::charge_prepare() {
+void PwmDriver::prepareCharge() {
     if (_breakdown_flag) {
         return;
     }
-    pwm.all_disable();
-    pwm.duty_set(config.channel_a, 0.0f);
-    pwm.duty_set(config.channel_b, 0.0f);
-    pwm.duty_set(config.channel_c, 0.0f);
-    pwm.all_enable();
+    _pwm->enableChannel(_config.channelA | _config.channelB | _config.channelC);
+    _pwm->setDuty(_config.channelA, 0.0f);
+    _pwm->setDuty(_config.channelB, 0.0f);
+    _pwm->setDuty(_config.channelC, 0.0f);
+    _pwm->disableChannel(_config.channelA | _config.channelB | _config.channelC);
 }
-Result PwmDriver::apply_config() {
-    pwm.config.fullScaleDuty  = config.fullScaleDuty;
-    pwm.config.channelsEnable = config.channel_c | config.channel_b | config.channel_a;
-    return pwm.apply_config();
+void PwmDriver::setConfig(PwmDriverConfig& _config) {
+    _config = _config;
 }
 }  // namespace wibot::motor

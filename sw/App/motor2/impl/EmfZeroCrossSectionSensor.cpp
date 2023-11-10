@@ -25,7 +25,7 @@ void EmfZeroCrossSectionSensor::section_get(Motor& motor, uint8_t& section) {
 
 void EmfZeroCrossSectionSensor::emf_get(Motor& motor) {
     if (_last_section != motor.state.section) {
-        _blank_count = config.blank_count;
+        _blank_count = _config.blank_count;
     }
     auto& u   = motor.state.u_abc;
     float _3n = (u.v1 + u.v2 + u.v3) + _zero_offset;
@@ -41,16 +41,16 @@ void EmfZeroCrossSectionSensor::switch_delay_set(Motor& motor) {
     _zero_cross_span                    = _tick - _last_zero_cross_tick;
     _last_zero_cross_tick               = _tick;
     auto _30_section_switch_delay_count = _zero_cross_span / 2;
-    if (config.switch_delay_count <= _30_section_switch_delay_count) {
+    if (_config.switch_delay_count <= _30_section_switch_delay_count) {
         // 如果相位延迟在30°内, 延迟30°-delay_count;
-        _section_switch_delay_count = _30_section_switch_delay_count - config.switch_delay_count;
+        _section_switch_delay_count = _30_section_switch_delay_count - _config.switch_delay_count;
         _is_slow                    = true;
     } else {
         auto _90_section_switch_delay_count = _30_section_switch_delay_count * 3;
-        if (config.switch_delay_count <= _90_section_switch_delay_count) {
+        if (_config.switch_delay_count <= _90_section_switch_delay_count) {
             // 如果相位延迟在90°内, 延迟90°-delay_count;
             _section_switch_delay_count =
-                _90_section_switch_delay_count - config.switch_delay_count;
+                _90_section_switch_delay_count - _config.switch_delay_count;
             _is_slow = false;
         } else {
             // 相位延迟超过90°, 直接换向.
@@ -164,13 +164,14 @@ bool EmfZeroCrossSectionSensor::zero_cross_detect(Motor& motor) {
 }
 void EmfZeroCrossSectionSensor::position_speed_get(Motor& motor, Vector2f& position,
                                                    Vector2f& speed) {
-    speed.v1 = _lp_spd.filter(_PI_3 / _zero_cross_span / config.sample_time);
-    speed.v2 = speed.v1 / config.motor_parameter->pole_pair;
+    speed.v1 = _lp_spd.filter(kPI_3 / _zero_cross_span / _config.sample_time);
+    speed.v2 = speed.v1 / _config.motor_parameter->pole_pair;
 }
 
-Result EmfZeroCrossSectionSensor::apply_config() {
-    _lp_spd.config.cutoff_freq = config.cutoff_freq;
-    _lp_spd.config.sample_time = config.sample_time;
+Result EmfZeroCrossSectionSensor::setConfig(EmfZeroCrossSectionSensorConfig& config) {
+    FirstOrderLowPassFilterConfig cfg;
+    _lp_spd._config.cutoff_freq = _config.cutoff_freq;
+    _lp_spd._config.sample_time = _config.sample_time;
     return _lp_spd.apply_config();
 }
 void EmfZeroCrossSectionSensor::calibrate(Motor& motor) {

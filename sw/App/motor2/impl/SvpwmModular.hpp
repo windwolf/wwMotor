@@ -20,7 +20,7 @@ struct SvpwmModularConfig {
 
 class SvpwmModular : public Modular, public Configurable<SvpwmModularConfig> {
    public:
-    Result apply_config() override;
+    Result setConfig(&config);
     void   module(wibot::motor::Motor& motor, uint8_t& section, Vector3f& d_abc, Vector3f& u_abc,
                   uint8_t& channels, float& d_sample);
 

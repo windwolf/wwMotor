@@ -13,11 +13,11 @@ Result PidPositionController::apply_config() {
     _pid_pos.config.Kd                      = config.kd;
     _pid_pos.config.tau                     = 0;
     _pid_pos.config.output_limit_enable     = true;
-    _pid_pos.config.output_limit_max        = config.motor_parameter->speed_limit / 60 * _2PI;
-    _pid_pos.config.output_limit_min        = -config.motor_parameter->speed_limit / 60 * _2PI;
+    _pid_pos.config.output_limit_max        = config.motor_parameter->speed_limit / 60 * k2PI;
+    _pid_pos.config.output_limit_min        = -config.motor_parameter->speed_limit / 60 * k2PI;
     _pid_pos.config.integrator_limit_enable = true;
-    _pid_pos.config.integrator_limit_max    = config.motor_parameter->speed_limit / 60 * _2PI;
-    _pid_pos.config.integrator_limit_min    = -config.motor_parameter->speed_limit / 60 * _2PI;
+    _pid_pos.config.integrator_limit_max    = config.motor_parameter->speed_limit / 60 * k2PI;
+    _pid_pos.config.integrator_limit_min    = -config.motor_parameter->speed_limit / 60 * k2PI;
     _pid_pos.config.sample_time             = config.sample_time;
     return _pid_pos.apply_config();
 };

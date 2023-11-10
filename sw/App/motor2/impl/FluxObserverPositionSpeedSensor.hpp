@@ -24,7 +24,7 @@ struct FluxObserverPositionSpeedSensorConfig {
 class FluxObserverPositionSpeedSensor : public PositionSpeedSensor,
                                         public Configurable<FluxObserverPositionSpeedSensorConfig> {
    public:
-    Result apply_config() override;
+    Result setConfig(&config);
 
     void position_speed_get(Motor& motor, Vector2f& position, Vector2f& speed) override;
 

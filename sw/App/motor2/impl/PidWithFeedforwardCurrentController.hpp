@@ -35,7 +35,7 @@ struct DqCurrentControllerConfig {
 class PidWithFeedforwardCurrentController : public DqVoltageReferenceUpdater,
                                             public Configurable<DqCurrentControllerConfig> {
    public:
-    Result apply_config() override;
+    Result setConfig(&config);
     void   dq_voltage_update(wibot::motor::Motor& motor, Vector2<float>& v_dq) override;
 
    private:

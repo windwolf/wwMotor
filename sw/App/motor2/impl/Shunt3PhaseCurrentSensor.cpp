@@ -50,7 +50,7 @@ void Shunt3PhaseCurrentSensor::i_abc_get(Motor& motor, Vector3f& i_abc) {
 Result Shunt3PhaseCurrentSensor::apply_config() {
     Result rst;
     if (config.i_a == nullptr || config.i_b == nullptr || config.i_c == nullptr) {
-        rst = Result::InvalidParameter;
+        rst = Result::kInvalidParameter;
     }
     _a_mapper.config.zero_offset    = config.i_a_offset;
     _a_mapper.config.value_per_unit = config.i_pu;

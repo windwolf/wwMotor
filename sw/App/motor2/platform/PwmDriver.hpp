@@ -6,30 +6,30 @@
 #include "pwm.hpp"
 
 namespace wibot::motor {
-using namespace wibot::peripheral;
 
 struct PwmDriverConfig {
-    uint32_t channel_a;
-    uint32_t channel_b;
-    uint32_t channel_c;
-    uint32_t channel_s;
-    uint16_t fullScaleDuty;
+    PwmChannel channelA;
+    PwmChannel channelB;
+    PwmChannel channelC;
+    PwmChannel channelS;
 };
-class PwmDriver : public Driver, public Configurable<PwmDriverConfig> {
+class PwmDriver : public Driver {
    public:
-   public:
-    PwmDriver(Pwm& pwm) : pwm(pwm) {
+    PwmDriver(PwmGroup* pwm) : _pwm(pwm) {
     }
-    Result apply_config() override;
-    void   duty_set(Motor& motor) override;
-    void   breakdown() override;
-    void   resume() override;
-    void   charge_prepare() override;
-    void   channel_ctrl(uint8_t channel);
+
+    void setConfig(PwmDriverConfig& config);
+
+    void setDuty(Motor& motor) override;
+    void breakdown() override;
+    void resume() override;
+    void prepareCharge() override;
+    void controlChannel(PwmChannel channel);
 
    private:
-    Pwm& pwm;
-    bool _breakdown_flag = false;
+    PwmDriverConfig _config;
+    PwmGroup*       _pwm;
+    bool            _breakdown_flag = false;
 };
 
 }  // namespace wibot::motor

@@ -50,7 +50,7 @@
 //	.rs = 3.465f,
 //	.ld = 1.568e-3 / 2,
 //	.lq = 1.64e-3 / 2,
-//	.flux = 1.4109 / 2.0 * 0.034145 / _2PI / _SQRT3, // Te=34.145ms Vlpp=1.4109.
+//	.flux = 1.4109 / 2.0 * 0.034145 / k2PI / _SQRT3, // Te=34.145ms Vlpp=1.4109.
 //
 //	.interia = 4.5e-6f,
 //	.friction = 0.0001f,
@@ -110,7 +110,7 @@
 //	},
 ////	.current_controller
 ////	{
-////		.bw = 10000.0f * _2PI / 100.0f,
+////		.bw = 10000.0f * k2PI / 100.0f,
 ////		.disableFeedforward= false,
 ////	},
 //	.speed_controller
@@ -301,14 +301,14 @@
 //	while (0)
 //	{
 //		cmd.mode = MotorRunMode::Speed;
-//		cmd.speed = _2PI * 1;
+//		cmd.speed = k2PI * 1;
 //        s6.set_command(mtr, cmd);
 //		os::Utils::delay(5000);
 //        cmd.mode = MotorRunMode::Stop;
 //        s6.set_command(mtr, cmd);
 //        os::Utils::delay(1000);
 //        cmd.mode = MotorRunMode::Speed;
-//        cmd.speed = _2PI * -1;
+//        cmd.speed = k2PI * -1;
 //        s6.set_command(mtr, cmd);
 //        os::Utils::delay(5000);
 //        cmd.mode = MotorRunMode::Stop;

@@ -23,7 +23,7 @@ struct BusCurrentControllerConfig {
 class PidBusCurrentController : public BusDutyReferenceUpdater,
                                 public Configurable<BusCurrentControllerConfig> {
    public:
-    Result apply_config() override;
+    Result setConfig(&config);
 
     void dbus_update(Motor& motor, float& duty) override;
 

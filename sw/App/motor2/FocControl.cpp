@@ -55,7 +55,7 @@ void FocControlBase::hf_loop(Motor& motor) {
             break;
     }
 
-    _driver->duty_set(motor);
+    _driver->setDuty(motor);
 }
 
 void FocControl::lf_loop(Motor& motor) {
@@ -121,12 +121,12 @@ void FocControl::calibrate(Motor& motor) {
     motor.reference.d_sample = original_d_sample;
     motor.mode               = original_mode;
 }
-Result FocControl::apply_config() {
-    Result rst                         = Result::OK;
+void FocControl::setConfig(FocControlConfig& config) {
+    Result rst                         = Result::kOk;
     this->_powerSensor.config.u_bus    = config.power_sensor.u_bus;
     this->_powerSensor.config.u_bus_pu = config.power_sensor.u_bus_pu;
     rst                                = _powerSensor.apply_config();
-    if (rst != Result::OK) {
+    if (rst != Result::kOk) {
         return rst;
     }
     _phaseCurrentSensor.config.i_a  = config.current_sensor.i_a;
@@ -136,7 +136,7 @@ Result FocControl::apply_config() {
     _phaseCurrentSensor.config.low_duty_skip_threshold =
         config.current_sensor.low_duty_skip_threshold;
     rst = _phaseCurrentSensor.apply_config();
-    if (rst != Result::OK) {
+    if (rst != Result::kOk) {
         return rst;
     }
     _modular.config.motor_parameter = config.motor_parameter;
@@ -148,7 +148,7 @@ Result FocControl::apply_config() {
         _modular.config.max_d_module_rate = _1_SQRT3;
     }
     rst = _modular.apply_config();
-    if (rst != Result::OK) {
+    if (rst != Result::kOk) {
         return rst;
     }
     _positionSpeedSensor.config.codex      = config.encoder.codex;
@@ -162,7 +162,7 @@ Result FocControl::apply_config() {
     _positionSpeedSensor.config.calibration_voltage = config.encoder.calibration_voltage;
     _positionSpeedSensor.config.sample_time         = config.low_frequency_samlpe_time;
     rst                                             = _positionSpeedSensor.apply_config();
-    if (rst != Result::OK) {
+    if (rst != Result::kOk) {
         return rst;
     }
     _currentController.config.motor_parameter = config.motor_parameter;
@@ -177,7 +177,7 @@ Result FocControl::apply_config() {
     }
     _currentController.config.disableFeedforward = config.current_controller.disableFeedforward;
     rst                                          = _currentController.apply_config();
-    if (rst != Result::OK) {
+    if (rst != Result::kOk) {
         return rst;
     }
     _speedController.config.motor_parameter = config.motor_parameter;
@@ -185,7 +185,7 @@ Result FocControl::apply_config() {
     _speedController.config.bandWidth       = config.current_controller.bw;
     _speedController.config.delta           = config.speed_controller.delta;
     rst                                     = _speedController.apply_config();
-    if (rst != Result::OK) {
+    if (rst != Result::kOk) {
         return rst;
     }
     _positionController.config.motor_parameter = config.motor_parameter;

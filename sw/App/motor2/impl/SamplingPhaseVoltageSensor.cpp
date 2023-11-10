@@ -8,7 +8,7 @@ namespace wibot::motor {
 Result SamplingPhaseVoltageSensor::apply_config() {
     Result rst;
     if (config.u_a == nullptr || config.u_b == nullptr || config.u_c == nullptr) {
-        return Result::InvalidParameter;
+        return Result::kInvalidParameter;
     }
     _a_mapper.config.zero_offset    = 0;
     _a_mapper.config.value_per_unit = config.u_pu;

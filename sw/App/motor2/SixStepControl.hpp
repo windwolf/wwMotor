@@ -109,7 +109,7 @@ class ClassicSixStepControl : public Configurable<ClassicSixStepControlConfig> {
                             &_zero_cross_detector, &_zero_cross_detector, &_speed_controller,
                             &_current_controller, &_modular, _driver) {
     }
-    Result apply_config() override;
+    Result setConfig(&config);
 
     void set_command(Motor& motor, SixStepCommand& cmd);
     void command_loop(Motor& motor);

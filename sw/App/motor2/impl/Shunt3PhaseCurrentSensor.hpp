@@ -35,7 +35,7 @@ struct Shunt3PhaseCurrentSensorConfig {
 class Shunt3PhaseCurrentSensor : public PhaseCurrentSensor,
                                  public Configurable<Shunt3PhaseCurrentSensorConfig> {
    public:
-    Result apply_config() override;
+    Result setConfig(&config);
 
     void i_abc_get(wibot::motor::Motor& motor, Vector3f& i_abc) override;
     void i_ab_get(Motor& motor, Vector2f& i_ab) override;

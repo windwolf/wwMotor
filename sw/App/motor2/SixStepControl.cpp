@@ -30,7 +30,7 @@ void SixStepControlBase::hf_loop(Motor& motor) {
         case MotorRunMode::Position:
             break;
     }
-    _driver->duty_set(motor);
+    _driver->setDuty(motor);
 }
 void ClassicSixStepControl::set_command(Motor& motor, SixStepCommand& cmd) {
     _cmd = cmd;

@@ -15,7 +15,7 @@ void VirtualPositionSpeedSensor::speed_set(float speed) {
 void VirtualPositionSpeedSensor::position_speed_get(Motor& motor, Vector2f& position,
                                                     Vector2f& speed) {
     _position += _speed * config.sample_time;
-    _position   = Math::circle_normalize(_position);
+    _position   = Math::circleNormalize(_position);
     position.v2 = _position;
     speed.v2    = _speed;
     position.v1 = _position * config.polePairs;

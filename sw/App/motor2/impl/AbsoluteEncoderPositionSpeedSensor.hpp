@@ -6,13 +6,11 @@
 #define WWMOTOR_APP_MOTOR2_ABSOLUTEENCODERPOSITIONSPEEDSENSOR_HPP_
 
 #include "motor2/PositionSpeedSensor.hpp"
-#include "PiecewiseLinearValueMapper.hpp"
 #include "filter/lp.hpp"
 #include "DataSource.hpp"
+#include "mapper/piecewise-linear-value-mapper.hpp"
 
 namespace wibot::motor {
-using namespace wibot::accessor;
-using namespace wibot::control;
 
 enum class EncoderDirection {
     Forward = 1,
@@ -37,7 +35,7 @@ class AbsoluteEncoderPositionSpeedSensor
       public Configurable<AbsoluteEncoderPositionSpeedSensorConfig> {
    public:
     AbsoluteEncoderPositionSpeedSensor(){};
-    Result apply_config() override;
+    Result setConfig(&config);
 
     /**
      * @brief get position and speed in electrical and mechanical domain.

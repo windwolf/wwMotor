@@ -128,14 +128,14 @@ struct FocControlConfig {
     float           low_frequency_samlpe_time;
 };
 
-class FocControl : public Configurable<FocControlConfig> {
+class FocControl {
    public:
     FocControl(PwmDriver* driver)
         : _driver(driver), _focControl(&_powerSensor, &_phaseCurrentSensor, &_positionSpeedSensor,
                                        &_sectionSensor, &_positionController, &_speedController,
                                        &_currentController, &_modular, _driver){};
 
-    Result apply_config() override;
+    void setConfig(FocControlConfig& config);
 
     void set_command(Motor& motor, FocCommand& cmd);
 

@@ -19,7 +19,7 @@ struct SamplingPowerSensorConfig {
 };
 class SamplingPowerSensor : public PowerSensor, public Configurable<SamplingPowerSensorConfig> {
    public:
-    Result apply_config() override;
+    Result setConfig(&config);
     void   u_bus_get(Motor& motor, float& u_bus) override;
     void   i_bus_get(Motor& motor, float& i_bus) override;
 

@@ -26,7 +26,7 @@ struct FocPidControllerConfig {
 class FocPidSpeedController : public DqCurrentReferenceUpdater,
                               public Configurable<FocPidControllerConfig> {
    public:
-    Result apply_config() override;
+    Result setConfig(FocPidControllerConfig& config);
     void   dq_current_update(Motor& motor, Vector2f& i_dq) override;
 
    private:

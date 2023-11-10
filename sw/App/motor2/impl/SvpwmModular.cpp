@@ -80,15 +80,15 @@ void SvpwmModular::module(Motor& motor, uint8_t& section, Vector3f& d_abc, Vecto
     uint8_t sec;
     if (u_dq.v1 == 0) {
         uOut  = u_dq.v2 / motor.state.u_bus;
-        theta = Math::circle_normalize(motor.state.position.v1 + _PI_2);
+        theta = Math::circleNormalize(motor.state.position.v1 + _PI_2);
     } else {
         uOut  = Math::sqrt(u_dq.v1 * u_dq.v1 + u_dq.v2 * u_dq.v2) / motor.state.u_bus;
-        theta = Math::circle_normalize(Math::atan2(u_dq.v2, u_dq.v1) + motor.state.position.v1);
+        theta = Math::circleNormalize(Math::atan2(u_dq.v2, u_dq.v1) + motor.state.position.v1);
     }
-    sec = (uint8_t)(int)Math::floor(theta / _PI_3) + 1;
+    sec = (uint8_t)(int)Math::floor(theta / kPI_3) + 1;
 
-    float t1 = _SQRT3 * Math::sin((float)(sec)*_PI_3 - theta) * uOut;
-    float t2 = _SQRT3 * Math::sin(theta - ((float)(sec)-1.0f) * _PI_3) * uOut;
+    float t1 = _SQRT3 * Math::sin((float)(sec)*kPI_3 - theta) * uOut;
+    float t2 = _SQRT3 * Math::sin(theta - ((float)(sec)-1.0f) * kPI_3) * uOut;
     float t0 = 1 - t1 - t2;
     if (t0 < 0) {
         t0 = .0f;

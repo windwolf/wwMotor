@@ -22,7 +22,7 @@ class DirectPidSpeedController : public BusCurrentReferenceUpdater,
                                  public Configurable<DirectPidSpeedControllerConfig> {
    public:
     void   ibus_update(Motor& motor, float& i_bus) override;
-    Result apply_config() override;
+    Result setConfig(&config);
 
    private:
     control::PidController _pid;

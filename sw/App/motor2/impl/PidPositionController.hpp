@@ -20,7 +20,7 @@ struct PositionControllerConfig {
 class PidPositionController : public SpeedReferenceUpdater,
                               public Configurable<PositionControllerConfig> {
    public:
-    Result apply_config() override;
+    Result setConfig(&config);
     void   speed_update(Motor& motor, float& speed) override;
 
    private:

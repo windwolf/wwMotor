@@ -2,15 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/libs/wibotDSP" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/libs/wibotDSP/CMSIS-DSP" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/libs/wibotGraph" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/libs/wibotGraph/u8g2" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/libs/wibotGraph/u8g2/sys/arm-linux/c-periphery" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/libs/wwBase" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/libs/wwCmake" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/libs/wwControl" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/libs/wwDevice" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/libs/wwTalk" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/wibotlib4arm" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/wibotlib4arm/CMSIS-DSP" vcs="Git" />
   </component>
 </project>

@@ -2,6 +2,11 @@
 <project version="4">
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
   <component name="CidrRootsConfiguration">
+    <libraryRoots>
+      <file path="$PROJECT_DIR$/cubemx" />
+      <file path="$PROJECT_DIR$/libs/wibotlib4arm/CMSIS-DSP" />
+      <file path="$PROJECT_DIR$/libs/wibotlib4arm/src/syscall/rtt" />
+    </libraryRoots>
     <excludeRoots>
       <file path="$PROJECT_DIR$/motor" />
     </excludeRoots>

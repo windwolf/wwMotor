@@ -1,8 +1,6 @@
 #include "appMain.hpp"
 
-#include "message_parser_test.hpp"
-
-#include "log.h"
+#include "logger.hpp"
 LOGGER("appMain")
 namespace app {
 

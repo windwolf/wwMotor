@@ -5,14 +5,13 @@
 #ifndef WWMOTOR_APP_MOTOR2_EMFZEROCROSSSECTIONSENSOR_HPP_
 #define WWMOTOR_APP_MOTOR2_EMFZEROCROSSSECTIONSENSOR_HPP_
 
-#include "motor2/SectionSensor.hpp"
 #include "motor2/base.hpp"
+#include "motor2/SectionSensor.hpp"
 #include "motor2/SectionSwitcher.hpp"
-#include "lp.hpp"
 #include "motor2/PositionSpeedSensor.hpp"
+#include "filter/lp.hpp"
 
 namespace wibot::motor {
-using namespace wibot::control;
 
 struct EmfZeroCrossSectionSensorConfig {
     float cutoff_freq;  // 务必大于最大电频率.
@@ -41,10 +40,9 @@ struct EmfZeroCrossSectionSensorConfig {
  */
 class EmfZeroCrossSectionSensor : public SectionSensor,
                                   public SectionSwitcher,
-                                  public PositionSpeedSensor,
-                                  public Configurable<EmfZeroCrossSectionSensorConfig> {
+                                  public PositionSpeedSensor {
    public:
-    Result apply_config() override;
+    Result setConfig(EmfZeroCrossSectionSensorConfig& config);
     void   section_get(Motor& motor, uint8_t& section) override;
     void   position_speed_get(Motor& motor, Vector2f& position, Vector2f& speed) override;
     void   section_switch(Motor& motor, uint8_t& section) override;
@@ -55,17 +53,19 @@ class EmfZeroCrossSectionSensor : public SectionSensor,
     void switch_delay_set(Motor& motor);
     void emf_get(Motor& motor);
 
-    bool     _is_slow = true;
-    uint8_t  _last_section;
-    float    _zero_offset;  // 零点位置的偏移
-    float    _3emf_a;
-    float    _3emf_b;
-    float    _3emf_c;
-    float    _last_3emf_a;
-    float    _last_3emf_b;
-    float    _last_3emf_c;
-    uint32_t _last_zero_cross_tick;
-    uint32_t _zero_cross_span;
+   private:
+    EmfZeroCrossSectionSensorConfig _config;
+    bool                            _is_slow = true;
+    uint8_t                         _last_section;
+    float                           _zero_offset;  // 零点位置的偏移
+    float                           _3emf_a;
+    float                           _3emf_b;
+    float                           _3emf_c;
+    float                           _last_3emf_a;
+    float                           _last_3emf_b;
+    float                           _last_3emf_c;
+    uint32_t                        _last_zero_cross_tick;
+    uint32_t                        _zero_cross_span;
 
     uint32_t _section_switch_delay_count;
     uint8_t  _section_switch_event_pending;

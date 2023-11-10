@@ -6,7 +6,8 @@
 #define WWMOTOR_APP_MOTOR2_BASE_HPP_
 
 #include "base/base.hpp"
-#include "base/buffer.hpp"
+#include "math/math.hpp"
+
 namespace wibot::motor {
 struct MotorParameter {
    public:
@@ -65,8 +66,8 @@ struct Motor {
      * 各控制组件不直接修改state, 而是通过控制器调用各组件后, 由控制器修改state
      */
     struct State {
-        float u_bus;        // bus voltage
-        float i_bus;        // bus current
+        float u_bus;  // bus voltage
+        float i_bus;  // bus current
 
         Vector2f position;  // v1: electrical angle, v2: mechanical angle
         Vector2f speed;     // v1: electrical speed, v2: mechanical speed

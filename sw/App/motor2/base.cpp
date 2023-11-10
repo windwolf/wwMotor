@@ -2,12 +2,11 @@
 // Created by zhouj on 2022/11/16.
 //
 #include "base.hpp"
-#include "math_shared.hpp"
 
 namespace wibot::motor {
 void FocMath::abc2ab(Vector3f abc, Vector2f& ab) {
     ab.v1 = abc.v1 - (abc.v2 + abc.v3) / 2.0f;
-    ab.v2 = (abc.v2 - abc.v3) * _SQRT3_2;
+    ab.v2 = (abc.v2 - abc.v3) * kSQRT3_2;
 };
 void FocMath::ab2dq(Vector2f ab, float theta, Vector2f& dq) {
     float sin;
@@ -27,17 +26,17 @@ void FocMath::dq2ab(Vector2f dq, float theta, Vector2f& ab) {
 
 uint8_t FocMath::section_get(float theta) {
     uint8_t section = 0;
-    if (theta >= 0.0f && theta < _PI_3) {
+    if (theta >= 0.0f && theta < kPI_3) {
         section = 1;
-    } else if (theta >= _PI_3 && theta < _2PI_3) {
+    } else if (theta >= kPI_3 && theta < k2PI_3) {
         section = 2;
-    } else if (theta >= _2PI_3 && theta < _PI) {
+    } else if (theta >= k2PI_3 && theta < kPI) {
         section = 3;
-    } else if (theta >= _PI && theta < _4PI_3) {
+    } else if (theta >= kPI && theta < k4PI_3) {
         section = 4;
-    } else if (theta >= _4PI_3 && theta < _5PI_3) {
+    } else if (theta >= k4PI_3 && theta < k5PI_3) {
         section = 5;
-    } else if (theta >= _5PI_3 && theta < _2PI) {
+    } else if (theta >= k5PI_3 && theta < k2PI) {
         section = 6;
     }
     return section;
